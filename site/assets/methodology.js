@@ -47,7 +47,7 @@ function render(pulse, feed, signals, qa) {
     el("p", { class: "callout", text: signals.disclaimer }),
 
     el("h2", { class: "section", text: "Privacy" }),
-    el("p", { text: "The state file includes each facility's administrator, phone number and street address. None of these are published anywhere on this site or in its data files. A licensee name that is also an administrator's name is shown as withheld." }),
+    el("p", { text: "The state file includes each facility's administrator, phone number and street address. None of these are published anywhere on this site or in its data files. A licensee name or facility name that is also an administrator's name is shown as withheld." }),
 
     el("h2", { text: "What this site does not do" }),
     el("ul", {},

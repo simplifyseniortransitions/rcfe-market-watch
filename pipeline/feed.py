@@ -30,7 +30,7 @@ def event(f, as_of, prior_as_of, change_type, old, new):
         "date": as_of.isoformat(),
         "prior_snapshot_id": prior_as_of.isoformat(),
         "facility_number": f.number,
-        "facility_name": f.name,
+        "facility_name": f.public_name,
         "city": f.city,
         "county": f.county,
         "facility_type": f.facility_type,

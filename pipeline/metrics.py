@@ -43,12 +43,14 @@ def band(f):
 
 # Published on the Methodology page. Keep the wording in step with the code below.
 DEFINITIONS = {
-    "licensee_withheld": ("Withheld licensee names",
+    "licensee_withheld": ("Withheld names",
                           "Where a licensee name is the same person's name as a facility administrator "
                           "anywhere in the state file, it is shown as withheld, because this site does not "
                           "publish administrator names. Names match when they have the same words in any "
                           "order (for example \"LAST, FIRST\" and \"FIRST LAST\"), ignoring initials and "
-                          "punctuation. The facility is still counted everywhere."),
+                          "punctuation. The facility is still counted everywhere. A facility name that is "
+                          "an administrator's name (a home listed under a person's own name) is withheld "
+                          "the same way."),
     "scope": ("Which facilities are counted",
               "Headline numbers count every facility in the state RCFE file. The \"Excluding CCRCs\" "
               "view leaves out continuing care retirement communities (Facility Type RCFE-CONTINUING "

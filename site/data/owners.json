@@ -1,0 +1,3499 @@
+{
+  "as_of": "2026-10-18",
+  "source": "California Department of Social Services, Community Care Licensing Division: Residential Care Facilities for the Elderly licensing file (CC BY)",
+  "generated_at": "2026-10-22T02:49:52+00:00",
+  "snapshot_id": "2026-10-18",
+  "product": "RCFE Deal Room Market Watch",
+  "rule": "Licensee names with 3 or more LICENSED facilities. Names are matched after trimming, collapsing repeated spaces and ignoring upper/lower case; no other merging is done. A licensee name that is also an administrator's name is counted but shown as withheld.",
+  "scope": "all",
+  "owners": [
+    {
+      "licensee": "TRANSFORMER OPCO LLC;OAKMONT MANAGEMENT GROUP LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "TRANSFORMER OPCO LLC;OAKMONT MANAGEMENT GROUP LLC"
+      ],
+      "licensed_homes": 20,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 20,
+      "licensed_beds": 1968,
+      "counties": [
+        "ALAMEDA",
+        "CONTRA COSTA",
+        "LOS ANGELES",
+        "MONTEREY",
+        "ORANGE",
+        "SAN BERNARDINO",
+        "SAN DIEGO",
+        "SAN MATEO",
+        "SANTA CLARA",
+        "VENTURA"
+      ],
+      "statuses": {
+        "LICENSED": 20
+      }
+    },
+    {
+      "licensee": "FRONT PORCH COMMUNITIES AND SERVICES",
+      "licensee_withheld": false,
+      "name_variants": [
+        "FRONT PORCH COMMUNITIES AND SERVICES"
+      ],
+      "licensed_homes": 15,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 15,
+      "licensed_beds": 4805,
+      "counties": [
+        "ALAMEDA",
+        "LOS ANGELES",
+        "MONTEREY",
+        "ORANGE",
+        "SAN DIEGO",
+        "SAN FRANCISCO",
+        "SANTA CLARA",
+        "SONOMA"
+      ],
+      "statuses": {
+        "LICENSED": 15
+      }
+    },
+    {
+      "licensee": "IRVINE COTTAGES, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "IRVINE COTTAGES, LLC"
+      ],
+      "licensed_homes": 12,
+      "licensed_homes_small": 12,
+      "licensed_homes_large": 0,
+      "licensed_beds": 72,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 12
+      }
+    },
+    {
+      "licensee": "XENCARE II, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "XENCARE II, INC."
+      ],
+      "licensed_homes": 11,
+      "licensed_homes_small": 11,
+      "licensed_homes_large": 0,
+      "licensed_beds": 66,
+      "counties": [
+        "FRESNO"
+      ],
+      "statuses": {
+        "LICENSED": 11
+      }
+    },
+    {
+      "licensee": "COPPER RIVER RETIREMENT GROUP LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "COPPER RIVER RETIREMENT GROUP LLC"
+      ],
+      "licensed_homes": 9,
+      "licensed_homes_small": 9,
+      "licensed_homes_large": 0,
+      "licensed_beds": 54,
+      "counties": [
+        "FRESNO"
+      ],
+      "statuses": {
+        "LICENSED": 9
+      }
+    },
+    {
+      "licensee": "JOYFUL HOME CORPORATION",
+      "licensee_withheld": false,
+      "name_variants": [
+        "JOYFUL HOME CORPORATION"
+      ],
+      "licensed_homes": 8,
+      "licensed_homes_small": 8,
+      "licensed_homes_large": 0,
+      "licensed_beds": 48,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 8
+      }
+    },
+    {
+      "licensee": "MOUNTAIN VIEW CENTERS",
+      "licensee_withheld": false,
+      "name_variants": [
+        "MOUNTAIN VIEW CENTERS"
+      ],
+      "licensed_homes": 8,
+      "licensed_homes_small": 7,
+      "licensed_homes_large": 1,
+      "licensed_beds": 78,
+      "counties": [
+        "LOS ANGELES",
+        "SAN BERNARDINO"
+      ],
+      "statuses": {
+        "LICENSED": 8
+      }
+    },
+    {
+      "licensee": "Name withheld (individual licensee)",
+      "licensee_withheld": true,
+      "name_variants": [],
+      "licensed_homes": 8,
+      "licensed_homes_small": 8,
+      "licensed_homes_large": 0,
+      "licensed_beds": 48,
+      "counties": [
+        "STANISLAUS"
+      ],
+      "statuses": {
+        "LICENSED": 8
+      }
+    },
+    {
+      "licensee": "XENCARE III, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "XENCARE III, INC."
+      ],
+      "licensed_homes": 8,
+      "licensed_homes_small": 8,
+      "licensed_homes_large": 0,
+      "licensed_beds": 48,
+      "counties": [
+        "FRESNO"
+      ],
+      "statuses": {
+        "LICENSED": 8
+      }
+    },
+    {
+      "licensee": "XENCARE, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "XENCARE, INC."
+      ],
+      "licensed_homes": 8,
+      "licensed_homes_small": 8,
+      "licensed_homes_large": 0,
+      "licensed_beds": 48,
+      "counties": [
+        "FRESNO"
+      ],
+      "statuses": {
+        "LICENSED": 8
+      }
+    },
+    {
+      "licensee": "AFFORDABLE SENIOR HOUSING FOUNDATION",
+      "licensee_withheld": false,
+      "name_variants": [
+        "AFFORDABLE SENIOR HOUSING FOUNDATION"
+      ],
+      "licensed_homes": 7,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 7,
+      "licensed_beds": 105,
+      "counties": [
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 7
+      }
+    },
+    {
+      "licensee": "BELLA CARE HOME LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "BELLA CARE HOME LLC"
+      ],
+      "licensed_homes": 7,
+      "licensed_homes_small": 7,
+      "licensed_homes_large": 0,
+      "licensed_beds": 42,
+      "counties": [
+        "FRESNO"
+      ],
+      "statuses": {
+        "LICENSED": 7
+      }
+    },
+    {
+      "licensee": "CLEAR VIEW RETIREMENT GROUP LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "CLEAR VIEW RETIREMENT GROUP LLC"
+      ],
+      "licensed_homes": 7,
+      "licensed_homes_small": 7,
+      "licensed_homes_large": 0,
+      "licensed_beds": 42,
+      "counties": [
+        "FRESNO"
+      ],
+      "statuses": {
+        "LICENSED": 7,
+        "PENDING": 1
+      }
+    },
+    {
+      "licensee": "OMNICARE RESIDENTIAL LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "OMNICARE RESIDENTIAL LLC"
+      ],
+      "licensed_homes": 7,
+      "licensed_homes_small": 7,
+      "licensed_homes_large": 0,
+      "licensed_beds": 42,
+      "counties": [
+        "VENTURA"
+      ],
+      "statuses": {
+        "LICENSED": 7,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "SHINING BRIGHT SENIOR CARE HOME INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SHINING BRIGHT SENIOR CARE HOME INC."
+      ],
+      "licensed_homes": 7,
+      "licensed_homes_small": 6,
+      "licensed_homes_large": 1,
+      "licensed_beds": 49,
+      "counties": [
+        "LOS ANGELES",
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 7
+      }
+    },
+    {
+      "licensee": "ALEGRIA COMMUNITY LIVING",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ALEGRIA COMMUNITY LIVING"
+      ],
+      "licensed_homes": 6,
+      "licensed_homes_small": 6,
+      "licensed_homes_large": 0,
+      "licensed_beds": 22,
+      "counties": [
+        "ALAMEDA",
+        "CONTRA COSTA"
+      ],
+      "statuses": {
+        "LICENSED": 6
+      }
+    },
+    {
+      "licensee": "CARLTON SENIOR LIVING, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "CARLTON SENIOR LIVING, LLC"
+      ],
+      "licensed_homes": 6,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 6,
+      "licensed_beds": 1030,
+      "counties": [
+        "ALAMEDA",
+        "CONTRA COSTA",
+        "SACRAMENTO",
+        "SANTA CLARA"
+      ],
+      "statuses": {
+        "LICENSED": 6,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "HARBOR CARE HOMES LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "HARBOR CARE HOMES LLC"
+      ],
+      "licensed_homes": 6,
+      "licensed_homes_small": 6,
+      "licensed_homes_large": 0,
+      "licensed_beds": 36,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 6
+      }
+    },
+    {
+      "licensee": "HUMANGOOD & HUMANGOOD NORCAL",
+      "licensee_withheld": false,
+      "name_variants": [
+        "HUMANGOOD & HUMANGOOD NORCAL"
+      ],
+      "licensed_homes": 6,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 6,
+      "licensed_beds": 2099,
+      "counties": [
+        "ALAMEDA",
+        "KERN",
+        "SAN BERNARDINO",
+        "SANTA BARBARA",
+        "SANTA CLARA"
+      ],
+      "statuses": {
+        "CLOSED": 1,
+        "LICENSED": 6
+      }
+    },
+    {
+      "licensee": "MEADOWLARK GARDENS, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "MEADOWLARK GARDENS, INC."
+      ],
+      "licensed_homes": 6,
+      "licensed_homes_small": 6,
+      "licensed_homes_large": 0,
+      "licensed_beds": 36,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 6,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "ROSE CARE GROUP, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ROSE CARE GROUP, INC."
+      ],
+      "licensed_homes": 6,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 2,
+      "licensed_beds": 71,
+      "counties": [
+        "SAN LUIS OBISPO"
+      ],
+      "statuses": {
+        "LICENSED": 6
+      }
+    },
+    {
+      "licensee": "SPECIALIZED COMMUNITY HEALTHCARE COMPANY",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SPECIALIZED COMMUNITY HEALTHCARE COMPANY"
+      ],
+      "licensed_homes": 6,
+      "licensed_homes_small": 2,
+      "licensed_homes_large": 4,
+      "licensed_beds": 189,
+      "counties": [
+        "LOS ANGELES",
+        "ORANGE"
+      ],
+      "statuses": {
+        "CLOSED": 1,
+        "LICENSED": 6
+      }
+    },
+    {
+      "licensee": "WELL OAK TENANT LLC;OAKMONT MANAGEMENT GROUP LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "WELL OAK TENANT LLC;OAKMONT MANAGEMENT GROUP LLC"
+      ],
+      "licensed_homes": 6,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 6,
+      "licensed_beds": 953,
+      "counties": [
+        "ORANGE",
+        "PLACER",
+        "SAN FRANCISCO",
+        "VENTURA"
+      ],
+      "statuses": {
+        "LICENSED": 6,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "ALMACARE INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ALMACARE INC"
+      ],
+      "licensed_homes": 5,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 2,
+      "licensed_beds": 42,
+      "counties": [
+        "SAN MATEO"
+      ],
+      "statuses": {
+        "LICENSED": 5
+      }
+    },
+    {
+      "licensee": "GREEN GABLES CARE HOME, INC., THE",
+      "licensee_withheld": false,
+      "name_variants": [
+        "GREEN GABLES CARE HOME, INC., THE"
+      ],
+      "licensed_homes": 5,
+      "licensed_homes_small": 5,
+      "licensed_homes_large": 0,
+      "licensed_beds": 30,
+      "counties": [
+        "FRESNO"
+      ],
+      "statuses": {
+        "LICENSED": 5,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "HAPPY HOMECARE, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "HAPPY HOMECARE, INC."
+      ],
+      "licensed_homes": 5,
+      "licensed_homes_small": 5,
+      "licensed_homes_large": 0,
+      "licensed_beds": 30,
+      "counties": [
+        "VENTURA"
+      ],
+      "statuses": {
+        "LICENSED": 5
+      }
+    },
+    {
+      "licensee": "LAUREL CARE, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "LAUREL CARE, INC."
+      ],
+      "licensed_homes": 5,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 1,
+      "licensed_beds": 39,
+      "counties": [
+        "SANTA CLARA"
+      ],
+      "statuses": {
+        "LICENSED": 5
+      }
+    },
+    {
+      "licensee": "MELROSE SENIOR CARE LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "MELROSE SENIOR CARE LLC"
+      ],
+      "licensed_homes": 5,
+      "licensed_homes_small": 5,
+      "licensed_homes_large": 0,
+      "licensed_beds": 30,
+      "counties": [
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 5
+      }
+    },
+    {
+      "licensee": "NEW VISION SERVICES, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "NEW VISION SERVICES, INC."
+      ],
+      "licensed_homes": 5,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 1,
+      "licensed_beds": 48,
+      "counties": [
+        "SHASTA"
+      ],
+      "statuses": {
+        "LICENSED": 5
+      }
+    },
+    {
+      "licensee": "OHANA CARE",
+      "licensee_withheld": false,
+      "name_variants": [
+        "OHANA CARE"
+      ],
+      "licensed_homes": 5,
+      "licensed_homes_small": 5,
+      "licensed_homes_large": 0,
+      "licensed_beds": 30,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 5
+      }
+    },
+    {
+      "licensee": "RIGHT CHOICE SENIOR LIVING LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "RIGHT CHOICE SENIOR LIVING LLC"
+      ],
+      "licensed_homes": 5,
+      "licensed_homes_small": 5,
+      "licensed_homes_large": 0,
+      "licensed_beds": 30,
+      "counties": [
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 5
+      }
+    },
+    {
+      "licensee": "RNZ QUALITY CARE",
+      "licensee_withheld": false,
+      "name_variants": [
+        "RNZ QUALITY CARE"
+      ],
+      "licensed_homes": 5,
+      "licensed_homes_small": 5,
+      "licensed_homes_large": 0,
+      "licensed_beds": 30,
+      "counties": [
+        "RIVERSIDE",
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 5,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "STERLING SENIOR CARE 2 LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "STERLING SENIOR CARE 2 LLC"
+      ],
+      "licensed_homes": 5,
+      "licensed_homes_small": 5,
+      "licensed_homes_large": 0,
+      "licensed_beds": 30,
+      "counties": [
+        "LOS ANGELES",
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 5
+      }
+    },
+    {
+      "licensee": "SUMMERVILLE AT COBBCO INC; EMERITUS CORPORATION",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SUMMERVILLE AT COBBCO INC; EMERITUS CORPORATION"
+      ],
+      "licensed_homes": 5,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 5,
+      "licensed_beds": 730,
+      "counties": [
+        "CONTRA COSTA",
+        "LOS ANGELES",
+        "ORANGE",
+        "RIVERSIDE",
+        "SAN BERNARDINO"
+      ],
+      "statuses": {
+        "CLOSED": 6,
+        "LICENSED": 5
+      }
+    },
+    {
+      "licensee": "TESSA'S PLACE INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "TESSA'S PLACE INC."
+      ],
+      "licensed_homes": 5,
+      "licensed_homes_small": 5,
+      "licensed_homes_large": 0,
+      "licensed_beds": 30,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 5
+      }
+    },
+    {
+      "licensee": "ADIA CORPORATION",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ADIA CORPORATION"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "KERN"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "AEGIS SENIOR COMMUNITIES, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "AEGIS SENIOR COMMUNITIES, LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 4,
+      "licensed_beds": 362,
+      "counties": [
+        "ALAMEDA",
+        "CONTRA COSTA",
+        "NAPA",
+        "ORANGE"
+      ],
+      "statuses": {
+        "CLOSED": 2,
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "AMERICARE ASSISTED LIVING, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "AMERICARE ASSISTED LIVING, INC."
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "APPLEGATE HOMES",
+      "licensee_withheld": false,
+      "name_variants": [
+        "APPLEGATE HOMES"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "LOS ANGELES",
+        "VENTURA"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "BELLAHOMECARE LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "BELLAHOMECARE LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 4,
+        "PENDING": 1
+      }
+    },
+    {
+      "licensee": "BERG SENIOR SERVICES, LLC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "BERG SENIOR SERVICES, LLC."
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 4,
+      "licensed_beds": 524,
+      "counties": [
+        "CONTRA COSTA",
+        "SAN MATEO"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "CALIFORNIA DEPARTMENT OF VETERANS AFFAIRS",
+      "licensee_withheld": false,
+      "name_variants": [
+        "CALIFORNIA DEPARTMENT OF VETERANS AFFAIRS"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 4,
+      "licensed_beds": 399,
+      "counties": [
+        "FRESNO",
+        "LOS ANGELES",
+        "SHASTA",
+        "VENTURA"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "CALIFORNIA DRUG CONSULTANTS, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "CALIFORNIA DRUG CONSULTANTS, INC."
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 4,
+      "licensed_beds": 86,
+      "counties": [
+        "RIVERSIDE"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "CARDINAL CARE MANAGEMENT, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "CARDINAL CARE MANAGEMENT, LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "ALAMEDA",
+        "CONTRA COSTA"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "DAVIS GUEST HOME, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "DAVIS GUEST HOME, INC."
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 4,
+      "licensed_beds": 107,
+      "counties": [
+        "STANISLAUS"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "ELITE MANOR RESIDENTIAL CARE COMPANY, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ELITE MANOR RESIDENTIAL CARE COMPANY, LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "EMERITUS CORPORATION",
+      "licensee_withheld": false,
+      "name_variants": [
+        "EMERITUS CORPORATION"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 4,
+      "licensed_beds": 374,
+      "counties": [
+        "CONTRA COSTA",
+        "RIVERSIDE",
+        "SACRAMENTO",
+        "SAN JOAQUIN"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "EXCLUSIVE RAYA'S PARADISE, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "EXCLUSIVE RAYA'S PARADISE, INC."
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 21,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "GOLDEN GENERATIONS, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "GOLDEN GENERATIONS, LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "SANTA CLARA"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "GOLDEN HERITAGE SENIOR CARE LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "GOLDEN HERITAGE SENIOR CARE LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "SACRAMENTO"
+      ],
+      "statuses": {
+        "LICENSED": 4,
+        "PENDING": 1
+      }
+    },
+    {
+      "licensee": "GUARDIAN ANGELS HOMES, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "GUARDIAN ANGELS HOMES, INC."
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "HUMANGOOD & HUMANGOOD SOCAL",
+      "licensee_withheld": false,
+      "name_variants": [
+        "HUMANGOOD & HUMANGOOD SOCAL"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 4,
+      "licensed_beds": 1148,
+      "counties": [
+        "LOS ANGELES",
+        "ORANGE",
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 4,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "J & I LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "J & I LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "SAN MATEO"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "JUST LIKE YOU ARE HOME INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "JUST LIKE YOU ARE HOME INC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "LIFE SAVER CORPORATION",
+      "licensee_withheld": false,
+      "name_variants": [
+        "LIFE SAVER CORPORATION"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "RIVERSIDE",
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "PENDING": 1,
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "LOVING CARE SENIOR LIVING LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "LOVING CARE SENIOR LIVING LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "SACRAMENTO"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "Name withheld (individual licensee)",
+      "licensee_withheld": true,
+      "name_variants": [],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "FRESNO"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "Name withheld (individual licensee)",
+      "licensee_withheld": true,
+      "name_variants": [],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "VENTURA"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "PACALDO LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "PACALDO LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 1,
+      "licensed_beds": 71,
+      "counties": [
+        "SAN MATEO"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "PARADISE RESIDENTIAL SENIOR CARE, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "PARADISE RESIDENTIAL SENIOR CARE, INC."
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 22,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "RAI ANGELS LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "RAI ANGELS LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "PLACER",
+        "SACRAMENTO"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "RVR CORPORATION",
+      "licensee_withheld": false,
+      "name_variants": [
+        "RVR CORPORATION"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 22,
+      "counties": [
+        "LOS ANGELES",
+        "VENTURA"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "SELECT SENIOR LIVING LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SELECT SENIOR LIVING LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "VENTURA"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "SILVER GENERATIONS LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SILVER GENERATIONS LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "SANTA CLARA"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "SNH CAL TENANT LLC; NORTHSTAR SNR LVG MGT LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SNH CAL TENANT LLC; NORTHSTAR SNR LVG MGT LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 4,
+      "licensed_beds": 255,
+      "counties": [
+        "FRESNO",
+        "SAN BERNARDINO",
+        "SAN DIEGO",
+        "SAN JOAQUIN"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "STERLING COMMUNITY LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "STERLING COMMUNITY LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "LOS ANGELES",
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "SUNRISE TERRACE RCFE LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SUNRISE TERRACE RCFE LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "SAN LUIS OBISPO"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "TERNER HOME",
+      "licensee_withheld": false,
+      "name_variants": [
+        "TERNER HOME"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "CLOSED": 2,
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "WELL IVY 6 TENANT LLC;OAKMONT MANAGEMENT GROUP LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "WELL IVY 6 TENANT LLC;OAKMONT MANAGEMENT GROUP LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 4,
+      "licensed_beds": 580,
+      "counties": [
+        "CONTRA COSTA",
+        "KERN",
+        "SANTA CLARA",
+        "SONOMA"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "WELLTOWER COGIR TENANT LLC; COGIR MNGT USA INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "WELLTOWER COGIR TENANT LLC; COGIR MNGT USA INC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 4,
+      "licensed_beds": 244,
+      "counties": [
+        "ALAMEDA",
+        "SOLANO",
+        "SONOMA"
+      ],
+      "statuses": {
+        "CLOSED": 1,
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "WELLTOWER PEGASUS TENANT LLC; PSL ASSOCIATES LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "WELLTOWER PEGASUS TENANT LLC; PSL ASSOCIATES LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 4,
+      "licensed_beds": 611,
+      "counties": [
+        "LOS ANGELES",
+        "SAN BERNARDINO",
+        "SAN LUIS OBISPO",
+        "SOLANO"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "WHOLESOME ELDERLY CARE HOMES, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "WHOLESOME ELDERLY CARE HOMES, LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "SACRAMENTO"
+      ],
+      "statuses": {
+        "CLOSED": 2,
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "XENCARE III, INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "XENCARE III, INC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "FRESNO"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "XENCARE, INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "XENCARE, INC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "FRESNO"
+      ],
+      "statuses": {
+        "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "5 STAR RETIREMENT GROUP CORP",
+      "licensee_withheld": false,
+      "name_variants": [
+        "5 STAR RETIREMENT GROUP CORP"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "FRESNO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "ACORN MANOR LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ACORN MANOR LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 2,
+      "licensed_homes_large": 1,
+      "licensed_beds": 26,
+      "counties": [
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "ADRIANA ELDERLY CARE HOMES, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ADRIANA ELDERLY CARE HOMES, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "AJB INVESTMENT GROUP INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "AJB INVESTMENT GROUP INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "ALARA HEALTH SERVICES INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ALARA HEALTH SERVICES INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "RIVERSIDE",
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "ALL SEASONS, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ALL SEASONS, LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SACRAMENTO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "ALMAT, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ALMAT, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "CONTRA COSTA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "ALONDRA HOME CARE LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ALONDRA HOME CARE LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "ALAMEDA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "ANGEL COMFORT CARE INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ANGEL COMFORT CARE INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "APOSTOL FAMILY HOME LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "APOSTOL FAMILY HOME LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 14,
+      "counties": [
+        "RIVERSIDE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "ASSISTED CARE EXPERTS INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ASSISTED CARE EXPERTS INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SACRAMENTO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "ASSISTED CARE EXPERTS INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ASSISTED CARE EXPERTS INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SACRAMENTO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "ASSISTED LIVING & WELLNESS INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ASSISTED LIVING & WELLNESS INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 16,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "BCRG INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "BCRG INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 17,
+      "counties": [
+        "SAN LUIS OBISPO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "BEAN, LURINZA",
+      "licensee_withheld": false,
+      "name_variants": [
+        "BEAN, LURINZA"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 2,
+      "licensed_homes_large": 1,
+      "licensed_beds": 20,
+      "counties": [
+        "CONTRA COSTA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "BETHEL CARE INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "BETHEL CARE INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "CONTRA COSTA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "BL HOMES, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "BL HOMES, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 2,
+      "licensed_homes_large": 1,
+      "licensed_beds": 22,
+      "counties": [
+        "CONTRA COSTA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "BLESSED HOMECARE LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "BLESSED HOMECARE LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "PLACER",
+        "SACRAMENTO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "CALIFORNIA LIFESTYLES, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "CALIFORNIA LIFESTYLES, LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "CAMELOT LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "CAMELOT LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SANTA CLARA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "CAMEO ASSISTED LIVING, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "CAMEO ASSISTED LIVING, LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "CARINGHANDS CAREHOME, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "CARINGHANDS CAREHOME, LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 2,
+      "licensed_homes_large": 1,
+      "licensed_beds": 27,
+      "counties": [
+        "SOLANO",
+        "STANISLAUS"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "CARMICHAEL ESTATES LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "CARMICHAEL ESTATES LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SACRAMENTO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "CLEO'S NURSING SERVICES, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "CLEO'S NURSING SERVICES, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SAN JOAQUIN"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "COLONY CARE OF SHERMAN OAKS/VALLEY GLEN,LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "COLONY CARE OF SHERMAN OAKS/VALLEY GLEN,LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "COTTAGES OF LAKE BALBOA, INC., THE",
+      "licensee_withheld": false,
+      "name_variants": [
+        "COTTAGES OF LAKE BALBOA, INC., THE"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "COVENANT LIVING WEST",
+      "licensee_withheld": false,
+      "name_variants": [
+        "COVENANT LIVING WEST"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 3,
+      "licensed_beds": 1191,
+      "counties": [
+        "SAN DIEGO",
+        "SANTA BARBARA",
+        "STANISLAUS"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "DIAL FOR CARE, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "DIAL FOR CARE, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "FRESNO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "DIVINE MERCY CARE HOMES LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "DIVINE MERCY CARE HOMES LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "KERN"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "PENDING": 1
+      }
+    },
+    {
+      "licensee": "EL DORADO SENIOR CARE, LLC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "EL DORADO SENIOR CARE, LLC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "EL DORADO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "ELEONORS PLACE, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ELEONORS PLACE, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "ELIM CARE, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ELIM CARE, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "PLACER",
+        "SACRAMENTO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "ELLHOUSE ENTERPRISE",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ELLHOUSE ENTERPRISE"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 14,
+      "counties": [
+        "SAN JOAQUIN",
+        "STANISLAUS"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "EMERALD ROSE GARDEN INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "EMERALD ROSE GARDEN INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "RIVERSIDE"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "PENDING": 1
+      }
+    },
+    {
+      "licensee": "EPIC ASSISTANCE CARE HOME INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "EPIC ASSISTANCE CARE HOME INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 2,
+      "licensed_homes_large": 1,
+      "licensed_beds": 27,
+      "counties": [
+        "ORANGE",
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "EPISCOPAL COMMUNITIES & SERVICES FOR SENIORS",
+      "licensee_withheld": false,
+      "name_variants": [
+        "EPISCOPAL COMMUNITIES & SERVICES FOR SENIORS"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 3,
+      "licensed_beds": 830,
+      "counties": [
+        "LOS ANGELES",
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "EVERGREEN CAREHOME INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "EVERGREEN CAREHOME INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "FRESNO",
+        "TULARE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "EXCLUSIVE SENIOR CARE INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "EXCLUSIVE SENIOR CARE INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "FAIRVIEW LIVING LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "FAIRVIEW LIVING LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 2,
+      "licensed_homes_large": 1,
+      "licensed_beds": 22,
+      "counties": [
+        "SAN BERNARDINO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "FAMILY CONNECT CARE LIVING INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "FAMILY CONNECT CARE LIVING INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "FAMILY FEELS LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "FAMILY FEELS LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SANTA CLARA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "FAMILYCARE COTTAGE ONE, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "FAMILYCARE COTTAGE ONE, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "VENTURA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "FELIPE CARE HOMES, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "FELIPE CARE HOMES, LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "CONTRA COSTA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "FHJ MANOR LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "FHJ MANOR LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 2,
+      "licensed_homes_large": 1,
+      "licensed_beds": 22,
+      "counties": [
+        "KERN"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "PENDING": 1
+      }
+    },
+    {
+      "licensee": "FLASKOW LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "FLASKOW LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "MARIN"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "FRUITFUL LIVING LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "FRUITFUL LIVING LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SAN JOAQUIN"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "GARDEN VILLE HOME CARE LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "GARDEN VILLE HOME CARE LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "RIVERSIDE",
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "GOLDEN HARVEST CARE HOMES, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "GOLDEN HARVEST CARE HOMES, LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "GRACE HOME CARE INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "GRACE HOME CARE INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "RIVERSIDE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "GRACEFUL LIVING INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "GRACEFUL LIVING INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 16,
+      "counties": [
+        "STANISLAUS"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "HEALTH GATE ASSISTED LIVING LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "HEALTH GATE ASSISTED LIVING LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "HERITAGE LIVING, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "HERITAGE LIVING, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 1,
+      "licensed_homes_large": 2,
+      "licensed_beds": 24,
+      "counties": [
+        "KERN"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "HOUSE OF GRACE LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "HOUSE OF GRACE LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "CLOSED": 1,
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "IAL MANAGEMENT INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "IAL MANAGEMENT INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 1,
+      "licensed_homes_large": 2,
+      "licensed_beds": 37,
+      "counties": [
+        "SAN LUIS OBISPO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "IJT9112 AND ASSOCIATES LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "IJT9112 AND ASSOCIATES LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "ILOCOS CORPORATION",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ILOCOS CORPORATION"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "RIVERSIDE"
+      ],
+      "statuses": {
+        "CLOSED": 2,
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "INSPIRATIONS HOME CARE IV LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "INSPIRATIONS HOME CARE IV LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "RIVERSIDE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "JAZBA CARE LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "JAZBA CARE LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SACRAMENTO"
+      ],
+      "statuses": {
+        "CLOSED": 1,
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "JC HOME FOR SENIORS LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "JC HOME FOR SENIORS LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 17,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "JD RESIDENTIAL SERVICES, INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "JD RESIDENTIAL SERVICES, INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 16,
+      "counties": [
+        "SHASTA"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "JOY IN CARING LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "JOY IN CARING LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 17,
+      "counties": [
+        "FRESNO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "K&K SENIOR CARE SPECIALISTS, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "K&K SENIOR CARE SPECIALISTS, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "LADWIG, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "LADWIG, LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SANTA CLARA"
+      ],
+      "statuses": {
+        "CLOSED": 1,
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "LAGUNA ELDER CARE, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "LAGUNA ELDER CARE, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "CLOSED": 3,
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "LEGACY LANE SENIOR LIVING LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "LEGACY LANE SENIOR LIVING LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 2,
+      "licensed_homes_large": 1,
+      "licensed_beds": 26,
+      "counties": [
+        "SACRAMENTO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "MARKELL & MARQUELL ENTERPRISES, L.L.C",
+      "licensee_withheld": false,
+      "name_variants": [
+        "MARKELL & MARQUELL ENTERPRISES, L.L.C"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 14,
+      "counties": [
+        "KERN"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "MCJ PARTNERS LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "MCJ PARTNERS LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 14,
+      "counties": [
+        "KERN"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "MYDOR'S OPEN GUEST HOME, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "MYDOR'S OPEN GUEST HOME, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SANTA BARBARA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "NAVITA RESIDENCES LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "NAVITA RESIDENCES LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "VENTURA"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "NENA & RAY'S GUEST HOME, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "NENA & RAY'S GUEST HOME, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 17,
+      "counties": [
+        "SOLANO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "NIMMIEJOY LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "NIMMIEJOY LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "RIVERSIDE",
+        "SAN BERNARDINO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "NSN CARE, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "NSN CARE, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 16,
+      "counties": [
+        "LOS ANGELES",
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "Name withheld (individual licensee)",
+      "licensee_withheld": true,
+      "name_variants": [],
+      "licensed_homes": 3,
+      "licensed_homes_small": 2,
+      "licensed_homes_large": 1,
+      "licensed_beds": 20,
+      "counties": [
+        "CONTRA COSTA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "Name withheld (individual licensee)",
+      "licensee_withheld": true,
+      "name_variants": [],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 17,
+      "counties": [
+        "SACRAMENTO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "Name withheld (individual licensee)",
+      "licensee_withheld": true,
+      "name_variants": [],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "ORANGE",
+        "RIVERSIDE"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "CLOSED": 2
+      }
+    },
+    {
+      "licensee": "Name withheld (individual licensee)",
+      "licensee_withheld": true,
+      "name_variants": [],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "Name withheld (individual licensee)",
+      "licensee_withheld": true,
+      "name_variants": [],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SONOMA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "Name withheld (individual licensee)",
+      "licensee_withheld": true,
+      "name_variants": [],
+      "licensed_homes": 3,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 3,
+      "licensed_beds": 30,
+      "counties": [
+        "RIVERSIDE",
+        "SAN BERNARDINO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "Name withheld (individual licensee)",
+      "licensee_withheld": true,
+      "name_variants": [],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SANTA CLARA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "Name withheld (individual licensee)",
+      "licensee_withheld": true,
+      "name_variants": [],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 16,
+      "counties": [
+        "RIVERSIDE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "Name withheld (individual licensee)",
+      "licensee_withheld": true,
+      "name_variants": [],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "RIVERSIDE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "Name withheld (individual licensee)",
+      "licensee_withheld": true,
+      "name_variants": [],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 17,
+      "counties": [
+        "ALAMEDA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "Name withheld (individual licensee)",
+      "licensee_withheld": true,
+      "name_variants": [],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 17,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "OCEAN BREEZE CARE HOME, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "OCEAN BREEZE CARE HOME, LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "OUR SWEET HOME INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "OUR SWEET HOME INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "PARADISE HOME AND GARDEN, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "PARADISE HOME AND GARDEN, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "CLOSED": 1,
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "PENNY'S GUEST HOME, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "PENNY'S GUEST HOME, LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "CONTRA COSTA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "PUCKETT RESIDENTIAL SERVICES INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "PUCKETT RESIDENTIAL SERVICES INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 16,
+      "counties": [
+        "SHASTA",
+        "TEHAMA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "QCARE INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "QCARE INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "CONTRA COSTA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "QUALITY CARE HOME INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "QUALITY CARE HOME INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 2,
+      "licensed_homes_large": 1,
+      "licensed_beds": 19,
+      "counties": [
+        "SHASTA"
+      ],
+      "statuses": {
+        "CLOSED": 2,
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "RIKMIN CO., INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "RIKMIN CO., INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 16,
+      "counties": [
+        "LOS ANGELES",
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "RIVERSIDE ELITE ADVANTAGE CARE HOME LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "RIVERSIDE ELITE ADVANTAGE CARE HOME LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "RIVERSIDE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "SACRAMENTO SENIOR LIVING LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SACRAMENTO SENIOR LIVING LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SACRAMENTO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "SANTA MONICA HOME & CARE INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SANTA MONICA HOME & CARE INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 14,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "SARVAS LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SARVAS LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "CONTRA COSTA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "SAVANNA ASSISTED LIVING LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SAVANNA ASSISTED LIVING LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "KERN"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "SEQUOIA LIVING, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SEQUOIA LIVING, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 3,
+      "licensed_beds": 1069,
+      "counties": [
+        "MARIN",
+        "SAN FRANCISCO",
+        "SAN MATEO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "SERENITY SENIORS HOME, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SERENITY SENIORS HOME, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 14,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "SHALOM ELDERLY CARE, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SHALOM ELDERLY CARE, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "SHANTI HOMES 1 LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SHANTI HOMES 1 LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 2,
+      "licensed_homes_large": 1,
+      "licensed_beds": 24,
+      "counties": [
+        "KERN"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "PENDING": 1
+      }
+    },
+    {
+      "licensee": "SHINING BRIGHT SENIOR CARE HOME, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SHINING BRIGHT SENIOR CARE HOME, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "SILVANA SENIOR CARE, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SILVANA SENIOR CARE, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "PLACER"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "SILVER COAST LIVING, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SILVER COAST LIVING, LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "SILVER OAK COUNTRY ESTATES LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SILVER OAK COUNTRY ESTATES LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "ST. CECILIA'S SENIOR HOME",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ST. CECILIA'S SENIOR HOME"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "CLOSED": 1,
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "ST. MICHAEL ARCHANGEL CORPORATION",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ST. MICHAEL ARCHANGEL CORPORATION"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "KERN"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "STATESIDE MEDICAL LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "STATESIDE MEDICAL LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "LOS ANGELES",
+        "SAN BERNARDINO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "SUNFLOWER ASSISTED LIVING LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SUNFLOWER ASSISTED LIVING LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "RIVERSIDE",
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "SUNSHINE RESIDENTIAL HOME, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "SUNSHINE RESIDENTIAL HOME, LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "VENTURA"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "T & N GUTZ, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "T & N GUTZ, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "TAJ RESIDENTIAL CARE, LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "TAJ RESIDENTIAL CARE, LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "PLACER"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "TAKING THE JOURNEY LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "TAKING THE JOURNEY LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SONOMA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "TRU-VISION LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "TRU-VISION LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "KERN"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "TSC HEALTHCARE GROUP",
+      "licensee_withheld": false,
+      "name_variants": [
+        "TSC HEALTHCARE GROUP"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 2,
+      "licensed_homes_large": 1,
+      "licensed_beds": 24,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "VENTURA COUNTY SENIOR CARE INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "VENTURA COUNTY SENIOR CARE INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "VENTURA"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "VILLA-CARE HOMES, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "VILLA-CARE HOMES, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SANTA BARBARA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "VISTA SERENO RCFE L.L.C.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "VISTA SERENO RCFE L.L.C."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 12,
+      "counties": [
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "VITA BELLA ELDERLY CARE LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "VITA BELLA ELDERLY CARE LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 1,
+      "licensed_homes_large": 2,
+      "licensed_beds": 30,
+      "counties": [
+        "SACRAMENTO"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "WEAVER SENIOR CARE, INC.",
+      "licensee_withheld": false,
+      "name_variants": [
+        "WEAVER SENIOR CARE, INC."
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "WELL OAK CCRC TENANT LLC; OAKMONT MANAGEMENT GROUP",
+      "licensee_withheld": false,
+      "name_variants": [
+        "WELL OAK CCRC TENANT LLC; OAKMONT MANAGEMENT GROUP"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 3,
+      "licensed_beds": 555,
+      "counties": [
+        "ORANGE",
+        "RIVERSIDE",
+        "SONOMA"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "WELLBE HOME INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "WELLBE HOME INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 14,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "WELLNEST CARE INC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "WELLNEST CARE INC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "LOS ANGELES"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "WESTERN LIVING CONCEPTS",
+      "licensee_withheld": false,
+      "name_variants": [
+        "WESTERN LIVING CONCEPTS"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 0,
+      "licensed_homes_large": 3,
+      "licensed_beds": 205,
+      "counties": [
+        "HUMBOLDT"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "WHITTIER COTTAGE CORPORATION",
+      "licensee_withheld": false,
+      "name_variants": [
+        "WHITTIER COTTAGE CORPORATION"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "LOS ANGELES",
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3
+      }
+    },
+    {
+      "licensee": "ZCC CARE COMPANY",
+      "licensee_withheld": false,
+      "name_variants": [
+        "ZCC CARE COMPANY"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "ORANGE"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "PENDING": 1
+      }
+    }
+  ]
+}

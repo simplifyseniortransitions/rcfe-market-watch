@@ -138,6 +138,8 @@ def test_licensee_names_matching_administrators_are_withheld(paths):
     # The same person written last-name-first as licensee of n23, first-name-first as administrator of n24.
     by_n(current, 23)["Licensee"] = "RIVERA, MORGAN"
     by_n(current, 24)["Facility Administrator"] = "Morgan Rivera"
+    # A home listed under its administrator's own name (n2, run by LEE OWNER in the prior week).
+    by_n(current, 2)["Facility Name"] = "Owner, Lee"
     # An administrator who is not a licensee anywhere must never appear either.
     by_n(current, 3)["Facility Administrator"] = "ONLY ADMIN NAME"
     write_csv(paths.inbox / "ResidentialElderCareFacility10112026.csv", prior)
@@ -152,6 +154,8 @@ def test_licensee_names_matching_administrators_are_withheld(paths):
     assert facilities["400000005"]["licensee"] == WITHHELD and facilities["400000005"]["licensee_withheld"]
     assert facilities["400000012"]["licensee_withheld"] is False
     assert facilities["400000023"]["licensee"] == WITHHELD
+    assert facilities["400000002"]["facility_name"] == "Name withheld (individual)"
+    assert facilities["400000003"]["facility_name"] == "HOME 3"
     owners = load(paths, "owners.json")["owners"]
     assert owners[0]["licensee"] == WITHHELD and owners[0]["licensed_homes"] == 4 and owners[0]["name_variants"] == []
     change = next(e for e in load(paths, "feed.json")["events"] if e["change_type"] == "licensee_change")

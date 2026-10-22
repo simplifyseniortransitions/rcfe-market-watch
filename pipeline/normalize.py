@@ -22,6 +22,9 @@ ADMINISTRATOR_COLUMN = "Facility Administrator"
 # Shown instead of a licensee name that is also an administrator's name (Dale, 2026-10-21).
 # The real name is still used, in memory only, for matching and counting.
 WITHHELD = "Name withheld (individual licensee)"
+# Shown instead of a facility name that is an administrator's name, e.g. a home listed under its
+# operator's own name (Dale, 2026-10-22).
+NAME_WITHHELD = "Name withheld (individual)"
 
 COMPLAINT_GROUP = 7  # Date, #Sub A, #Inc A, #Uns A, #Unf A, #TypeA, #TypeB
 
@@ -58,6 +61,11 @@ class Facility:
     poc_dates: tuple
     complaints: Optional[tuple]  # None when the complaint detail could not be parsed
     licensee_withheld: bool = False  # licensee name matches an administrator name
+    name_withheld: bool = False      # facility name matches an administrator name
+
+    @property
+    def public_name(self):
+        return NAME_WITHHELD if self.name_withheld else self.name
 
     @property
     def public_licensee(self):
@@ -135,9 +143,10 @@ def administrator_keys(rows):
 
 
 def withhold(facilities, admin_keys):
-    """Mark facilities whose licensee name has the same words as an administrator name."""
-    return [dataclasses.replace(f, licensee_withheld=True)
-            if not f.licensee_withheld and name_words(f.licensee) in admin_keys else f for f in facilities]
+    """Mark facilities whose licensee name or facility name has the same words as an administrator name."""
+    return [dataclasses.replace(f, licensee_withheld=f.licensee_withheld or name_words(f.licensee) in admin_keys,
+                                name_withheld=f.name_withheld or name_words(f.name) in admin_keys)
+            for f in facilities]
 
 
 def normalize(header, rows):
@@ -166,5 +175,6 @@ def normalize(header, rows):
             poc_dates=date_list(r.get("POC Dates")),
             complaints=parse_complaints(r, complaint_col),
             licensee_withheld=name_words(licensee) in admin_keys,
+            name_withheld=name_words(r.get("Facility Name")) in admin_keys,
         ))
     return facilities

@@ -93,7 +93,7 @@ def facility_record(f, as_of, flags):
     year_ago = metrics.one_year_before(as_of)
     return {
         "facility_number": f.number,
-        "facility_name": f.name,
+        "facility_name": f.public_name,
         "licensee": f.public_licensee,
         "licensee_withheld": f.licensee_withheld,
         "facility_type": f.facility_type,
