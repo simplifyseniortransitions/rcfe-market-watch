@@ -40,20 +40,20 @@ jobs:
           fi
           echo "run=$run" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         if: steps.when.outputs.run == 'true'
         with:
           fetch-depth: 0
 
       - name: Get the saved weekly files (private repository)
         if: steps.when.outputs.run == 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: simplifyseniortransitions/rcfe-market-watch-data
           ssh-key: ${{ secrets.DATA_REPO_DEPLOY_KEY }}
           path: private-data
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         if: steps.when.outputs.run == 'true'
         with:
           python-version: "3.12"
