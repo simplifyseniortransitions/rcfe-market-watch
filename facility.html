@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <!-- Embed mode: inside another site's frame (or with ?embed=1), hide this site's own title bar. -->
+  <script>if (window.self !== window.top || /[?&]embed=1\b/.test(location.search)) document.documentElement.classList.add("embedded");</script>
+  <title>RCFE Facility Record</title>
+  <meta name="description" content="One California RCFE's licensing record, signals and recent changes.">
+  <link rel="stylesheet" href="assets/style.css">
+  <script type="module" src="assets/facility.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">RCFE Deal Room Market Watch<small>California RCFE licensing, every week</small></a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="index.html">Pulse</a>
+        <a href="market.html">Market</a>
+        <a href="facilities.html" aria-current="page">Facilities</a>
+        <a href="methodology.html">Methodology</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Facility record</p>
+      <h1 id="facility-name">Facility</h1>
+      <p class="lede" id="facility-sub">Loading…</p>
+    </div>
+  </section>
+
+  <main id="main" class="wrap">
+    <p class="small"><a href="facilities.html">← All facilities</a></p>
+    <div id="facility"><p class="loading">Loading…</p></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="disclaimer">General educational information only. Not legal, tax, licensing, valuation, or financial advice.</p>
+      <p>Source: California Department of Social Services, Community Care Licensing Division, licensing file for residential care facilities for the elderly (CC BY). Administrator names, phone numbers and street addresses are not published.</p>
+      <p><span data-as-of></span> · <a href="methodology.html">How these numbers are made</a></p>
+    </div>
+  </footer>
+</body>
+</html>

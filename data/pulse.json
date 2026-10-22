@@ -1,0 +1,919 @@
+{
+  "as_of": "2026-10-18",
+  "source": "California Department of Social Services, Community Care Licensing Division: Residential Care Facilities for the Elderly licensing file (CC BY)",
+  "generated_at": "2026-10-22T02:49:52+00:00",
+  "snapshot_id": "2026-10-18",
+  "product": "RCFE Deal Room Market Watch",
+  "headline_scope": "all",
+  "scopes": {
+    "all": "All RCFEs",
+    "core": "Excluding CCRCs",
+    "other": "CCRCs only"
+  },
+  "sizes": {
+    "all_sizes": "All sizes",
+    "small": "6 beds or fewer",
+    "large": "7 beds or more"
+  },
+  "prior_snapshot_id": "2026-10-11",
+  "segments": {
+    "all": {
+      "all_sizes": {
+        "row_count": 13313,
+        "totals": {
+          "licensed_facilities": 8607,
+          "licensed_beds": 212076,
+          "median_licensed_capacity": 6,
+          "pending": 924,
+          "on_probation": 24,
+          "new_licenses_7d": 21,
+          "new_licenses_90d": 309,
+          "closures_closed_date_7d": 9,
+          "closures_closed_date_90d": 102,
+          "citations_12m": 13715,
+          "facilities_with_citations_12m": 3512,
+          "licensees_3plus": 199,
+          "new_licenses_12m": 1054,
+          "closures_12m": 468,
+          "net_change_12m": 586,
+          "growth_rate_12m": 0.122458,
+          "churn_rate_12m": 0.054374,
+          "probation_share": 0.002781,
+          "share_licensed_multi": 0.09074
+        },
+        "week_over_week": {
+          "licensed_facilities": 10,
+          "licensed_beds": 162,
+          "median_licensed_capacity": 0,
+          "pending": 1,
+          "on_probation": 0,
+          "new_licenses_7d": -3,
+          "new_licenses_90d": 7,
+          "closures_closed_date_7d": 5,
+          "closures_closed_date_90d": 2,
+          "citations_12m": -75,
+          "facilities_with_citations_12m": -12,
+          "licensees_3plus": 1,
+          "new_licenses_12m": -2,
+          "closures_12m": 2,
+          "net_change_12m": -4,
+          "growth_rate_12m": -0.00037600000000000133,
+          "churn_rate_12m": 0.00016899999999999554,
+          "probation_share": -2.9999999999999645e-06,
+          "share_licensed_multi": 0.0002430000000000071
+        },
+        "activity": {
+          "closures_status_changed": 16,
+          "new_facility_numbers": 29,
+          "removed_facility_numbers": 17,
+          "status_changes": 39,
+          "ownership_changes": 2,
+          "capacity_changes": 5,
+          "facilities_new_substantiated": 32,
+          "new_substantiated_allegations": 44,
+          "facilities_substantiated_decreased": 16,
+          "facilities_new_complaint_visits": 108,
+          "new_complaint_visits": 148
+        },
+        "label": "All RCFEs"
+      },
+      "small": {
+        "row_count": 10738,
+        "totals": {
+          "licensed_facilities": 6923,
+          "licensed_beds": 40686,
+          "median_licensed_capacity": 6,
+          "pending": 770,
+          "on_probation": 9,
+          "new_licenses_7d": 19,
+          "new_licenses_90d": 270,
+          "closures_closed_date_7d": 9,
+          "closures_closed_date_90d": 79,
+          "citations_12m": 8969,
+          "facilities_with_citations_12m": 2468,
+          "licensees_3plus": 159,
+          "new_licenses_12m": 932,
+          "closures_12m": 365,
+          "net_change_12m": 567,
+          "growth_rate_12m": 0.134624,
+          "churn_rate_12m": 0.052723,
+          "probation_share": 0.001298,
+          "share_licensed_multi": 0.08999
+        },
+        "week_over_week": {
+          "licensed_facilities": 9,
+          "licensed_beds": 51,
+          "median_licensed_capacity": 0,
+          "pending": -1,
+          "on_probation": 0,
+          "new_licenses_7d": -5,
+          "new_licenses_90d": 4,
+          "closures_closed_date_7d": 6,
+          "closures_closed_date_90d": 2,
+          "citations_12m": -59,
+          "facilities_with_citations_12m": -15,
+          "licensees_3plus": 1,
+          "new_licenses_12m": 3,
+          "closures_12m": 6,
+          "net_change_12m": -3,
+          "growth_rate_12m": 0.00025899999999998147,
+          "churn_rate_12m": 0.0007990000000000011,
+          "probation_share": -2.0000000000000486e-06,
+          "share_licensed_multi": 0.00031699999999999784
+        },
+        "activity": {
+          "closures_status_changed": 15,
+          "new_facility_numbers": 23,
+          "removed_facility_numbers": 14,
+          "status_changes": 37,
+          "ownership_changes": 0,
+          "capacity_changes": 3,
+          "facilities_new_substantiated": 13,
+          "new_substantiated_allegations": 17,
+          "facilities_substantiated_decreased": 7,
+          "facilities_new_complaint_visits": 33,
+          "new_complaint_visits": 46
+        },
+        "label": "6 beds or fewer"
+      },
+      "large": {
+        "row_count": 2564,
+        "totals": {
+          "licensed_facilities": 1684,
+          "licensed_beds": 171390,
+          "median_licensed_capacity": 80,
+          "pending": 143,
+          "on_probation": 15,
+          "new_licenses_7d": 2,
+          "new_licenses_90d": 39,
+          "closures_closed_date_7d": 0,
+          "closures_closed_date_90d": 23,
+          "citations_12m": 4746,
+          "facilities_with_citations_12m": 1044,
+          "licensees_3plus": 25,
+          "new_licenses_12m": 122,
+          "closures_12m": 103,
+          "net_change_12m": 19,
+          "growth_rate_12m": 0.072447,
+          "churn_rate_12m": 0.061164,
+          "probation_share": 0.008829,
+          "share_licensed_multi": 0.093824
+        },
+        "week_over_week": {
+          "licensed_facilities": 1,
+          "licensed_beds": 111,
+          "median_licensed_capacity": 0,
+          "pending": 0,
+          "on_probation": 0,
+          "new_licenses_7d": 2,
+          "new_licenses_90d": 3,
+          "closures_closed_date_7d": -1,
+          "closures_closed_date_90d": 0,
+          "citations_12m": -16,
+          "facilities_with_citations_12m": 3,
+          "licensees_3plus": 0,
+          "new_licenses_12m": -5,
+          "closures_12m": -4,
+          "net_change_12m": -1,
+          "growth_rate_12m": -0.003013000000000002,
+          "churn_rate_12m": -0.0024129999999999915,
+          "probation_share": -4.999999999999796e-06,
+          "share_licensed_multi": -5.6000000000000494e-05
+        },
+        "activity": {
+          "closures_status_changed": 1,
+          "new_facility_numbers": 4,
+          "removed_facility_numbers": 3,
+          "status_changes": 2,
+          "ownership_changes": 2,
+          "capacity_changes": 2,
+          "facilities_new_substantiated": 19,
+          "new_substantiated_allegations": 27,
+          "facilities_substantiated_decreased": 9,
+          "facilities_new_complaint_visits": 75,
+          "new_complaint_visits": 102
+        },
+        "label": "7 beds or more"
+      }
+    },
+    "core": {
+      "all_sizes": {
+        "row_count": 13179,
+        "totals": {
+          "licensed_facilities": 8498,
+          "licensed_beds": 177188,
+          "median_licensed_capacity": 6,
+          "pending": 917,
+          "on_probation": 24,
+          "new_licenses_7d": 21,
+          "new_licenses_90d": 309,
+          "closures_closed_date_7d": 9,
+          "closures_closed_date_90d": 102,
+          "citations_12m": 13594,
+          "facilities_with_citations_12m": 3460,
+          "licensees_3plus": 193,
+          "new_licenses_12m": 1053,
+          "closures_12m": 467,
+          "net_change_12m": 586,
+          "growth_rate_12m": 0.123912,
+          "churn_rate_12m": 0.054954,
+          "probation_share": 0.002816,
+          "share_licensed_multi": 0.088138
+        },
+        "week_over_week": {
+          "licensed_facilities": 10,
+          "licensed_beds": 176,
+          "median_licensed_capacity": 0,
+          "pending": 1,
+          "on_probation": 0,
+          "new_licenses_7d": -3,
+          "new_licenses_90d": 7,
+          "closures_closed_date_7d": 5,
+          "closures_closed_date_90d": 2,
+          "citations_12m": -74,
+          "facilities_with_citations_12m": -12,
+          "licensees_3plus": 1,
+          "new_licenses_12m": -2,
+          "closures_12m": 2,
+          "net_change_12m": -4,
+          "growth_rate_12m": -0.00038100000000000633,
+          "churn_rate_12m": 0.00017100000000000448,
+          "probation_share": -4.000000000000097e-06,
+          "share_licensed_multi": 0.0002489999999999992
+        },
+        "activity": {
+          "closures_status_changed": 16,
+          "new_facility_numbers": 29,
+          "removed_facility_numbers": 17,
+          "status_changes": 39,
+          "ownership_changes": 2,
+          "capacity_changes": 4,
+          "facilities_new_substantiated": 31,
+          "new_substantiated_allegations": 43,
+          "facilities_substantiated_decreased": 15,
+          "facilities_new_complaint_visits": 104,
+          "new_complaint_visits": 143
+        },
+        "label": "Excluding CCRCs"
+      },
+      "small": {
+        "row_count": 10735,
+        "totals": {
+          "licensed_facilities": 6923,
+          "licensed_beds": 40686,
+          "median_licensed_capacity": 6,
+          "pending": 767,
+          "on_probation": 9,
+          "new_licenses_7d": 19,
+          "new_licenses_90d": 270,
+          "closures_closed_date_7d": 9,
+          "closures_closed_date_90d": 79,
+          "citations_12m": 8969,
+          "facilities_with_citations_12m": 2468,
+          "licensees_3plus": 159,
+          "new_licenses_12m": 932,
+          "closures_12m": 365,
+          "net_change_12m": 567,
+          "growth_rate_12m": 0.134624,
+          "churn_rate_12m": 0.052723,
+          "probation_share": 0.001298,
+          "share_licensed_multi": 0.08999
+        },
+        "week_over_week": {
+          "licensed_facilities": 9,
+          "licensed_beds": 51,
+          "median_licensed_capacity": 0,
+          "pending": -1,
+          "on_probation": 0,
+          "new_licenses_7d": -5,
+          "new_licenses_90d": 4,
+          "closures_closed_date_7d": 6,
+          "closures_closed_date_90d": 2,
+          "citations_12m": -59,
+          "facilities_with_citations_12m": -15,
+          "licensees_3plus": 1,
+          "new_licenses_12m": 3,
+          "closures_12m": 6,
+          "net_change_12m": -3,
+          "growth_rate_12m": 0.00025899999999998147,
+          "churn_rate_12m": 0.0007990000000000011,
+          "probation_share": -2.0000000000000486e-06,
+          "share_licensed_multi": 0.00031699999999999784
+        },
+        "activity": {
+          "closures_status_changed": 15,
+          "new_facility_numbers": 23,
+          "removed_facility_numbers": 14,
+          "status_changes": 37,
+          "ownership_changes": 0,
+          "capacity_changes": 3,
+          "facilities_new_substantiated": 13,
+          "new_substantiated_allegations": 17,
+          "facilities_substantiated_decreased": 7,
+          "facilities_new_complaint_visits": 33,
+          "new_complaint_visits": 46
+        },
+        "label": "6 beds or fewer"
+      },
+      "large": {
+        "row_count": 2433,
+        "totals": {
+          "licensed_facilities": 1575,
+          "licensed_beds": 136502,
+          "median_licensed_capacity": 75,
+          "pending": 139,
+          "on_probation": 15,
+          "new_licenses_7d": 2,
+          "new_licenses_90d": 39,
+          "closures_closed_date_7d": 0,
+          "closures_closed_date_90d": 23,
+          "citations_12m": 4625,
+          "facilities_with_citations_12m": 992,
+          "licensees_3plus": 19,
+          "new_licenses_12m": 121,
+          "closures_12m": 102,
+          "net_change_12m": 19,
+          "growth_rate_12m": 0.076825,
+          "churn_rate_12m": 0.064762,
+          "probation_share": 0.009434,
+          "share_licensed_multi": 0.08
+        },
+        "week_over_week": {
+          "licensed_facilities": 1,
+          "licensed_beds": 125,
+          "median_licensed_capacity": 0,
+          "pending": 0,
+          "on_probation": 0,
+          "new_licenses_7d": 2,
+          "new_licenses_90d": 3,
+          "closures_closed_date_7d": -1,
+          "closures_closed_date_90d": 0,
+          "citations_12m": -15,
+          "facilities_with_citations_12m": 3,
+          "licensees_3plus": 0,
+          "new_licenses_12m": -5,
+          "closures_12m": -4,
+          "net_change_12m": -1,
+          "growth_rate_12m": -0.0032259999999999928,
+          "churn_rate_12m": -0.002582000000000001,
+          "probation_share": -6.000000000000796e-06,
+          "share_licensed_multi": -5.099999999999549e-05
+        },
+        "activity": {
+          "closures_status_changed": 1,
+          "new_facility_numbers": 4,
+          "removed_facility_numbers": 3,
+          "status_changes": 2,
+          "ownership_changes": 2,
+          "capacity_changes": 1,
+          "facilities_new_substantiated": 18,
+          "new_substantiated_allegations": 26,
+          "facilities_substantiated_decreased": 8,
+          "facilities_new_complaint_visits": 71,
+          "new_complaint_visits": 97
+        },
+        "label": "7 beds or more"
+      }
+    },
+    "other": {
+      "all_sizes": {
+        "row_count": 134,
+        "totals": {
+          "licensed_facilities": 109,
+          "licensed_beds": 34888,
+          "median_licensed_capacity": 275,
+          "pending": 7,
+          "on_probation": 0,
+          "new_licenses_7d": 0,
+          "new_licenses_90d": 0,
+          "closures_closed_date_7d": 0,
+          "closures_closed_date_90d": 0,
+          "citations_12m": 121,
+          "facilities_with_citations_12m": 52,
+          "licensees_3plus": 7,
+          "new_licenses_12m": 1,
+          "closures_12m": 1,
+          "net_change_12m": 0,
+          "growth_rate_12m": 0.009174,
+          "churn_rate_12m": 0.009174,
+          "probation_share": 0.0,
+          "share_licensed_multi": 0.293578
+        },
+        "week_over_week": {
+          "licensed_facilities": 0,
+          "licensed_beds": -14,
+          "median_licensed_capacity": 0,
+          "pending": 0,
+          "on_probation": 0,
+          "new_licenses_7d": 0,
+          "new_licenses_90d": 0,
+          "closures_closed_date_7d": 0,
+          "closures_closed_date_90d": 0,
+          "citations_12m": -1,
+          "facilities_with_citations_12m": 0,
+          "licensees_3plus": 0,
+          "new_licenses_12m": 0,
+          "closures_12m": 0,
+          "net_change_12m": 0,
+          "growth_rate_12m": 0.0,
+          "churn_rate_12m": 0.0,
+          "probation_share": 0.0,
+          "share_licensed_multi": 0.0
+        },
+        "activity": {
+          "closures_status_changed": 0,
+          "new_facility_numbers": 0,
+          "removed_facility_numbers": 0,
+          "status_changes": 0,
+          "ownership_changes": 0,
+          "capacity_changes": 1,
+          "facilities_new_substantiated": 1,
+          "new_substantiated_allegations": 1,
+          "facilities_substantiated_decreased": 1,
+          "facilities_new_complaint_visits": 4,
+          "new_complaint_visits": 5
+        },
+        "label": "CCRCs only"
+      },
+      "small": {
+        "row_count": 3,
+        "totals": {
+          "licensed_facilities": 0,
+          "licensed_beds": 0,
+          "median_licensed_capacity": null,
+          "pending": 3,
+          "on_probation": 0,
+          "new_licenses_7d": 0,
+          "new_licenses_90d": 0,
+          "closures_closed_date_7d": 0,
+          "closures_closed_date_90d": 0,
+          "citations_12m": 0,
+          "facilities_with_citations_12m": 0,
+          "licensees_3plus": 0,
+          "new_licenses_12m": 0,
+          "closures_12m": 0,
+          "net_change_12m": 0,
+          "growth_rate_12m": null,
+          "churn_rate_12m": null,
+          "probation_share": null,
+          "share_licensed_multi": null
+        },
+        "week_over_week": {
+          "licensed_facilities": 0,
+          "licensed_beds": 0,
+          "median_licensed_capacity": null,
+          "pending": 0,
+          "on_probation": 0,
+          "new_licenses_7d": 0,
+          "new_licenses_90d": 0,
+          "closures_closed_date_7d": 0,
+          "closures_closed_date_90d": 0,
+          "citations_12m": 0,
+          "facilities_with_citations_12m": 0,
+          "licensees_3plus": 0,
+          "new_licenses_12m": 0,
+          "closures_12m": 0,
+          "net_change_12m": 0,
+          "growth_rate_12m": null,
+          "churn_rate_12m": null,
+          "probation_share": null,
+          "share_licensed_multi": null
+        },
+        "activity": {
+          "closures_status_changed": 0,
+          "new_facility_numbers": 0,
+          "removed_facility_numbers": 0,
+          "status_changes": 0,
+          "ownership_changes": 0,
+          "capacity_changes": 0,
+          "facilities_new_substantiated": 0,
+          "new_substantiated_allegations": 0,
+          "facilities_substantiated_decreased": 0,
+          "facilities_new_complaint_visits": 0,
+          "new_complaint_visits": 0
+        },
+        "label": "6 beds or fewer"
+      },
+      "large": {
+        "row_count": 131,
+        "totals": {
+          "licensed_facilities": 109,
+          "licensed_beds": 34888,
+          "median_licensed_capacity": 275,
+          "pending": 4,
+          "on_probation": 0,
+          "new_licenses_7d": 0,
+          "new_licenses_90d": 0,
+          "closures_closed_date_7d": 0,
+          "closures_closed_date_90d": 0,
+          "citations_12m": 121,
+          "facilities_with_citations_12m": 52,
+          "licensees_3plus": 7,
+          "new_licenses_12m": 1,
+          "closures_12m": 1,
+          "net_change_12m": 0,
+          "growth_rate_12m": 0.009174,
+          "churn_rate_12m": 0.009174,
+          "probation_share": 0.0,
+          "share_licensed_multi": 0.293578
+        },
+        "week_over_week": {
+          "licensed_facilities": 0,
+          "licensed_beds": -14,
+          "median_licensed_capacity": 0,
+          "pending": 0,
+          "on_probation": 0,
+          "new_licenses_7d": 0,
+          "new_licenses_90d": 0,
+          "closures_closed_date_7d": 0,
+          "closures_closed_date_90d": 0,
+          "citations_12m": -1,
+          "facilities_with_citations_12m": 0,
+          "licensees_3plus": 0,
+          "new_licenses_12m": 0,
+          "closures_12m": 0,
+          "net_change_12m": 0,
+          "growth_rate_12m": 0.0,
+          "churn_rate_12m": 0.0,
+          "probation_share": 0.0,
+          "share_licensed_multi": 0.0
+        },
+        "activity": {
+          "closures_status_changed": 0,
+          "new_facility_numbers": 0,
+          "removed_facility_numbers": 0,
+          "status_changes": 0,
+          "ownership_changes": 0,
+          "capacity_changes": 1,
+          "facilities_new_substantiated": 1,
+          "new_substantiated_allegations": 1,
+          "facilities_substantiated_decreased": 1,
+          "facilities_new_complaint_visits": 4,
+          "new_complaint_visits": 5
+        },
+        "label": "7 beds or more"
+      }
+    }
+  },
+  "recent_events": [
+    {
+      "date": "2026-10-18",
+      "prior_snapshot_id": "2026-10-11",
+      "facility_number": "486804491",
+      "facility_name": "Elderly Joy Oasis",
+      "city": "SUISUN CITY",
+      "county": "",
+      "facility_type": "",
+      "capacity": 6,
+      "size_group": "small",
+      "change_type": "new_facility",
+      "old": null,
+      "new": "PENDING"
+    },
+    {
+      "date": "2026-10-18",
+      "prior_snapshot_id": "2026-10-11",
+      "facility_number": "019201800",
+      "facility_name": "Arch Angel Care Home",
+      "city": "ASHLAND",
+      "county": "ALAMEDA",
+      "facility_type": "RESIDENTIAL CARE ELDERLY",
+      "capacity": 6,
+      "size_group": "small",
+      "change_type": "new_facility",
+      "old": null,
+      "new": "PENDING"
+    },
+    {
+      "date": "2026-10-18",
+      "prior_snapshot_id": "2026-10-11",
+      "facility_number": "079201801",
+      "facility_name": "Penny's Guest Home",
+      "city": "WALNUT CREEK",
+      "county": "CONTRA COSTA",
+      "facility_type": "RESIDENTIAL CARE ELDERLY",
+      "capacity": 6,
+      "size_group": "small",
+      "change_type": "new_facility",
+      "old": null,
+      "new": "PENDING"
+    },
+    {
+      "date": "2026-10-18",
+      "prior_snapshot_id": "2026-10-11",
+      "facility_number": "079201796",
+      "facility_name": "Poplar Terrace",
+      "city": "CONCORD",
+      "county": "CONTRA COSTA",
+      "facility_type": "RESIDENTIAL CARE ELDERLY",
+      "capacity": null,
+      "size_group": null,
+      "change_type": "new_facility",
+      "old": null,
+      "new": "PENDING"
+    },
+    {
+      "date": "2026-10-18",
+      "prior_snapshot_id": "2026-10-11",
+      "facility_number": "198320818",
+      "facility_name": "Havenwood Cottages Hersholt",
+      "city": "LONG BEACH",
+      "county": "GLENN",
+      "facility_type": "RESIDENTIAL CARE ELDERLY",
+      "capacity": 6,
+      "size_group": "small",
+      "change_type": "new_facility",
+      "old": null,
+      "new": "PENDING"
+    },
+    {
+      "date": "2026-10-18",
+      "prior_snapshot_id": "2026-10-11",
+      "facility_number": "198320817",
+      "facility_name": "Seaside Board and Care",
+      "city": "LONG BEACH",
+      "county": "GLENN",
+      "facility_type": "RESIDENTIAL CARE ELDERLY",
+      "capacity": 6,
+      "size_group": "small",
+      "change_type": "new_facility",
+      "old": null,
+      "new": "PENDING"
+    },
+    {
+      "date": "2026-10-18",
+      "prior_snapshot_id": "2026-10-11",
+      "facility_number": "198320816",
+      "facility_name": "CHO HAVEN",
+      "city": "HARBOR CITY",
+      "county": "LOS ANGELES",
+      "facility_type": "RESIDENTIAL CARE ELDERLY",
+      "capacity": 4,
+      "size_group": "small",
+      "change_type": "new_facility",
+      "old": null,
+      "new": "PENDING"
+    },
+    {
+      "date": "2026-10-18",
+      "prior_snapshot_id": "2026-10-11",
+      "facility_number": "198604108",
+      "facility_name": "DE LA PAZ RESIDENTIAL SENIOR LIVING LLC",
+      "city": "WHITTIER",
+      "county": "LOS ANGELES",
+      "facility_type": "RESIDENTIAL CARE ELDERLY",
+      "capacity": 6,
+      "size_group": "small",
+      "change_type": "new_facility",
+      "old": null,
+      "new": "PENDING"
+    },
+    {
+      "date": "2026-10-18",
+      "prior_snapshot_id": "2026-10-11",
+      "facility_number": "198320820",
+      "facility_name": "Doris Mae Senior Care LLC",
+      "city": "LOS ANGELES",
+      "county": "LOS ANGELES",
+      "facility_type": "RESIDENTIAL CARE ELDERLY",
+      "capacity": 3,
+      "size_group": "small",
+      "change_type": "new_facility",
+      "old": null,
+      "new": "PENDING"
+    },
+    {
+      "date": "2026-10-18",
+      "prior_snapshot_id": "2026-10-11",
+      "facility_number": "195850864",
+      "facility_name": "Pacific Breeze Senior Care",
+      "city": "VAN NUYS",
+      "county": "LOS ANGELES",
+      "facility_type": "RESIDENTIAL CARE ELDERLY",
+      "capacity": 6,
+      "size_group": "small",
+      "change_type": "new_facility",
+      "old": null,
+      "new": "PENDING"
+    }
+  ],
+  "signal_counts": {
+    "all_sizes": {
+      "on_probation": 24,
+      "substantiated_12m": 1086,
+      "recent_status_change": 130,
+      "complaints_12m": 645
+    },
+    "small": {
+      "on_probation": 9,
+      "substantiated_12m": 513,
+      "recent_status_change": 105,
+      "complaints_12m": 113
+    },
+    "large": {
+      "on_probation": 15,
+      "substantiated_12m": 573,
+      "recent_status_change": 25,
+      "complaints_12m": 532
+    }
+  },
+  "signal_rules": [
+    {
+      "key": "on_probation",
+      "label": "On probation",
+      "rule": "Facility Status is ON PROBATION in the current snapshot."
+    },
+    {
+      "key": "substantiated_12m",
+      "label": "Substantiated allegations, last 12 months",
+      "rule": "The facility is not closed and the state's complaint detail lists at least one substantiated allegation on a complaint dated on or after the same calendar day one year before the as-of date."
+    },
+    {
+      "key": "recent_status_change",
+      "label": "Closed or changed status, last 90 days",
+      "rule": "The facility had a License First Date and its Closed Date is within the last 90 days, or our weekly comparison recorded a status change within the last 90 days. Weekly comparisons start with the first snapshot we hold."
+    },
+    {
+      "key": "complaints_12m",
+      "label": "3+ complaints, last 12 months",
+      "rule": "The facility is not closed and the state's complaint detail lists 3 or more complaints dated in the last 12 months. This counts complaints, not complaint visits, because only the complaint detail carries dates."
+    }
+  ],
+  "signal_disclaimer": "Flags come from public state records, may be out of date, and do not indicate a facility's quality or value. Each flag is shown on its own; they are not added together. Errors in a record can only be corrected by the California Department of Social Services.",
+  "event_types": [
+    {
+      "key": "new_facility",
+      "label": "New facility"
+    },
+    {
+      "key": "status_change",
+      "label": "Status change"
+    },
+    {
+      "key": "licensee_change",
+      "label": "Licensee change"
+    },
+    {
+      "key": "capacity_change",
+      "label": "Capacity change"
+    },
+    {
+      "key": "new_substantiated_allegations",
+      "label": "New substantiated allegations"
+    },
+    {
+      "key": "new_complaint_visits",
+      "label": "New complaint visits"
+    }
+  ],
+  "definitions": {
+    "licensee_withheld": {
+      "label": "Withheld names",
+      "rule": "Where a licensee name is the same person's name as a facility administrator anywhere in the state file, it is shown as withheld, because this site does not publish administrator names. Names match when they have the same words in any order (for example \"LAST, FIRST\" and \"FIRST LAST\"), ignoring initials and punctuation. The facility is still counted everywhere. A facility name that is an administrator's name (a home listed under a person's own name) is withheld the same way."
+    },
+    "scope": {
+      "label": "Which facilities are counted",
+      "rule": "Headline numbers count every facility in the state RCFE file. The \"Excluding CCRCs\" view leaves out continuing care retirement communities (Facility Type RCFE-CONTINUING CARE RETIREMENT COMMUNITY): RCFE-licensed campuses that also sell continuing-care contracts. Facilities with a blank Facility Type, which are pending applications the state has not typed yet, are counted with the other RCFEs."
+    },
+    "size_group": {
+      "label": "Home size groups",
+      "rule": "6 beds or fewer, or 7 beds or more, by the Facility Capacity in the current snapshot. Week-to-week changes follow each facility's current size, so a home that changes capacity is counted in its new group and shows as a capacity change. Facilities with a blank capacity are in neither group."
+    },
+    "size_band": {
+      "label": "Capacity bands",
+      "rule": "Facility Capacity grouped as 6 or fewer, 7-15, 16-49, 50-99, and 100 or more beds."
+    },
+    "licensed_facilities": {
+      "label": "Licensed facilities",
+      "rule": "Count of facilities with Facility Status = LICENSED."
+    },
+    "licensed_beds": {
+      "label": "Licensed beds",
+      "rule": "Sum of Facility Capacity for LICENSED facilities. A blank capacity counts as 0 beds."
+    },
+    "median_licensed_capacity": {
+      "label": "Median home size",
+      "rule": "Median Facility Capacity of LICENSED facilities, in beds. Facilities with a blank capacity are left out."
+    },
+    "pending": {
+      "label": "Pending",
+      "rule": "Count of facilities with Facility Status = PENDING."
+    },
+    "on_probation": {
+      "label": "On probation",
+      "rule": "Count of facilities with Facility Status = ON PROBATION."
+    },
+    "new_licenses_7d": {
+      "label": "New licenses, 7 days",
+      "rule": "Facilities whose License First Date is on or between the as-of date minus 7 days and the as-of date (any current status)."
+    },
+    "new_licenses_90d": {
+      "label": "New licenses, 90 days",
+      "rule": "Facilities whose License First Date is on or between the as-of date minus 90 days and the as-of date (any current status)."
+    },
+    "closures_closed_date_7d": {
+      "label": "Closures by Closed Date, 7 days",
+      "rule": "Facilities that had a License First Date and whose Closed Date is on or between the as-of date minus 7 days and the as-of date. Applications that closed before a license was issued are not counted."
+    },
+    "closures_closed_date_90d": {
+      "label": "Closures by Closed Date, 90 days",
+      "rule": "Facilities that had a License First Date and whose Closed Date is on or between the as-of date minus 90 days and the as-of date. Applications that closed before a license was issued are not counted."
+    },
+    "citations_12m": {
+      "label": "Citations, last 12 months",
+      "rule": "Count of POC (plan of correction) dates on or after the same calendar day one year before the as-of date. Each citation in the file has a POC date; the citation numbers themselves carry no date."
+    },
+    "facilities_with_citations_12m": {
+      "label": "Facilities with a citation, last 12 months",
+      "rule": "Facilities with at least one POC date in the 12-month window above."
+    },
+    "licensees_3plus": {
+      "label": "Licensees with 3+ homes",
+      "rule": "Licensee names with 3 or more LICENSED facilities. Names are matched after trimming, collapsing repeated spaces and ignoring upper/lower case; no other merging is done. A licensee name that is also an administrator's name is counted but shown as withheld."
+    },
+    "closures_status_changed": {
+      "label": "Closures by status change",
+      "rule": "Facilities with a License First Date whose status was not CLOSED in the prior snapshot and is CLOSED in this one. Applications that closed before a license was issued are not counted."
+    },
+    "new_facility_numbers": {
+      "label": "New facility numbers",
+      "rule": "Facility Numbers in this snapshot that were not in the prior snapshot."
+    },
+    "removed_facility_numbers": {
+      "label": "Facility numbers no longer listed",
+      "rule": "Facility Numbers in the prior snapshot that are missing from this one."
+    },
+    "status_changes": {
+      "label": "Status changes",
+      "rule": "Facilities in both snapshots whose Facility Status differs."
+    },
+    "ownership_changes": {
+      "label": "Ownership changes",
+      "rule": "Facilities in both snapshots whose Licensee name differs, using the same name matching as Licensees with 3+ homes (spacing and case changes do not count)."
+    },
+    "capacity_changes": {
+      "label": "Capacity changes",
+      "rule": "Facilities in both snapshots whose Facility Capacity differs."
+    },
+    "facilities_new_substantiated": {
+      "label": "Facilities with new substantiated allegations",
+      "rule": "Facilities in both snapshots whose Substantiated Allegations count rose."
+    },
+    "new_substantiated_allegations": {
+      "label": "New substantiated allegations",
+      "rule": "Sum of the increases above. Decreases are not subtracted; they are counted separately in QA."
+    },
+    "facilities_substantiated_decreased": {
+      "label": "Facilities whose substantiated allegations count fell (QA)",
+      "rule": "Facilities in both snapshots whose Substantiated Allegations count dropped. Shown for quality checking only."
+    },
+    "facilities_new_complaint_visits": {
+      "label": "Facilities with new complaint visits",
+      "rule": "Facilities in both snapshots whose Complaint Visits count rose."
+    },
+    "new_complaint_visits": {
+      "label": "New complaint visits",
+      "rule": "Sum of the increases above."
+    },
+    "window_12m": {
+      "label": "12-month window",
+      "rule": "From the same calendar day one year before the as-of date through the as-of date, both days included."
+    },
+    "new_licenses_12m": {
+      "label": "New licenses, 12 months",
+      "rule": "Facilities whose License First Date is in the 12-month window (any current status)."
+    },
+    "closures_12m": {
+      "label": "Closures, 12 months",
+      "rule": "Facilities that had a License First Date and whose Closed Date is in the 12-month window. Applications that closed before a license was issued are not counted."
+    },
+    "net_change_12m": {
+      "label": "Net change, 12 months",
+      "rule": "New licenses, 12 months, minus closures, 12 months. This is not the same as the change in licensed homes: new licenses include homes that are now closed or still pending, and homes also move on and off probation."
+    },
+    "growth_rate_12m": {
+      "label": "Growth rate, 12 months",
+      "rule": "New licenses, 12 months, divided by licensed homes (Facility Status = LICENSED) in the current file."
+    },
+    "churn_rate_12m": {
+      "label": "Churn rate, 12 months",
+      "rule": "Closures, 12 months, divided by licensed homes (Facility Status = LICENSED) in the current file."
+    },
+    "probation_share": {
+      "label": "Probation share",
+      "rule": "Facilities ON PROBATION divided by facilities LICENSED or ON PROBATION. Homes on probation are still operating but are not in the licensed count, so they are added to the denominator."
+    },
+    "share_licensed_multi": {
+      "label": "Share held by licensees with 3+ homes",
+      "rule": "Licensed homes whose licensee has 3 or more LICENSED homes anywhere in the state (all facility types and sizes), divided by licensed homes. Licensee names are matched as for Licensees with 3+ homes."
+    },
+    "small_base": {
+      "label": "Small base",
+      "rule": "Rates for an area with fewer than 20 licensed homes are marked \"small base\": a few homes opening or closing moves them a lot."
+    },
+    "week_over_week": {
+      "label": "Week-over-week change",
+      "rule": "This snapshot's value minus the prior snapshot's value, each computed from its own file with windows measured from its own as-of date."
+    }
+  }
+}

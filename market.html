@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <!-- Embed mode: inside another site's frame (or with ?embed=1), hide this site's own title bar. -->
+  <script>if (window.self !== window.top || /[?&]embed=1\b/.test(location.search)) document.documentElement.classList.add("embedded");</script>
+  <title>RCFE Market by County</title>
+  <meta name="description" content="County-by-county licensed homes, beds and recent activity for California RCFEs.">
+  <link rel="stylesheet" href="assets/style.css">
+  <script type="module" src="assets/market.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">RCFE Deal Room Market Watch<small>California RCFE licensing, every week</small></a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="index.html">Pulse</a>
+        <a href="market.html" aria-current="page">Market</a>
+        <a href="facilities.html">Facilities</a>
+        <a href="methodology.html">Methodology</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Market</p>
+      <h1>Market by county</h1>
+      <p class="lede" id="subtitle">Loading…</p>
+    </div>
+  </section>
+
+  <main id="main" class="wrap">
+    <div class="controls" id="controls"></div>
+    <div class="table-wrap"><table id="county-table"><caption class="skip">Counties: activity and available supply</caption><thead></thead><tbody><tr><td class="loading">Loading…</td></tr></tbody><tfoot></tfoot></table></div>
+    <div class="note" id="table-notes"></div>
+    <p class="note">Click a column heading to sort. Click a county to see its weekly numbers on the Pulse page. Trend charts start once four weekly files are on hand.</p>
+
+    <aside class="card section angle" aria-labelledby="angle-h">
+      <p class="eyebrow">Deal Room angle</p>
+      <h2 id="angle-h">Closed and pending homes as supply</h2>
+      <p>Closed and pending licenses show supply, not a list of deals. A closed license means that operator is no longer licensed at that facility. The building may sit empty, be sold, change use, or reopen under a new operator. A pending application means someone has applied to open a home or take one over; once approved, it shows up as a new license.</p>
+      <p>In California, a new owner generally applies for their own RCFE license, so a sale often appears in this data as a closure plus a new pending application rather than as an ownership change.</p>
+      <p>For sellers, many recent closures and pending applications in a county can mean more homes are changing hands there. For buyers, the pending count shows how many other operators are entering the same county.</p>
+      <p>These counts come only from the state licensing file. They do not show whether any property is for sale, its condition, or its price.</p>
+      <p class="disclaimer small">General educational information only. Not legal, tax, licensing, valuation, or financial advice.</p>
+    </aside>
+
+    <section class="section" aria-labelledby="bands-h">
+      <h2 id="bands-h">Statewide by capacity band</h2>
+      <div class="table-wrap"><table id="band-table"><thead></thead><tbody></tbody></table></div>
+      <p class="note" id="bands-note"></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="disclaimer">General educational information only. Not legal, tax, licensing, valuation, or financial advice.</p>
+      <p>Source: California Department of Social Services, Community Care Licensing Division, licensing file for residential care facilities for the elderly (CC BY). Administrator names, phone numbers and street addresses are not published.</p>
+      <p><span data-as-of></span> · <a href="methodology.html">How these numbers are made</a></p>
+    </div>
+  </footer>
+</body>
+</html>
