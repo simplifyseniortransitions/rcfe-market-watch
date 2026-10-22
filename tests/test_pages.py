@@ -65,12 +65,42 @@ def test_navigation_is_phase_1_only(name):
     assert sum(current for *_, current in nav) == 1
 
 
+EMBED_SNIPPET = ('<script>if (window.self !== window.top || /[?&]embed=1\\b/.test(location.search)) '
+                 'document.documentElement.classList.add("embedded");</script>')
+
+
 @pytest.mark.parametrize("name", PAGES)
 def test_only_local_scripts_and_styles(name):
     page = parse(name)
     assert page.scripts and page.styles
-    for ref in page.scripts + page.styles:
-        assert ref and "//" not in ref and (SITE / ref).exists(), ref
+    files = [ref for ref in page.scripts if ref is not None] + page.styles
+    for ref in files:
+        assert "//" not in ref and (SITE / ref).exists(), ref
+    # The only inline script is the one-line embed check.
+    html = (SITE / name).read_text()
+    assert page.scripts.count(None) == 1 and html.count(EMBED_SNIPPET) == 1
+
+
+@pytest.mark.parametrize("name", PAGES)
+def test_light_only_with_title_band(name):
+    html = (SITE / name).read_text()
+    assert '<meta name="color-scheme" content="light">' in html
+    assert '<section class="hero">' in html and '<p class="eyebrow">' in html
+
+
+def test_stylesheet_is_light_only_and_uses_system_fonts():
+    css = (SITE / "assets" / "style.css").read_text()
+    assert "prefers-color-scheme" not in css
+    assert "@import" not in css and "@font-face" not in css and "url(" not in css
+    assert "Georgia" in css and "Arial" in css
+
+
+def test_embed_mode_hides_only_the_brand():
+    css = (SITE / "assets" / "style.css").read_text()
+    assert "html.embedded .brand { display: none; }" in css
+    assert "html.embedded .site-nav" in css and "html.embedded .site-footer" not in css  # disclaimer stays
+    js = (SITE / "assets" / "common.js").read_text()
+    assert '{ type: "rcfe-height", height }' in js
 
 
 def all_source():

@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <!-- Embed mode: inside another site's frame (or with ?embed=1), hide this site's own title bar. -->
+  <script>if (window.self !== window.top || /[?&]embed=1\b/.test(location.search)) document.documentElement.classList.add("embedded");</script>
   <title>RCFE Market by County</title>
   <meta name="description" content="County-by-county licensed homes, beds and recent activity for California RCFEs.">
   <link rel="stylesheet" href="assets/style.css">
@@ -22,16 +25,23 @@
     </div>
   </header>
 
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Market</p>
+      <h1>Market by county</h1>
+      <p class="lede" id="subtitle">Loading…</p>
+    </div>
+  </section>
+
   <main id="main" class="wrap">
-    <h1>Market by county</h1>
-    <p class="lede" id="subtitle">Loading…</p>
     <div class="controls" id="controls"></div>
     <div class="table-wrap"><table id="county-table"><caption class="skip">Counties: activity and available supply</caption><thead></thead><tbody><tr><td class="loading">Loading…</td></tr></tbody><tfoot></tfoot></table></div>
     <div class="note" id="table-notes"></div>
     <p class="note">Click a column heading to sort. Click a county to see its weekly numbers on the Pulse page. Trend charts start once four weekly files are on hand.</p>
 
-    <aside class="card section" aria-labelledby="angle-h">
-      <h2 id="angle-h">Deal Room angle: closed and pending homes as supply</h2>
+    <aside class="card section angle" aria-labelledby="angle-h">
+      <p class="eyebrow">Deal Room angle</p>
+      <h2 id="angle-h">Closed and pending homes as supply</h2>
       <p>Closed and pending licenses show supply, not a list of deals. A closed license means that operator is no longer licensed at that facility. The building may sit empty, be sold, change use, or reopen under a new operator. A pending application means someone has applied to open a home or take one over; once approved, it shows up as a new license.</p>
       <p>In California, a new owner generally applies for their own RCFE license, so a sale often appears in this data as a closure plus a new pending application rather than as an ownership change.</p>
       <p>For sellers, many recent closures and pending applications in a county can mean more homes are changing hands there. For buyers, the pending count shows how many other operators are entering the same county.</p>

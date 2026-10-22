@@ -8,8 +8,9 @@ Promise.all([getJSON("facilities.json"), getJSON("signals.json"), getJSON("feed.
     asOfLine(facilities);
     const f = facilities.facilities.find((x) => x.facility_number === id);
     if (!f) {
-      clear(root, el("h1", { text: "Facility not found" }),
-        el("p", { text: `No facility with number ${id} is in the ${date(facilities.as_of)} state file.` }));
+      document.getElementById("facility-name").textContent = "Facility not found";
+      document.getElementById("facility-sub").textContent = "";
+      clear(root, el("p", { text: `No facility with number ${id} is in the ${date(facilities.as_of)} state file.` }));
       return;
     }
     document.title = `${f.facility_name} | RCFE Market Watch`;
@@ -43,9 +44,10 @@ function render(f, signals, feed, pulse) {
     ["Citations, last 12 months", num(f.citations_12m)],
   ];
 
+  document.getElementById("facility-name").textContent = f.facility_name;
+  document.getElementById("facility-sub").textContent =
+    `${place(f.city)}, ${place(f.county)} County · ${status(f.status)} · record as of ${date(pulse.as_of)}`;
   clear(root,
-    el("h1", { text: f.facility_name }),
-    el("p", { class: "lede", text: `${place(f.city)}, ${place(f.county)} County · ${status(f.status)} · record as of ${date(pulse.as_of)}` }),
     el("div", { class: "two-col" },
       el("section", { class: "card", "aria-labelledby": "rec-h" },
         el("h2", { id: "rec-h", text: "Licensing record" }),

@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <!-- Embed mode: inside another site's frame (or with ?embed=1), hide this site's own title bar. -->
+  <script>if (window.self !== window.top || /[?&]embed=1\b/.test(location.search)) document.documentElement.classList.add("embedded");</script>
   <title>RCFE Facility Directory</title>
   <meta name="description" content="Search California residential care facilities for the elderly by name, licensee, city, county, status and size.">
   <link rel="stylesheet" href="assets/style.css">
@@ -22,9 +25,15 @@
     </div>
   </header>
 
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Facility directory</p>
+      <h1>Facilities</h1>
+      <p class="lede">Search the state licensing file. Street addresses, phone numbers and administrator names are not shown.</p>
+    </div>
+  </section>
+
   <main id="main" class="wrap">
-    <h1>Facilities</h1>
-    <p class="lede">Search the state licensing file. Street addresses, phone numbers and administrator names are not shown.</p>
     <form class="controls" id="filters" role="search" onsubmit="return false"></form>
     <p id="count" class="muted" aria-live="polite">Loading…</p>
     <div class="table-wrap"><table id="results"><thead></thead><tbody></tbody></table></div>

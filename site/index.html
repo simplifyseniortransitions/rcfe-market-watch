@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <!-- Embed mode: inside another site's frame (or with ?embed=1), hide this site's own title bar. -->
+  <script>if (window.self !== window.top || /[?&]embed=1\b/.test(location.search)) document.documentElement.classList.add("embedded");</script>
   <title>RCFE Market Watch</title>
   <meta name="description" content="Weekly market numbers for California residential care facilities for the elderly, from the state licensing file.">
   <link rel="stylesheet" href="assets/style.css">
@@ -22,9 +25,15 @@
     </div>
   </header>
 
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">RCFE Deal Room Market Watch</p>
+      <h1>This week in California RCFEs</h1>
+      <p class="lede" id="subtitle">Loading…</p>
+    </div>
+  </section>
+
   <main id="main" class="wrap">
-    <h1>This week in California RCFEs</h1>
-    <p class="lede" id="subtitle">Loading…</p>
 
     <div class="controls" id="controls"></div>
 

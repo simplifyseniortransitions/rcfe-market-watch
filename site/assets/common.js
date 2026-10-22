@@ -1,5 +1,20 @@
 // Shared helpers. Data is read only from this site's data/ folder; there are no third-party scripts.
 
+// Inside the RCFE Deal Room site's frame, tell that page this page's height so the frame fits
+// without an inner scroll bar. The message carries only a number.
+if (window.parent !== window) {
+  let last = 0;
+  const sendHeight = () => {
+    const height = Math.ceil(document.body.getBoundingClientRect().height);
+    if (height !== last) {
+      last = height;
+      window.parent.postMessage({ type: "rcfe-height", height }, "*");
+    }
+  };
+  new ResizeObserver(sendHeight).observe(document.body);
+  window.addEventListener("load", sendHeight);
+}
+
 // Mirrors Facility.is_core in pipeline/normalize.py: blank type counts with regular RCFEs.
 const CORE_TYPES = ["RESIDENTIAL CARE ELDERLY", ""];
 export const isCore = (type) => CORE_TYPES.includes(type || "");
