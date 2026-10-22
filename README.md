@@ -50,6 +50,25 @@ The administrator, phone number, and street address columns are never published.
 
 Files are written to a staging folder first. If any file fails to build, the last good set stays in place.
 
+## Weekly update (GitHub Actions)
+
+The job `.github/workflows/weekly.yml` runs in the public repository:
+
+1. Downloads the CDSS file. This is the "Residential Care Facilities for the Elderly" link on
+   https://www.ccld.dss.ca.gov/carefacilitysearch/DownloadData.
+2. Runs every check and the automated tests.
+3. Saves the unchanged raw file in the private repository `rcfe-market-watch-data`, using a deploy key
+   limited to that repository (secret `DATA_REPO_DEPLOY_KEY`).
+4. Rebuilds `site/data` and republishes the site (branch `gh-pages`).
+
+If CDSS has not posted a new file, nothing is published. On any failure the site keeps last week's
+version, the failed file is kept in the private repository under `snapshots/rejected/`, and an issue is
+opened.
+
+- **Run it by hand:** GitHub → Actions → Weekly update → Run workflow.
+- **Schedule:** Mondays at 1 PM Pacific. It stays off until the repository variable `WEEKLY_SCHEDULE` is
+  set to `on`, after four good manual runs.
+
 ## Pages (`site/`)
 
 Pulse (`index.html`), Market, Facilities, facility detail, and Methodology. They are plain
