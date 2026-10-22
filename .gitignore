@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+# Raw state files stay on this Mac only. They include administrator names, phone numbers and
+# street addresses, so they are never saved in git (decide separately where they live if this
+# project goes to GitHub). The published JSON in site/data/ has none of those fields.
+inbox/*
+!inbox/.gitkeep
+snapshots/*
+!snapshots/.gitkeep

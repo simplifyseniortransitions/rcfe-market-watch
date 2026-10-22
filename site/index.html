@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RCFE Market Watch</title>
+  <meta name="description" content="Weekly market numbers for California residential care facilities for the elderly, from the state licensing file.">
+  <link rel="stylesheet" href="assets/style.css">
+  <script type="module" src="assets/pulse.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">RCFE Deal Room Market Watch<small>California RCFE licensing, every week</small></a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="index.html" aria-current="page">Pulse</a>
+        <a href="market.html">Market</a>
+        <a href="facilities.html">Facilities</a>
+        <a href="methodology.html">Methodology</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <h1>This week in California RCFEs</h1>
+    <p class="lede" id="subtitle">Loading…</p>
+
+    <div class="controls" id="controls"></div>
+
+    <section aria-labelledby="totals-h">
+      <h2 id="totals-h">Totals</h2>
+      <div class="grid" id="totals"><p class="loading">Loading…</p></div>
+    </section>
+
+    <section class="section" aria-labelledby="activity-h">
+      <h2 id="activity-h">Weekly activity</h2>
+      <div class="grid" id="activity"></div>
+      <p class="note">Closures are shown two ways because the state file supports both: a status change seen between our weekly files, and the Closed Date the state records.</p>
+    </section>
+
+    <section class="section" aria-labelledby="window-h">
+      <h2 id="window-h">Last 90 days</h2>
+      <div class="grid" id="window"></div>
+    </section>
+
+    <div class="two-col section">
+      <section aria-labelledby="feed-h">
+        <h2 id="feed-h">Latest changes</h2>
+        <div class="card"><ul class="feed" id="feed"></ul></div>
+      </section>
+      <section aria-labelledby="signals-h">
+        <h2 id="signals-h">Signals</h2>
+        <div class="card">
+          <ul class="rules" id="signals"></ul>
+          <p class="note" id="signals-note"></p>
+        </div>
+      </section>
+    </div>
+
+    <section class="section" aria-labelledby="signup-h">
+      <h2 id="signup-h">Get the weekly Market Watch by county</h2>
+      <div class="card">
+        <form class="controls" style="border:0;box-shadow:none;padding:0;margin:0" onsubmit="return false">
+          <label class="control"><span>Email</span><input type="email" disabled placeholder="you@example.com"></label>
+          <label class="control"><span>County</span><select id="signup-county" disabled></select></label>
+          <button type="submit" disabled>Sign up</button>
+        </form>
+        <p class="note">Sign-up opens soon. This form is not connected yet, so nothing can be entered or sent.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="disclaimer">General educational information only. Not legal, tax, licensing, valuation, or financial advice.</p>
+      <p>Source: California Department of Social Services, Community Care Licensing Division, licensing file for residential care facilities for the elderly (CC BY). Administrator names, phone numbers and street addresses are not published.</p>
+      <p><span data-as-of></span> · <a href="methodology.html">How these numbers are made</a></p>
+    </div>
+  </footer>
+</body>
+</html>
