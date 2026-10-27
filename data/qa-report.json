@@ -1,22 +1,22 @@
 {
-  "as_of": "2026-10-18",
+  "as_of": "2026-10-25",
   "source": "California Department of Social Services, Community Care Licensing Division: Residential Care Facilities for the Elderly licensing file (CC BY)",
-  "generated_at": "2026-10-22T02:49:52+00:00",
-  "snapshot_id": "2026-10-18",
+  "generated_at": "2026-10-27T21:04:18+00:00",
+  "snapshot_id": "2026-10-25",
   "status": "pass",
-  "last_good_snapshot_id": "2026-10-18",
+  "last_good_snapshot_id": "2026-10-25",
   "latest_run": {
-    "generated_at": "2026-10-22T02:49:52+00:00",
-    "input_file": "ResidentialElderCareFacility10182026.csv",
-    "input_sha256": "c19393662bb5b41ac74b210f0933cb9faa3f8db613395e73b97430d69374ffc3",
-    "as_of": "2026-10-18",
-    "snapshot_id": "2026-10-18",
+    "generated_at": "2026-10-27T21:04:18+00:00",
+    "input_file": "ResidentialElderCareFacility10252026.csv",
+    "input_sha256": "734666cbc5ec98d623a1e275d6b6f6a018f15bf1d143a3c55aa7161053043901",
+    "as_of": "2026-10-25",
+    "snapshot_id": "2026-10-25",
     "status": "pass",
     "errors": [],
     "warnings": [
-      "10 row(s) have a blank Facility Type (pending applications; counted with regular RCFEs)",
-      "11 row(s) have a blank or non-numeric Facility Capacity (counted as 0 beds)",
-      "5745 row(s) have extra trailing fields beyond the header (complaint detail spill-over; not used)",
+      "11 row(s) have a blank Facility Type (pending applications; counted with regular RCFEs)",
+      "13 row(s) have a blank or non-numeric Facility Capacity (counted as 0 beds)",
+      "5758 row(s) have extra trailing fields beyond the header (complaint detail spill-over; not used)",
       "8 non-date token(s) in the POC Dates list (ignored)",
       "1 non-date token(s) in the All Visit Dates list (ignored)",
       "1 non-date token(s) in the Inspection Visit Dates list (ignored)",
@@ -31,37 +31,37 @@
       {
         "name": "unique_facility_number",
         "passed": true,
-        "detail": "13313 unique Facility Numbers, none blank"
+        "detail": "13325 unique Facility Numbers, none blank"
       },
       {
         "name": "date_format",
         "passed": true,
-        "detail": "27330 non-blank dates in License First Date, Closed Date, Last Visit Date are valid M/D/YYYY"
+        "detail": "27348 non-blank dates in License First Date, Closed Date, Last Visit Date are valid M/D/YYYY"
       },
       {
         "name": "row_count",
         "passed": true,
-        "detail": "13313 rows vs 13301 in prior snapshot (+0.09%)"
+        "detail": "13325 rows vs 13313 in prior snapshot (+0.09%)"
       }
     ],
-    "prior_snapshot_id": "2026-10-11",
-    "prior_row_count": 13301,
-    "row_count": 13313,
+    "prior_snapshot_id": "2026-10-18",
+    "prior_row_count": 13313,
+    "row_count": 13325,
     "counts": {
       "by_facility_type": {
         "RCFE-CONTINUING CARE RETIREMENT COMMUNITY": 134,
-        "RESIDENTIAL CARE ELDERLY": 13169,
-        "(blank)": 10
+        "RESIDENTIAL CARE ELDERLY": 13180,
+        "(blank)": 11
       },
       "by_facility_status": {
-        "LICENSED": 8607,
-        "PENDING": 924,
-        "CLOSED": 3758,
+        "LICENSED": 8598,
+        "PENDING": 933,
+        "CLOSED": 3770,
         "ON PROBATION": 24
       }
     },
-    "snapshot_file": "snapshots/2026-10-18.csv",
-    "snapshot_created": false,
+    "snapshot_file": "snapshots/2026-10-25.csv",
+    "snapshot_created": true,
     "published": [
       "facilities.json",
       "feed.json",
@@ -969,6 +969,127 @@
       },
       "snapshot_file": "snapshots/2026-10-18.csv",
       "snapshot_created": false,
+      "published": [
+        "facilities.json",
+        "feed.json",
+        "market.json",
+        "owners.json",
+        "pulse.json",
+        "signals.json"
+      ]
+    },
+    {
+      "generated_at": "2026-10-27T00:31:27+00:00",
+      "input_file": "ResidentialElderCareFacility10252026.csv",
+      "input_sha256": "2b52cabb8d3b0dcadd90e48318d5dbca6c24a1875229dee213dacf876766a20f",
+      "as_of": "2026-10-25",
+      "snapshot_id": null,
+      "status": "fail",
+      "errors": [
+        "row_count: 5989 rows vs 13313 in prior snapshot (-55.01%); drop is over the 10% limit",
+        "validation failed; nothing published"
+      ],
+      "warnings": [
+        "5 row(s) have a blank or non-numeric Facility Capacity (counted as 0 beds)",
+        "2535 row(s) have extra trailing fields beyond the header (complaint detail spill-over; not used)",
+        "6 non-date token(s) in the POC Dates list (ignored)"
+      ],
+      "checks": [
+        {
+          "name": "required_columns",
+          "passed": true,
+          "detail": "all 15 required columns present"
+        },
+        {
+          "name": "unique_facility_number",
+          "passed": true,
+          "detail": "5989 unique Facility Numbers, none blank"
+        },
+        {
+          "name": "date_format",
+          "passed": true,
+          "detail": "12209 non-blank dates in License First Date, Closed Date, Last Visit Date are valid M/D/YYYY"
+        },
+        {
+          "name": "row_count",
+          "passed": false,
+          "detail": "5989 rows vs 13313 in prior snapshot (-55.01%); drop is over the 10% limit"
+        }
+      ],
+      "prior_snapshot_id": "2026-10-18",
+      "prior_row_count": 13313,
+      "row_count": 5989,
+      "counts": {
+        "by_facility_type": {
+          "RCFE-CONTINUING CARE RETIREMENT COMMUNITY": 134,
+          "RESIDENTIAL CARE ELDERLY": 5855
+        },
+        "by_facility_status": {
+          "LICENSED": 3966,
+          "PENDING": 430,
+          "CLOSED": 1579,
+          "ON PROBATION": 14
+        }
+      },
+      "rejected_copy": "snapshots/rejected/2026-10-25_20261027T003127Z.csv"
+    },
+    {
+      "generated_at": "2026-10-27T21:04:18+00:00",
+      "input_file": "ResidentialElderCareFacility10252026.csv",
+      "input_sha256": "734666cbc5ec98d623a1e275d6b6f6a018f15bf1d143a3c55aa7161053043901",
+      "as_of": "2026-10-25",
+      "snapshot_id": "2026-10-25",
+      "status": "pass",
+      "errors": [],
+      "warnings": [
+        "11 row(s) have a blank Facility Type (pending applications; counted with regular RCFEs)",
+        "13 row(s) have a blank or non-numeric Facility Capacity (counted as 0 beds)",
+        "5758 row(s) have extra trailing fields beyond the header (complaint detail spill-over; not used)",
+        "8 non-date token(s) in the POC Dates list (ignored)",
+        "1 non-date token(s) in the All Visit Dates list (ignored)",
+        "1 non-date token(s) in the Inspection Visit Dates list (ignored)",
+        "1 non-date token(s) in the Other Visit Dates list (ignored)"
+      ],
+      "checks": [
+        {
+          "name": "required_columns",
+          "passed": true,
+          "detail": "all 15 required columns present"
+        },
+        {
+          "name": "unique_facility_number",
+          "passed": true,
+          "detail": "13325 unique Facility Numbers, none blank"
+        },
+        {
+          "name": "date_format",
+          "passed": true,
+          "detail": "27348 non-blank dates in License First Date, Closed Date, Last Visit Date are valid M/D/YYYY"
+        },
+        {
+          "name": "row_count",
+          "passed": true,
+          "detail": "13325 rows vs 13313 in prior snapshot (+0.09%)"
+        }
+      ],
+      "prior_snapshot_id": "2026-10-18",
+      "prior_row_count": 13313,
+      "row_count": 13325,
+      "counts": {
+        "by_facility_type": {
+          "RCFE-CONTINUING CARE RETIREMENT COMMUNITY": 134,
+          "RESIDENTIAL CARE ELDERLY": 13180,
+          "(blank)": 11
+        },
+        "by_facility_status": {
+          "LICENSED": 8598,
+          "PENDING": 933,
+          "CLOSED": 3770,
+          "ON PROBATION": 24
+        }
+      },
+      "snapshot_file": "snapshots/2026-10-25.csv",
+      "snapshot_created": true,
       "published": [
         "facilities.json",
         "feed.json",
