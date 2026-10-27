@@ -188,3 +188,16 @@ dl.facts dd { margin: 0; font-variant-numeric: tabular-nums; }
 .loading { color: var(--muted); }
 .error { color: var(--down); }
 .hidden { display: none !important; }
+
+/* Trend charts (drawn by assets/common.js; no chart library) */
+.trends { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.chart { margin: 0; }
+.chart figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.chart-now { font-weight: 700; color: var(--heading); font-variant-numeric: tabular-nums; }
+.chart svg { display: block; width: 100%; height: auto; margin-top: 6px; overflow: visible; }
+.chart .line, .spark .line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.chart .axis { stroke: var(--border); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.chart .dot { fill: var(--surface); stroke: var(--accent); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.chart .dot.now, .spark .dot.now { fill: var(--accent); }
+.chart .tick { font-size: 11px; fill: var(--muted); font-family: var(--sans); }
+.spark { display: block; }

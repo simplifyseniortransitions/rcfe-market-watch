@@ -1,4 +1,7 @@
-import { asOfLine, change, clear, date, el, fail, getJSON, num, params, place, segmented, setParams } from "./common.js";
+import {
+  asOfLine, change, changeSince, clear, compareChoice, compareSelect, date, el, fail, getJSON, num, params, place,
+  segmented, series, setParams, sparkline,
+} from "./common.js";
 
 const p = params();
 const state = {
@@ -8,6 +11,7 @@ const state = {
   bands: p.get("bands") === "1",
   sort: p.get("sort") || "licensed_facilities",
   dir: p.get("dir") || "desc",
+  compare: p.get("compare") || "1",
 };
 
 // group: "activity" (last 12 months) or "supply" (as of the latest file). fmt: how the value is shown.
@@ -19,7 +23,6 @@ const COLUMNS = [
   { key: "growth_rate_12m", label: "Growth rate", group: "activity", fmt: "pct", rate: true },
   { key: "churn_rate_12m", label: "Churn rate", group: "activity", fmt: "pct", rate: true },
   { key: "licensed_facilities", label: "Licensed homes", group: "supply" },
-  { key: "wow", label: "vs last week", group: "supply", get: (r) => r.week_over_week.licensed_facilities, fmt: "change" },
   { key: "pending", label: "Pending", group: "supply" },
   { key: "on_probation", label: "On probation", group: "supply" },
   { key: "probation_share", label: "Probation share", group: "supply", fmt: "pct2", rate: true },
@@ -30,16 +33,31 @@ const COLUMNS = [
 
 const pct = (x, places = 1) => (x == null ? "—" : `${(100 * x).toFixed(places)}%`);
 
-let pulse, market;
+let pulse, market, history;
 
-Promise.all([getJSON("pulse.json"), getJSON("market.json")])
-  .then(([a, b]) => { pulse = a; market = b; asOfLine(pulse); renderControls(); render(); })
+Promise.all([getJSON("pulse.json"), getJSON("market.json"), getJSON("history.json")])
+  .then(([a, b, c]) => { pulse = a; market = b; history = c; asOfLine(pulse); renderControls(); render(); })
   .catch((err) => fail(document.querySelector("#county-table tbody"), err));
 
+const compared = () => compareChoice(history, state.compare).chosen;
+const record = (r) => series(history, state.scope, state.size, r.county === "California" ? null : r.county);
+
 function columns() {
+  const c = compared();
+  const cols = [...COLUMNS];
+  const at = cols.findIndex((x) => x.key === "licensed_facilities") + 1;
+  const extra = [{
+    key: "change", label: c ? `Change since ${date(c.date)}` : "Change", group: "supply", fmt: "change",
+    get: (r) => (c ? changeSince(record(r), "licensed_facilities", r.licensed_facilities, c.idx) : null),
+  }];
+  if (history.weeks.length >= history.chart_min_weeks) {
+    extra.push({ key: "trend", label: "Trend", group: "supply", fmt: "spark", nosort: true,
+      get: (r) => record(r)?.licensed_facilities || [] });
+  }
+  cols.splice(at, 0, ...extra);
   const bandCols = market.bands.map((b) => ({
     key: `band_${b.key}`, label: b.label, group: "supply", get: (r) => r.licensed_by_band[b.key] }));
-  return state.bands ? [...COLUMNS, ...bandCols] : COLUMNS;
+  return state.bands ? [...cols, ...bandCols] : cols;
 }
 
 const value = (col, r) => (col.get ? col.get(r) : r[col.key]);
@@ -58,6 +76,7 @@ function renderControls() {
     el("label", { class: "control" }, el("span", { text: "Filter counties" }), search),
     segmented("size", "Home size", Object.entries(pulse.sizes), state.size, update("size")),
     segmented("scope", "Facility types", ["all", "core"].map((k) => [k, pulse.scopes[k]]), state.scope, update("scope")),
+    compareSelect(history, state.compare, update("compare")),
     el("label", { class: "control" }, el("span", { text: "Capacity bands" }),
       el("span", { class: "small" }, bands, " Show licensed homes by band")));
 }
@@ -73,12 +92,13 @@ function render() {
   const cols = columns();
   const sizeLabel = pulse.sizes[state.size].toLowerCase();
   const scopeLabel = pulse.scopes[state.scope].toLowerCase().replace("ccrcs", "CCRCs").replace("rcfes", "RCFEs");
-  document.getElementById("subtitle").textContent =
-    `Week of ${date(pulse.as_of)} · ${scopeLabel} · ${sizeLabel}. Change is versus ${date(pulse.prior_snapshot_id)}.`;
+  const c = compared();
+  document.getElementById("subtitle").textContent = `Week of ${date(pulse.as_of)} · ${scopeLabel} · ${sizeLabel}. ` +
+    (c ? `Change is versus the week of ${date(c.date)} (${c.label.toLowerCase()}).` : "No earlier file to compare yet.");
 
   const q = state.q.trim().toLowerCase();
   let rows = market.counties[state.scope][state.size].filter((r) => !q || place(r.county).toLowerCase().includes(q));
-  const col = cols.find((c) => c.key === state.sort) || cols.find((c) => c.key === "licensed_facilities");
+  const col = cols.find((x) => x.key === state.sort && !x.nosort) || cols.find((x) => x.key === "licensed_facilities");
   const sign = state.dir === "asc" ? 1 : -1;
   const small = (r) => r.licensed_facilities < market.small_base;
   rows = [...rows].sort((a, b) => {
@@ -103,7 +123,7 @@ function render() {
         .filter(Boolean).join(" ") || null,
       scope: "col",
       "aria-sort": c.key === col.key ? (state.dir === "asc" ? "ascending" : "descending") : null,
-    }, el("button", { type: "button", onclick: () => sortBy(c.key), text: c.label })))));
+    }, c.nosort ? c.label : el("button", { type: "button", onclick: () => sortBy(c.key), text: c.label })))));
 
   clear(table.tBodies[0], rows.length ? rows.map((r) => el("tr", {}, cols.map((c) => {
     if (c.key === "county") {
@@ -118,7 +138,7 @@ function render() {
 
   // Statewide row comes from pulse.json, not from adding the table up.
   const seg = pulse.segments[state.scope][state.size];
-  const state_row = { ...seg.totals, county: "California", week_over_week: seg.week_over_week,
+  const state_row = { ...seg.totals, county: "California",
     licensed_by_band: Object.fromEntries(market.band_totals[state.scope].map((b) => [b.band, b.licensed_facilities])) };
   clear(table.tFoot, q ? null : el("tr", {}, cols.map((c) => {
     if (c.key === "county") return el("td", { text: "All California" });
@@ -140,6 +160,9 @@ function cell(c, r, smallBase) {
   const v = value(c, r);
   const cls = c.group === "supply" && c.key === "licensed_facilities" ? "num group-start" : "num";
   if (c.fmt === "change") return el("td", { class: cls }, change(v, { short: true }));
+  if (c.fmt === "spark") {
+    return el("td", {}, sparkline(v, `Licensed homes, ${place(r.county)}: ${v.filter((x) => x != null).map(num).join(", ")}`));
+  }
   const text = c.fmt === "pct" ? pct(v) : c.fmt === "pct2" ? pct(v, 2)
     : c.fmt === "signed" ? (v == null ? "—" : `${v > 0 ? "+" : v < 0 ? "−" : ""}${num(Math.abs(v))}`) : num(v);
   return el("td", { class: cls }, text,
