@@ -1,17 +1,23 @@
 name: Weekly update
 
 # Downloads the CDSS RCFE file, runs every check, saves the raw file in the private data repository,
-# rebuilds site/data and republishes the site. On any failure the site keeps last week's version and
-# an issue is opened.
+# rebuilds site/data and republishes the site. On any failure the site keeps last week's version.
 on:
   workflow_dispatch:
   schedule:
-    # Mondays at 1 PM Pacific. GitHub schedules run on UTC: 1 PM is 20:00 UTC in daylight time (PDT)
-    # and 21:00 UTC in standard time (PST). The "when" step keeps only the one that is 1 PM Pacific.
-    # Scheduled runs stay off until the repository variable WEEKLY_SCHEDULE is "on"
-    # (Dale, 2026-10-22: run by hand for four weeks first).
+    # All times Pacific; GitHub schedules run on UTC, so each slot has a daylight-time (PDT) and a
+    # standard-time (PST) entry, and the "when" step keeps only the one that matches today's clock.
+    #   Monday 1 PM  (main run):   20:00 UTC Mon (PDT) / 21:00 UTC Mon (PST)
+    #   Monday 6 PM  (retry):      01:00 UTC Tue (PDT) / 02:00 UTC Tue (PST)
+    #   Tuesday 1 PM (last retry): 20:00 UTC Tue (PDT) / 21:00 UTC Tue (PST)
+    # Retries do nothing once this week's file is published (Dale, 2026-10-27).
+    # Scheduled runs only happen while the repository variable WEEKLY_SCHEDULE is "on".
     - cron: "0 20 * * 1"
     - cron: "0 21 * * 1"
+    - cron: "0 1 * * 2"
+    - cron: "0 2 * * 2"
+    - cron: "0 20 * * 2"
+    - cron: "0 21 * * 2"
 
 permissions:
   contents: write
@@ -26,40 +32,67 @@ jobs:
   update:
     if: github.event_name != 'schedule' || vars.WEEKLY_SCHEDULE == 'on'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     env:
       PYTHONPATH: ${{ github.workspace }}
     steps:
-      - name: Keep only the 1 PM Pacific schedule
+      - name: Which run is this
         id: when
+        env:
+          EVENT: ${{ github.event_name }}
+          CRON: ${{ github.event.schedule }}
         run: |
-          run=true
-          if [ "${{ github.event_name }}" = "schedule" ]; then
-            if [ "$(TZ=America/Los_Angeles date +%z)" = "-0700" ]; then want="0 20 * * 1"; else want="0 21 * * 1"; fi
-            if [ "${{ github.event.schedule }}" != "$want" ]; then run=false; echo "Not the 1 PM Pacific run; skipping."; fi
+          slot=manual
+          if [ "$EVENT" = "schedule" ]; then
+            if [ "$(TZ=America/Los_Angeles date +%z)" = "-0700" ]; then
+              case "$CRON" in "0 20 * * 1") slot=main;; "0 1 * * 2") slot=evening;; "0 20 * * 2") slot=final;; *) slot=skip;; esac
+            else
+              case "$CRON" in "0 21 * * 1") slot=main;; "0 2 * * 2") slot=evening;; "0 21 * * 2") slot=final;; *) slot=skip;; esac
+            fi
           fi
-          echo "run=$run" >> "$GITHUB_OUTPUT"
+          # Issues are opened only by a manual run or the last retry, so a short CDSS outage stays quiet.
+          loud=false; { [ "$slot" = manual ] || [ "$slot" = final ]; } && loud=true
+          echo "Run: $slot (opens issues: $loud)"
+          echo "slot=$slot" >> "$GITHUB_OUTPUT"
+          echo "loud=$loud" >> "$GITHUB_OUTPUT"
 
       - uses: actions/checkout@v5
-        if: steps.when.outputs.run == 'true'
+        if: steps.when.outputs.slot != 'skip'
         with:
           fetch-depth: 0
 
       - name: Get the saved weekly files (private repository)
-        if: steps.when.outputs.run == 'true'
+        if: steps.when.outputs.slot != 'skip'
         uses: actions/checkout@v5
         with:
           repository: simplifyseniortransitions/rcfe-market-watch-data
           ssh-key: ${{ secrets.DATA_REPO_DEPLOY_KEY }}
           path: private-data
 
+      - name: Skip a retry when this week is already published
+        id: decide
+        if: steps.when.outputs.slot != 'skip'
+        env:
+          SLOT: ${{ steps.when.outputs.slot }}
+        run: |
+          go=true
+          newest=$(ls private-data/snapshots/*.csv | sort | tail -1 | xargs basename | sed 's/\.csv$//')
+          today=$(TZ=America/Los_Angeles date +%F)
+          age=$(( ( $(date -d "$today" +%s) - $(date -d "$newest" +%s) ) / 86400 ))
+          echo "Newest saved week: $newest ($age days before $today)"
+          if { [ "$SLOT" = evening ] || [ "$SLOT" = final ]; } && [ "$age" -le 6 ]; then
+            go=false
+            echo "This week's file ($newest) is already published; nothing to retry."
+          fi
+          echo "go=$go" >> "$GITHUB_OUTPUT"
+
       - uses: actions/setup-python@v6
-        if: steps.when.outputs.run == 'true'
+        if: steps.decide.outputs.go == 'true'
         with:
           python-version: "3.12"
 
       - name: Prepare
-        if: steps.when.outputs.run == 'true'
+        if: steps.decide.outputs.go == 'true'
         run: |
           python -m pip install --quiet -r requirements.txt
           cp private-data/snapshots/*.csv snapshots/
@@ -68,20 +101,27 @@ jobs:
 
       - name: Download this week's CDSS file
         id: download
-        if: steps.when.outputs.run == 'true'
+        if: steps.decide.outputs.go == 'true'
+        # Early runs (Monday 1 PM and 6 PM) fail softly: no failure email, a later run retries.
+        continue-on-error: ${{ steps.when.outputs.loud != 'true' }}
         run: python -m pipeline.download
 
       - name: Check the file and rebuild the data
         id: pipeline
         if: steps.download.outputs.status == 'new'
+        # Early runs (Monday 1 PM and 6 PM) fail softly: no failure email, a later run retries.
+        continue-on-error: ${{ steps.when.outputs.loud != 'true' }}
         run: python -m pipeline.run
 
       - name: Run the automated tests on the new data
-        if: steps.download.outputs.status == 'new'
+        id: tests
+        if: steps.pipeline.outcome == 'success'
+        # Early runs (Monday 1 PM and 6 PM) fail softly: no failure email, a later run retries.
+        continue-on-error: ${{ steps.when.outputs.loud != 'true' }}
         run: python -m pytest -q
 
       - name: Save the raw file in the private repository
-        if: steps.download.outputs.status == 'new'
+        if: steps.tests.outcome == 'success'
         run: |
           for f in snapshots/*.csv; do
             [ -e "private-data/$f" ] || cp -p "$f" "private-data/$f"
@@ -92,7 +132,7 @@ jobs:
           git push -q origin HEAD:main
 
       - name: Publish the site
-        if: steps.download.outputs.status == 'new'
+        if: steps.tests.outcome == 'success'
         run: |
           git add site/data
           git diff --cached --quiet || git commit -q -m "Weekly update: ${{ steps.download.outputs.file }}"
@@ -106,7 +146,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Summary
-        if: always() && steps.when.outputs.run == 'true'
+        if: always() && steps.decide.outputs.go == 'true'
         run: |
           if [ "${{ steps.download.outputs.status }}" = "unchanged" ]; then
             echo "CDSS has not posted a new file since the last saved week (${{ steps.download.outputs.file }}). Nothing was published." >> "$GITHUB_STEP_SUMMARY"
@@ -114,16 +154,16 @@ jobs:
             python -m pipeline.notify summary >> "$GITHUB_STEP_SUMMARY" || true
           fi
 
-      - name: Note when CDSS has no new file on a scheduled run
-        if: steps.download.outputs.status == 'unchanged' && github.event_name == 'schedule'
+      - name: Note when CDSS has no new file by the last retry
+        if: steps.download.outputs.status == 'unchanged' && steps.when.outputs.slot == 'final'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh issue create --title "No new CDSS file on $(TZ=America/Los_Angeles date +%Y-%m-%d)" \
-            --body "The Monday 1 PM run found the same CDSS file as last week (${{ steps.download.outputs.file }}). Nothing was published; the site still shows the last saved week. Re-run the job from the Actions tab once CDSS posts the new file."
+          gh issue create --title "No new CDSS file by $(TZ=America/Los_Angeles date +%Y-%m-%d) 1 PM" \
+            --body "The Monday 1 PM, Monday 6 PM and Tuesday 1 PM runs all found the same CDSS file as last week (${{ steps.download.outputs.file }}). Nothing was published; the site still shows the last saved week. Re-run the job from the Actions tab once CDSS posts the new file."
 
       - name: Keep the failed file for review and log the result
-        if: failure() && steps.when.outputs.run == 'true'
+        if: always() && steps.decide.outputs.go == 'true' && (failure() || steps.download.outcome == 'failure' || steps.pipeline.outcome == 'failure' || steps.tests.outcome == 'failure')
         run: |
           if ls snapshots/rejected/*.csv >/dev/null 2>&1; then
             mkdir -p private-data/snapshots/rejected
@@ -137,7 +177,7 @@ jobs:
           fi
 
       - name: Open an issue about the failure
-        if: failure() && steps.when.outputs.run == 'true'
+        if: always() && steps.decide.outputs.go == 'true' && steps.when.outputs.loud == 'true' && (failure() || steps.download.outcome == 'failure' || steps.pipeline.outcome == 'failure' || steps.tests.outcome == 'failure')
         env:
           GH_TOKEN: ${{ github.token }}
           DOWNLOAD_ERROR: ${{ steps.download.outputs.error }}

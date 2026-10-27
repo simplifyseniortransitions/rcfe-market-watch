@@ -9,10 +9,12 @@ NAME = "ResidentialElderCareFacility10252026.csv"
 
 
 class FakeResponse(io.BytesIO):
-    def __init__(self, body, disposition=f"attachment; filename={NAME}", status=200):
+    def __init__(self, body, disposition=f"attachment; filename={NAME}", status=200, length="auto"):
         super().__init__(body)
         self.status = status
         self.headers = {"Content-Disposition": disposition}
+        if length is not None:
+            self.headers["Content-Length"] = str(len(body) if length == "auto" else length)
 
     def __enter__(self):
         return self
@@ -31,7 +33,7 @@ def fake_urlopen(body, **kw):
     return opener
 
 
-BIG = b'"Facility Type"\n' + b"x" * download.MIN_BYTES
+BIG = b'"Facility Type"\n' + b"x" * download.MIN_BYTES + b"\n"
 
 
 @pytest.mark.parametrize("header,name", [
@@ -99,3 +101,23 @@ def test_failed_download_sets_failed_status(paths, monkeypatch, tmp_path):
     monkeypatch.setenv("GITHUB_OUTPUT", str(out))
     assert download.main(paths) == 1
     assert "status=failed" in out.read_text()
+
+
+def test_cut_off_download_is_rejected_and_retried(paths, monkeypatch):
+    # Like 2026-10-26: CDSS announced the full size but the transfer stopped early.
+    monkeypatch.setattr(download.urllib.request, "urlopen", fake_urlopen(BIG[:-500], length=len(BIG)))
+    with pytest.raises(download.DownloadError, match="cut off"):
+        download.download(paths.inbox, attempts=2, wait=0)
+    assert not list(paths.inbox.iterdir())
+
+
+def test_file_without_final_line_break_is_rejected(paths, monkeypatch):
+    monkeypatch.setattr(download.urllib.request, "urlopen", fake_urlopen(BIG[:-1], length=None))
+    with pytest.raises(download.DownloadError, match="complete line"):
+        download.download(paths.inbox, attempts=1)
+
+
+def test_retry_succeeds_after_a_cut_off_attempt(paths, monkeypatch):
+    bodies = iter([FakeResponse(BIG[:-500], length=len(BIG)), FakeResponse(BIG)])
+    monkeypatch.setattr(download.urllib.request, "urlopen", lambda request, timeout: next(bodies))
+    assert download.download(paths.inbox, attempts=2, wait=0).read_bytes() == BIG

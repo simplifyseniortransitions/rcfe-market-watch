@@ -61,13 +61,17 @@ The job `.github/workflows/weekly.yml` runs in the public repository:
    limited to that repository (secret `DATA_REPO_DEPLOY_KEY`).
 4. Rebuilds `site/data` and republishes the site (branch `gh-pages`).
 
-If CDSS has not posted a new file, nothing is published. On any failure the site keeps last week's
-version, the failed file is kept in the private repository under `snapshots/rejected/`, and an issue is
-opened.
+The download tries 5 times, 3 minutes apart. It rejects a cut-off file: one smaller than the size CDSS
+announced, or one that doesn't end with a complete line.
 
+If CDSS has not posted a new file, nothing is published. On any failure the site keeps last week's
+version, and the failed file is kept in the private repository under `snapshots/rejected/`.
+
+- **Schedule (Pacific time):** Monday 1 PM, then retries Monday 6 PM and Tuesday 1 PM. A retry does nothing
+  once this week's file is published. Only the Tuesday 1 PM retry, or a manual run, opens an issue (about
+  a failure, or about no new CDSS file), so a short CDSS outage stays quiet. Scheduled runs happen while
+  the repository variable `WEEKLY_SCHEDULE` is `on`.
 - **Run it by hand:** GitHub → Actions → Weekly update → Run workflow.
-- **Schedule:** Mondays at 1 PM Pacific. It stays off until the repository variable `WEEKLY_SCHEDULE` is
-  set to `on`, after four good manual runs.
 
 ## Pages (`site/`)
 

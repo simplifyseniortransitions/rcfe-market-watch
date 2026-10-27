@@ -25,8 +25,10 @@ USER_AGENT = ("RCFE-Market-Watch/1.0 (weekly public-data update; "
 FILENAME_RE = re.compile(r'filename\*?=(?:UTF-8\'\')?"?([^";]+)"?', re.IGNORECASE)
 EXPECTED_NAME = re.compile(r"ResidentialElderCareFacility\d{8}\.csv")
 MIN_BYTES = 1_000_000  # the real file is about 8.6 MB; anything tiny is an error page
-ATTEMPTS = 3
-RETRY_SECONDS = 60
+# CDSS's site can be unsteady (2026-10-26: 503 errors, then a file cut off at 3.8 MB), so try for
+# about 15 minutes before giving up.
+ATTEMPTS = 5
+RETRY_SECONDS = 180
 
 
 class DownloadError(Exception):
@@ -51,18 +53,37 @@ def fetch(dest_dir: Path) -> Path:
         if response.status != 200:
             raise DownloadError(f"CDSS answered HTTP {response.status}")
         name = filename_from(response.headers.get("Content-Disposition"))
+        announced = response.headers.get("Content-Length")
         dest_dir.mkdir(parents=True, exist_ok=True)
         partial = dest_dir / (name + ".partial")
         with open(partial, "wb") as f:
             while chunk := response.read(1 << 20):
                 f.write(chunk)
-    if partial.stat().st_size < MIN_BYTES:
-        size = partial.stat().st_size
+    try:
+        check_complete(partial, announced)
+    except DownloadError:
         partial.unlink()
-        raise DownloadError(f"download was only {size} bytes; expected the full file")
+        raise
     dest = dest_dir / name
     partial.replace(dest)
     return dest
+
+
+def check_complete(path: Path, announced=None):
+    """Raise DownloadError for a cut-off or tiny download.
+
+    A complete file is the size CDSS announced (when it says) and ends with a line break,
+    as every complete weekly file has.
+    """
+    size = path.stat().st_size
+    if announced is not None and str(announced).isdigit() and size != int(announced):
+        raise DownloadError(f"download was cut off: received {size} of {int(announced)} bytes")
+    if size < MIN_BYTES:
+        raise DownloadError(f"download was only {size} bytes; expected the full file")
+    with open(path, "rb") as f:
+        f.seek(-1, 2)
+        if f.read(1) != b"\n":
+            raise DownloadError("download was cut off: the file does not end with a complete line")
 
 
 def download(dest_dir: Path, attempts=ATTEMPTS, wait=None) -> Path:
