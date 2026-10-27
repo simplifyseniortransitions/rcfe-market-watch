@@ -1,8 +1,8 @@
 {
-  "as_of": "2026-10-18",
+  "as_of": "2026-10-25",
   "source": "California Department of Social Services, Community Care Licensing Division: Residential Care Facilities for the Elderly licensing file (CC BY)",
-  "generated_at": "2026-10-22T02:49:52+00:00",
-  "snapshot_id": "2026-10-18",
+  "generated_at": "2026-10-27T21:04:18+00:00",
+  "snapshot_id": "2026-10-25",
   "product": "RCFE Deal Room Market Watch",
   "rule": "Licensee names with 3 or more LICENSED facilities. Names are matched after trimming, collapsing repeated spaces and ignoring upper/lower case; no other merging is done. A licensee name that is also an administrator's name is counted but shown as withheld.",
   "scope": "all",
@@ -89,23 +89,6 @@
       ],
       "statuses": {
         "LICENSED": 11
-      }
-    },
-    {
-      "licensee": "COPPER RIVER RETIREMENT GROUP LLC",
-      "licensee_withheld": false,
-      "name_variants": [
-        "COPPER RIVER RETIREMENT GROUP LLC"
-      ],
-      "licensed_homes": 9,
-      "licensed_homes_small": 9,
-      "licensed_homes_large": 0,
-      "licensed_beds": 54,
-      "counties": [
-        "FRESNO"
-      ],
-      "statuses": {
-        "LICENSED": 9
       }
     },
     {
@@ -224,24 +207,6 @@
       ],
       "statuses": {
         "LICENSED": 7
-      }
-    },
-    {
-      "licensee": "CLEAR VIEW RETIREMENT GROUP LLC",
-      "licensee_withheld": false,
-      "name_variants": [
-        "CLEAR VIEW RETIREMENT GROUP LLC"
-      ],
-      "licensed_homes": 7,
-      "licensed_homes_small": 7,
-      "licensed_homes_large": 0,
-      "licensed_beds": 42,
-      "counties": [
-        "FRESNO"
-      ],
-      "statuses": {
-        "LICENSED": 7,
-        "PENDING": 1
       }
     },
     {
@@ -447,6 +412,24 @@
         "SAN MATEO"
       ],
       "statuses": {
+        "LICENSED": 5
+      }
+    },
+    {
+      "licensee": "COPPER RIVER RETIREMENT GROUP LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "COPPER RIVER RETIREMENT GROUP LLC"
+      ],
+      "licensed_homes": 5,
+      "licensed_homes_small": 5,
+      "licensed_homes_large": 0,
+      "licensed_beds": 30,
+      "counties": [
+        "FRESNO"
+      ],
+      "statuses": {
+        "CLOSED": 4,
         "LICENSED": 5
       }
     },
@@ -808,6 +791,25 @@
       ],
       "statuses": {
         "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "CLEAR VIEW RETIREMENT GROUP LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "CLEAR VIEW RETIREMENT GROUP LLC"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "FRESNO"
+      ],
+      "statuses": {
+        "CLOSED": 3,
+        "LICENSED": 4,
+        "PENDING": 1
       }
     },
     {
@@ -2141,24 +2143,6 @@
       }
     },
     {
-      "licensee": "GARDEN VILLE HOME CARE LLC",
-      "licensee_withheld": false,
-      "name_variants": [
-        "GARDEN VILLE HOME CARE LLC"
-      ],
-      "licensed_homes": 3,
-      "licensed_homes_small": 3,
-      "licensed_homes_large": 0,
-      "licensed_beds": 18,
-      "counties": [
-        "RIVERSIDE",
-        "SAN DIEGO"
-      ],
-      "statuses": {
-        "LICENSED": 3
-      }
-    },
-    {
       "licensee": "GOLDEN HARVEST CARE HOMES, LLC",
       "licensee_withheld": false,
       "name_variants": [
@@ -3300,6 +3284,24 @@
       "statuses": {
         "LICENSED": 3,
         "CLOSED": 1
+      }
+    },
+    {
+      "licensee": "VENTURA CARE HOMES LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "VENTURA CARE HOMES LLC"
+      ],
+      "licensed_homes": 3,
+      "licensed_homes_small": 3,
+      "licensed_homes_large": 0,
+      "licensed_beds": 18,
+      "counties": [
+        "VENTURA"
+      ],
+      "statuses": {
+        "LICENSED": 3,
+        "CLOSED": 2
       }
     },
     {
