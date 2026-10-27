@@ -1,5 +1,6 @@
 import {
-  asOfLine, change, isCore, clear, date, el, fail, facilityLink, getJSON, num, params, place, segmented, select, setParams,
+  asOfLine, change, changeSince, clear, compareChoice, compareSelect, date, el, evenlyWeekly, fail, facilityLink,
+  getJSON, isCore, lineChart, num, params, place, segmented, select, series, setParams, sumSince,
 } from "./common.js";
 
 const p = params();
@@ -7,17 +8,27 @@ const state = {
   county: p.get("county") || "",
   size: p.get("size") || "all_sizes",
   scope: p.get("scope") || "all",
-  week: p.get("week") || "this",
+  compare: p.get("compare") || "1",
 };
+
+// Trend charts: [history key, chart title]
+const TRENDS = [
+  ["licensed_facilities", "Licensed facilities"],
+  ["licensed_beds", "Licensed beds"],
+  ["pending", "Pending"],
+  ["on_probation", "On probation"],
+  ["new_licenses_7d", "New licenses per week"],
+  ["closures_closed_date_7d", "Closures per week (Closed Date)"],
+];
 
 const TOTALS = [
   "licensed_facilities", "licensed_beds", "median_licensed_capacity", "pending", "on_probation", "licensees_3plus",
 ];
 
-let pulse, market, feed;
+let pulse, market, feed, history;
 
-Promise.all([getJSON("pulse.json"), getJSON("market.json"), getJSON("feed.json")])
-  .then(([a, b, c]) => { pulse = a; market = b; feed = c; init(); })
+Promise.all([getJSON("pulse.json"), getJSON("market.json"), getJSON("feed.json"), getJSON("history.json")])
+  .then(([a, b, c, d]) => { pulse = a; market = b; feed = c; history = d; init(); })
   .catch((err) => fail(document.getElementById("totals"), err));
 
 function init() {
@@ -35,23 +46,27 @@ function renderControls(counties) {
     select("County", [["", "All California"], ...counties.map((c) => [c, place(c)])], state.county, update("county")),
     segmented("size", "Home size", Object.entries(pulse.sizes), state.size, update("size")),
     segmented("scope", "Facility types", ["all", "core"].map((k) => [k, pulse.scopes[k]]), state.scope, update("scope")),
-    segmented("week", "Show", [["this", "This week"], ["last", "Last week"]], state.week, update("week")));
+    compareSelect(history, state.compare, update("compare")));
 }
 
-// The numbers for the current selection: statewide from pulse.json, a county from market.json.
+// The numbers for the current selection: statewide from pulse.json, a county from market.json,
+// and the week-by-week record for the same selection from history.json.
 function view() {
+  const rec = series(history, state.scope, state.size, state.county);
   if (!state.county) {
     const seg = pulse.segments[state.scope][state.size];
     const signals = {};
     for (const row of market.counties[state.scope][state.size]) {
       for (const [k, v] of Object.entries(row.signals)) signals[k] = (signals[k] || 0) + v;
     }
-    return { totals: seg.totals, wow: seg.week_over_week, activity: seg.activity, signals };
+    return { totals: seg.totals, activity: seg.activity, signals, rec };
   }
   const row = market.counties[state.scope][state.size].find((r) => r.county === state.county);
   if (!row) return null;
-  return { totals: row, wow: row.week_over_week, activity: row.activity, signals: row.signals };
+  return { totals: row, activity: row.activity, signals: row.signals, rec };
 }
+
+const compared = () => compareChoice(history, state.compare).chosen;
 
 function label(key) {
   const d = pulse.definitions[key];
@@ -59,13 +74,12 @@ function label(key) {
 }
 
 function stat(key, v, { title, sub, showChange = true } = {}) {
-  const last = state.week === "last";
-  const value = last ? (v.wow[key] == null ? null : v.totals[key] - v.wow[key]) : v.totals[key];
+  const c = compared();
   return el("div", { class: "card", title: pulse.definitions[key]?.rule },
     el("div", { class: "stat-label", text: title || label(key) }),
-    el("div", { class: "stat-value", text: num(value) }),
+    el("div", { class: "stat-value", text: num(v.totals[key]) }),
     sub ? el("div", { class: "stat-sub", text: sub }) : null,
-    !last && showChange ? change(v.wow[key]) : null);
+    showChange ? change(c ? changeSince(v.rec, key, v.totals[key], c.idx) : null, { since: c ? date(c.date) : "" }) : null);
 }
 
 function activityCard(title, value, sub, rule) {
@@ -77,51 +91,75 @@ function activityCard(title, value, sub, rule) {
 
 function render() {
   const where = state.county ? `${place(state.county)} County` : "California";
-  const week = state.week === "last" ? `week of ${date(pulse.prior_snapshot_id)}` : `week of ${date(pulse.as_of)}`;
-  document.getElementById("subtitle").textContent =
-    `${where}, ${week}. Compared with ${pulse.prior_snapshot_id ? date(pulse.prior_snapshot_id) : "no earlier file yet"}.`;
+  const c = compared();
+  document.getElementById("subtitle").textContent = `${where}, week of ${date(pulse.as_of)}. ` +
+    (c ? `Compared with the week of ${date(c.date)} (${c.label.toLowerCase()}).` : "No earlier file to compare yet.");
 
   const v = view();
   const totals = document.getElementById("totals");
   if (!v) {
     clear(totals, el("p", { class: "muted", text: "No facilities match this selection." }));
-    ["activity", "window", "feed", "signals"].forEach((id) => clear(document.getElementById(id)));
+    ["activity", "window", "feed", "signals", "trends"].forEach((id) => clear(document.getElementById(id)));
     return;
   }
   const ownersTitle = state.county ? "Licensees with 3+ homes in this county" : label("licensees_3plus");
   clear(totals, TOTALS.map((k) => stat(k, v, k === "licensees_3plus" ? { title: ownersTitle } : {})));
 
-  const act = document.getElementById("activity");
-  if (state.week === "last") {
-    clear(act,
-      stat("new_licenses_7d", v, { title: "New licenses, 7 days", sub: "License First Date in the 7 days to last week's file" }),
-      stat("closures_closed_date_7d", v, { title: "Closed Date in the last 7 days" }),
-      el("p", { class: "muted small", text: "Week-to-week changes for last week need three weekly files; they will appear here once we have them." }));
-  } else {
-    const a = v.activity;
-    clear(act,
-      stat("new_licenses_7d", v, { title: "New licenses, 7 days", sub: "License First Date in the last 7 days" }),
-      a ? activityCard("Closures: status changed to CLOSED", a.closures_status_changed, "since last week's file",
-        pulse.definitions.closures_status_changed.rule) : null,
-      stat("closures_closed_date_7d", v, { title: "Closures: Closed Date in the last 7 days" }),
-      a ? activityCard("Ownership changes", a.ownership_changes, "licensee changed since last week",
-        pulse.definitions.ownership_changes.rule) : null,
-      a ? activityCard("New substantiated allegations", a.new_substantiated_allegations,
-        `at ${num(a.facilities_new_substantiated)} facilities`, pulse.definitions.new_substantiated_allegations.rule) : null,
-      a ? activityCard("New facility numbers", a.new_facility_numbers, "not in last week's file",
-        pulse.definitions.new_facility_numbers.rule) : null,
-      a ? null : el("p", { class: "muted small", text: "Week-to-week changes start once there are two weekly files." }));
-  }
-
+  renderActivity(v, c);
   clear(document.getElementById("window"),
     stat("new_licenses_90d", v),
     stat("closures_closed_date_90d", v),
-    stat("citations_12m", v, { sub: `at ${num(state.week === "last" && v.wow.facilities_with_citations_12m != null
-      ? v.totals.facilities_with_citations_12m - v.wow.facilities_with_citations_12m
-      : v.totals.facilities_with_citations_12m)} facilities` }));
-
+    stat("citations_12m", v, { sub: `at ${num(v.totals.facilities_with_citations_12m)} facilities` }));
+  renderTrends(v);
   renderFeed();
   renderSignals(v.signals);
+}
+
+// Weekly activity for the comparison period: one week's changes for "last week", otherwise the
+// weekly changes added up week by week since the chosen week.
+function renderActivity(v, c) {
+  const act = document.getElementById("activity");
+  document.getElementById("activity-h").textContent = c && c.weeks_back !== 1 ? `Activity since ${date(c.date)}` : "Weekly activity";
+  if (!c) {
+    clear(act, el("p", { class: "muted small", text: "Week-to-week changes start once there are two weekly files." }));
+    return;
+  }
+  const one = c.weeks_back === 1;
+  const weeks = history.weeks.length - 1 - c.idx;
+  const since = one ? "since last week's file" : `in ${weeks} weekly comparisons since ${date(c.date)}`;
+  const d = pulse.definitions;
+  const summed = (key) => sumSince(v.rec, key, c.idx);
+  const dated = (key) => (evenlyWeekly(history.weeks, c.idx) ? summed(key) : null);
+  const card = (title, value, sub, rule) => el("div", { class: "card", title: rule },
+    el("div", { class: "stat-label", text: title }),
+    el("div", { class: "stat-value", text: num(value) }),
+    sub ? el("div", { class: "stat-sub", text: sub }) : null);
+  clear(act,
+    card(one ? "New licenses, 7 days" : `New licenses since ${date(c.date)}`,
+      one ? v.totals.new_licenses_7d : dated("new_licenses_7d"),
+      one ? "License First Date in the last 7 days" : "License First Date, each week's 7 days added up", d.new_licenses_7d.rule),
+    card("Closures: status changed to CLOSED", summed("closures_status_changed"), since, d.closures_status_changed.rule),
+    card(one ? "Closures: Closed Date in the last 7 days" : `Closures by Closed Date since ${date(c.date)}`,
+      one ? v.totals.closures_closed_date_7d : dated("closures_closed_date_7d"),
+      one ? null : "each week's 7 days added up", d.closures_closed_date_7d.rule),
+    card("Ownership changes", summed("ownership_changes"), since, d.ownership_changes.rule),
+    card("New substantiated allegations", summed("new_substantiated_allegations"),
+      one && v.activity ? `at ${num(v.activity.facilities_new_substantiated)} facilities` : since, d.new_substantiated_allegations.rule),
+    card("New facility numbers", summed("new_facility_numbers"), since, d.new_facility_numbers.rule));
+}
+
+function renderTrends(v) {
+  const box = document.getElementById("trends");
+  const have = history.weeks.length, need = history.chart_min_weeks;
+  if (have < need || !v.rec) {
+    clear(box);
+    document.getElementById("trends-note").textContent =
+      `Trend charts start once ${need} weekly files are on hand (${have} so far: ${history.weeks.map(date).join(", ")}).`;
+    return;
+  }
+  clear(box, TRENDS.map(([key, title]) => lineChart(title, v.rec[key] || [], history.weeks)));
+  document.getElementById("trends-note").textContent =
+    `One point per weekly state file, ${date(history.weeks[0])} to ${date(history.weeks[have - 1])}. ${pulse.definitions.compare_with?.rule || ""}`;
 }
 
 function matches(e) {

@@ -43,7 +43,7 @@ PRIVATE_COLUMNS = ["Facility Administrator", "Facility Telephone Number", "Facil
 # Complaint signal: this many complaints or more dated in the last 12 months (Dale, 2026-10-21).
 COMPLAINT_THRESHOLD = 3
 
-# history.json is published once this many snapshots exist.
+# Trend charts appear once this many weekly files exist (spec: after 4 weeks).
 HISTORY_MIN_SNAPSHOTS = 4
 
 QA_HISTORY_LIMIT = 52

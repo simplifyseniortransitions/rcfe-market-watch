@@ -150,6 +150,15 @@ DEFINITIONS = {
     "small_base": ("Small base",
                    f"Rates for an area with fewer than {SMALL_BASE} licensed homes are marked \"small base\": a "
                    "few homes opening or closing moves them a lot."),
+    "compare_with": ("Compare with",
+                     "A change is this week's file minus the chosen earlier week's file, both counted under "
+                     "the same rules. Activity since an earlier week adds up the week-to-week comparisons in "
+                     "between. New licenses and closures by date add up each week's 7-day count, and are shown "
+                     "only when the weekly files are exactly 7 days apart. Comparisons reach back to the first "
+                     "saved weekly file, October 11, 2026."),
+    "trends": ("Trend charts",
+               "One point per weekly state file, counted under the same rules as the current week. "
+               "Charts appear once four weekly files are on hand."),
     "week_over_week": ("Week-over-week change",
                        "This snapshot's value minus the prior snapshot's value, each computed from its own "
                        "file with windows measured from its own as-of date."),

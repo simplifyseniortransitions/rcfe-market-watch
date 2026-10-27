@@ -1,7 +1,7 @@
 {
   "as_of": "2026-10-25",
   "source": "California Department of Social Services, Community Care Licensing Division: Residential Care Facilities for the Elderly licensing file (CC BY)",
-  "generated_at": "2026-10-27T21:04:18+00:00",
+  "generated_at": "2026-10-27T21:18:58+00:00",
   "snapshot_id": "2026-10-25",
   "product": "RCFE Deal Room Market Watch",
   "rule": "Licensee names with 3 or more LICENSED facilities. Names are matched after trimming, collapsing repeated spaces and ignoring upper/lower case; no other merging is done. A licensee name that is also an administrator's name is counted but shown as withheld.",

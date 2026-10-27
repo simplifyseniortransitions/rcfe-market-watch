@@ -15,7 +15,7 @@ from pipeline.validate import read_csv
 OUTPUT_FILES = ["pulse.json", "feed.json", "signals.json", "owners.json", "market.json",
                 "facilities.json", "history.json"]
 # Large lists are written without indentation to keep downloads small.
-COMPACT = {"facilities.json", "feed.json", "signals.json", "market.json"}
+COMPACT = {"facilities.json", "feed.json", "signals.json", "market.json", "history.json"}
 RECENT_EVENTS = 10
 SIZE_KEYS = ["all_sizes", *metrics.SIZES]
 
@@ -114,20 +114,43 @@ def facility_record(f, as_of, flags):
     }
 
 
+# The facility-type views the pages offer, and the week-to-week activity they add up.
+HISTORY_SCOPES = ["all", "core"]
+HISTORY_ACTIVITY = ["new_facility_numbers", "removed_facility_numbers", "closures_status_changed",
+                    "status_changes", "ownership_changes", "capacity_changes",
+                    "new_substantiated_allegations", "new_complaint_visits"]
+# "Compare with" choices: weeks back from the current file ("first" = the first file on record).
+COMPARE_OPTIONS = [("1", "Last week", 1), ("4", "4 weeks ago", 4), ("13", "13 weeks ago", 13),
+                   ("52", "52 weeks ago", 52), ("first", "First week on record", None)]
+
+
 def history(snapshots):
-    weeks = []
-    for as_of, fs in snapshots:
-        multi = metrics.multi_home_numbers(fs)
-        weeks.append({
-            "snapshot_id": as_of.isoformat(),
-            "totals": {
-                "all": metrics.totals(fs, as_of, multi),
-                "core": metrics.totals([f for f in fs if f.is_core], as_of, multi),
-                **{size: metrics.totals([f for f in fs if keep(f)], as_of, multi)
-                   for size, (_, keep) in metrics.SIZES.items()},
-            },
-        })
-    return weeks
+    """Week-by-week totals and activity for every saved week, statewide and by county.
+
+    Each week is computed from its own file and compared with the week before it, exactly as the
+    current week is. {"scope|size": {area: {key: [one value per week, or None]}}}.
+    """
+    n = len(snapshots)
+    series = {}
+
+    def put(areas, area, totals, activity, i):
+        rec = areas.setdefault(area, {})
+        for k in metrics.TOTAL_KEYS:
+            rec.setdefault(k, [None] * n)[i] = totals.get(k)
+        for k in HISTORY_ACTIVITY:
+            rec.setdefault(k, [None] * n)[i] = activity.get(k) if activity else None
+
+    for i, (as_of, fs) in enumerate(snapshots):
+        prior_as_of, prior = snapshots[i - 1] if i else (None, None)
+        result = metrics.compute(fs, as_of, prior, prior_as_of)
+        for scope in HISTORY_SCOPES:
+            seg = result["scopes"][scope]
+            for size, view in {"all_sizes": seg, **seg["by_size"]}.items():
+                areas = series.setdefault(f"{scope}|{size}", {})
+                put(areas, "California", view["totals"], view["activity"], i)
+                for row in view["counties"]:
+                    put(areas, row["county"], row, row["activity"], i)
+    return series
 
 
 def build(snapshots, generated_at):
@@ -193,8 +216,13 @@ def build(snapshots, generated_at):
                                  key=lambda r: (r["facility_name"], r["facility_number"])),
         },
     }
-    if len(snapshots) >= config.HISTORY_MIN_SNAPSHOTS:
-        outputs["history.json"] = {**m, "weeks": history(snapshots)}
+    outputs["history.json"] = {
+        **m,
+        "weeks": [d.isoformat() for d, _ in snapshots],
+        "chart_min_weeks": config.HISTORY_MIN_SNAPSHOTS,
+        "compare_options": [{"key": k, "label": label, "weeks_back": wb} for k, label, wb in COMPARE_OPTIONS],
+        "series": history(snapshots),
+    }
     return outputs
 
 

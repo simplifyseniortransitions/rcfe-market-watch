@@ -11,7 +11,7 @@ from tests.conftest import write_csv
 
 META = {"as_of", "source", "generated_at", "snapshot_id"}
 REQUIRED = {"pulse.json", "feed.json", "signals.json", "owners.json", "market.json", "facilities.json",
-            "qa-report.json"}
+            "history.json", "qa-report.json"}
 
 
 def load(paths, name):
@@ -28,7 +28,7 @@ def published(paths):
 
 def test_all_outputs_written_with_meta(published):
     names = {p.name for p in published.data.glob("*.json")}
-    assert names == REQUIRED  # history.json waits for 4 snapshots
+    assert names == REQUIRED
     for name in names:
         data = load(published, name)
         assert META <= data.keys(), name
@@ -86,15 +86,36 @@ def test_no_private_data_in_any_output(published):
         assert '"administrator' not in text.lower() and "telephone" not in text.lower()
 
 
-def test_history_after_four_snapshots(published):
+def test_history_has_every_week_and_matches_the_current_numbers(published):
+    h = load(published, "history.json")
+    assert h["weeks"] == ["2026-10-11", "2026-10-18"]
+    assert h["chart_min_weeks"] == 4
+    assert [o["key"] for o in h["compare_options"]] == ["1", "4", "13", "52", "first"]
+    assert set(h["series"]) == {f"{s}|{z}" for s in ("all", "core") for z in ("all_sizes", "small", "large")}
+    ca = h["series"]["all|all_sizes"]["California"]
+    seg = load(published, "pulse.json")["segments"]["all"]["all_sizes"]
+    assert ca["licensed_facilities"][-1] == seg["totals"]["licensed_facilities"] == 33
+    assert ca["licensed_facilities"][-1] - ca["licensed_facilities"][0] == seg["week_over_week"]["licensed_facilities"]
+    # The first week has nothing to compare with; the second holds that week's changes.
+    assert ca["new_facility_numbers"] == [None, 1] and ca["closures_status_changed"] == [None, 1]
+    # County records match the Market table for the same scope and size.
+    row = next(r for r in load(published, "market.json")["counties"]["core"]["small"] if r["county"] == "LOS ANGELES")
+    assert h["series"]["core|small"]["LOS ANGELES"]["licensed_facilities"][-1] == row["licensed_facilities"]
+
+
+def test_history_over_four_weeks(published):
     snap = published.snapshots
     for days in (14, 21):
         shutil.copy2(snap / "2026-10-11.csv", snap / f"{(date(2026, 10, 18) - timedelta(days=days)).isoformat()}.csv")
     publish.publish(published, "2026-10-21T00:00:00+00:00")
-    hist = load(published, "history.json")["weeks"]
-    assert [w["snapshot_id"] for w in hist] == ["2026-09-27", "2026-10-04", "2026-10-11", "2026-10-18"]
-    assert hist[-1]["totals"]["all"]["licensed_facilities"] == 33
-    assert hist[-1]["totals"]["small"]["licensed_facilities"] == 25
+    h = load(published, "history.json")
+    assert h["weeks"] == ["2026-09-27", "2026-10-04", "2026-10-11", "2026-10-18"]
+    ca = h["series"]["all|all_sizes"]["California"]
+    assert ca["licensed_facilities"][-1] == 33
+    # Three identical weekly files: no changes between them, then the real changes into Oct 18.
+    assert ca["new_facility_numbers"] == [None, 0, 0, 1]
+    assert sum(ca["new_facility_numbers"][1:]) == 1
+    assert h["series"]["all|small"]["California"]["licensed_facilities"][-1] == 25
 
 
 def test_failed_validation_keeps_last_good_site(published):

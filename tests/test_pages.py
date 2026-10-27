@@ -114,6 +114,9 @@ def test_no_tracking_ads_or_third_party_code():
         for word in TRACKERS:
             assert word not in low, f"{word} in {name}"
         assert not re.search(r"""(src|href)=["']https?://""", text), name
+        # The SVG namespace is a fixed identifier browsers require for drawing charts, not an address
+        # that is ever fetched; it is the only http string allowed.
+        low = low.replace('"http://www.w3.org/2000/svg"', "")
         assert "import(" not in text and "http://" not in low and "https://" not in low, name
 
 
@@ -171,3 +174,14 @@ def test_market_table_groups_activity_and_supply():
                 "pending", "on_probation", "probation_share", "share_licensed_multi", "licensed_beds",
                 "median_licensed_capacity"):
         assert f'key: "{key}"' in js, key
+
+
+def test_compare_with_and_trends_use_history_and_own_charts():
+    for name in ("pulse.js", "market.js"):
+        js = (SITE / "assets" / name).read_text()
+        assert 'getJSON("history.json")' in js and "compareSelect(history" in js, name
+        assert "state.week" not in js and "week_over_week" not in js, name
+    common = (SITE / "assets" / "common.js").read_text()
+    assert "export function lineChart" in common and "export function sparkline" in common
+    assert 'createElementNS(SVG' in common  # charts are drawn by the site, not a library
+    assert '<h2 id="trends-h">Trends</h2>' in (SITE / "index.html").read_text()

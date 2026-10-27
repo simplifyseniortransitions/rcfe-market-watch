@@ -1,7 +1,7 @@
 {
   "as_of": "2026-10-25",
   "source": "California Department of Social Services, Community Care Licensing Division: Residential Care Facilities for the Elderly licensing file (CC BY)",
-  "generated_at": "2026-10-27T21:04:18+00:00",
+  "generated_at": "2026-10-27T21:18:58+00:00",
   "snapshot_id": "2026-10-25",
   "product": "RCFE Deal Room Market Watch",
   "headline_scope": "all",
@@ -910,6 +910,14 @@
     "small_base": {
       "label": "Small base",
       "rule": "Rates for an area with fewer than 20 licensed homes are marked \"small base\": a few homes opening or closing moves them a lot."
+    },
+    "compare_with": {
+      "label": "Compare with",
+      "rule": "A change is this week's file minus the chosen earlier week's file, both counted under the same rules. Activity since an earlier week adds up the week-to-week comparisons in between. New licenses and closures by date add up each week's 7-day count, and are shown only when the weekly files are exactly 7 days apart. Comparisons reach back to the first saved weekly file, October 11, 2026."
+    },
+    "trends": {
+      "label": "Trend charts",
+      "rule": "One point per weekly state file, counted under the same rules as the current week. Charts appear once four weekly files are on hand."
     },
     "week_over_week": {
       "label": "Week-over-week change",
