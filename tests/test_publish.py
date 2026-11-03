@@ -90,7 +90,7 @@ def test_history_has_every_week_and_matches_the_current_numbers(published):
     h = load(published, "history.json")
     assert h["weeks"] == ["2026-10-11", "2026-10-18"]
     assert h["chart_min_weeks"] == 4
-    assert [o["key"] for o in h["compare_options"]] == ["1", "4", "13", "52", "first"]
+    assert [o["key"] for o in h["compare_options"]] == ["13", "52", "first"]
     assert set(h["series"]) == {f"{s}|{z}" for s in ("all", "core") for z in ("all_sizes", "small", "large")}
     ca = h["series"]["all|all_sizes"]["California"]
     seg = load(published, "pulse.json")["segments"]["all"]["all_sizes"]

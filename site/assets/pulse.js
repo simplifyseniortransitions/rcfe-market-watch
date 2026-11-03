@@ -93,7 +93,7 @@ function render() {
   const where = state.county ? `${place(state.county)} County` : "California";
   const c = compared();
   document.getElementById("subtitle").textContent = `${where}, week of ${date(pulse.as_of)}. ` +
-    (c ? `Compared with the week of ${date(c.date)} (${c.label.toLowerCase()}).` : "No earlier file to compare yet.");
+    (c ? `Compared with the week of ${date(c.date)} (${c.note}).` : "No earlier file to compare yet.");
 
   const v = view();
   const totals = document.getElementById("totals");

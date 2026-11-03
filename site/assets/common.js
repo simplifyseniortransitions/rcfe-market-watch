@@ -124,22 +124,39 @@ export function licenseeText(name, withheld) {
 // Every number is this week's file minus the chosen week's file, or the sum of the weekly changes
 // in between; nothing is estimated.
 
+// Choices: every saved week by date for the most recent RECENT_WEEKS weeks (newest first), then the
+// longer look-backs from history.json (13 weeks, 52 weeks, first on record) that are not already listed.
+// Keys: a week's date (e.g. "2026-10-18"), or "13" / "52" / "first". "1" (the old default) means last week.
+const RECENT_WEEKS = 12;
+
 export function compareChoice(history, key) {
-  const last = history.weeks.length - 1;
-  const choices = history.compare_options.map((o) => {
+  const weeks = history.weeks, last = weeks.length - 1;
+  const ago = (n) => (n === 1 ? "last week" : `${n} weeks earlier`);
+  const choices = [];
+  for (let i = last - 1; i >= Math.max(0, last - RECENT_WEEKS); i--) {
+    const back = last - i;
+    choices.push({ key: weeks[i], idx: i, weeks_back: back, available: true, date: weeks[i],
+      note: i === 0 && back > 1 ? `${ago(back)}, first on record` : ago(back),
+      label: `Week of ${date(weeks[i])} (${i === 0 && back > 1 ? "first on record" : ago(back)})` });
+  }
+  for (const o of history.compare_options) {
     const idx = o.weeks_back == null ? 0 : last - o.weeks_back;
-    return { ...o, idx, available: idx >= 0 && idx < last, date: history.weeks[Math.max(idx, 0)] };
-  });
-  const chosen = choices.find((c) => c.key === key && c.available) || choices.find((c) => c.available) || null;
+    if (choices.some((c) => c.idx === idx && idx >= 0)) continue;  // that week is already listed by date
+    const available = idx >= 0 && idx < last;
+    choices.push({ key: o.key, idx, weeks_back: o.weeks_back ?? last, available, date: weeks[Math.max(idx, 0)],
+      note: o.label.toLowerCase(),
+      label: available ? `${o.label} (week of ${date(weeks[idx])})`
+        : `${o.label} (needs ${o.weeks_back + 1} weekly files; ${weeks.length} so far)` });
+  }
+  const wanted = key === "1" ? weeks[last - 1] : key === "first" ? weeks[0] : key;
+  const chosen = choices.find((c) => c.available && (c.key === wanted || c.date === wanted && /^\d{4}-/.test(wanted)))
+    || choices.find((c) => c.available) || null;
   return { chosen, choices };
 }
 
 export function compareSelect(history, key, onChange) {
-  const { choices } = compareChoice(history, key);
-  const have = history.weeks.length;
-  return select("Compare with", choices.map((c) => [c.key,
-    c.available ? `${c.label} (${date(c.date)})` : `${c.label} (needs ${c.weeks_back ? c.weeks_back + 1 : 2} weekly files; ${have} so far)`,
-    !c.available]), compareChoice(history, key).chosen?.key, onChange);
+  const { chosen, choices } = compareChoice(history, key);
+  return select("Compare with", choices.map((c) => [c.key, c.label, !c.available]), chosen?.key, onChange);
 }
 
 // The week-by-week record for one area ("California" or a county) of one scope and size.

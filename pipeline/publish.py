@@ -119,9 +119,9 @@ HISTORY_SCOPES = ["all", "core"]
 HISTORY_ACTIVITY = ["new_facility_numbers", "removed_facility_numbers", "closures_status_changed",
                     "status_changes", "ownership_changes", "capacity_changes",
                     "new_substantiated_allegations", "new_complaint_visits"]
-# "Compare with" choices: weeks back from the current file ("first" = the first file on record).
-COMPARE_OPTIONS = [("1", "Last week", 1), ("4", "4 weeks ago", 4), ("13", "13 weeks ago", 13),
-                   ("52", "52 weeks ago", 52), ("first", "First week on record", None)]
+# Longer "Compare with" look-backs; the pages also list every recent saved week by date
+# (Dale, 2026-11-02). weeks_back None = the first file on record.
+COMPARE_OPTIONS = [("13", "13 weeks ago", 13), ("52", "52 weeks ago", 52), ("first", "First week on record", None)]
 
 
 def history(snapshots):
