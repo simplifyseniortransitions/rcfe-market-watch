@@ -67,7 +67,7 @@ announced, or one that doesn't end with a complete line.
 If CDSS has not posted a new file, nothing is published. On any failure the site keeps last week's
 version, and the failed file is kept in the private repository under `snapshots/rejected/`.
 
-- **Schedule (Pacific time):** Monday 1 PM, then retries Monday 6 PM and Tuesday 1 PM. A retry does nothing
+- **Schedule (Pacific time):** Monday 3:30 PM, then retries Monday 6 PM and Tuesday 1 PM. A retry does nothing
   once this week's file is published. Only the Tuesday 1 PM retry, or a manual run, opens an issue (about
   a failure, or about no new CDSS file), so a short CDSS outage stays quiet. Scheduled runs happen while
   the repository variable `WEEKLY_SCHEDULE` is `on`.

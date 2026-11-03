@@ -7,13 +7,14 @@ on:
   schedule:
     # All times Pacific; GitHub schedules run on UTC, so each slot has a daylight-time (PDT) and a
     # standard-time (PST) entry, and the "when" step keeps only the one that matches today's clock.
-    #   Monday 1 PM  (main run):   20:00 UTC Mon (PDT) / 21:00 UTC Mon (PST)
+    #   Monday 3:30 PM (main run): 22:30 UTC Mon (PDT) / 23:30 UTC Mon (PST)
+    #     (moved from 1 PM on 2026-11-02: CDSS's download was down around 1 PM two Mondays running)
     #   Monday 6 PM  (retry):      01:00 UTC Tue (PDT) / 02:00 UTC Tue (PST)
     #   Tuesday 1 PM (last retry): 20:00 UTC Tue (PDT) / 21:00 UTC Tue (PST)
     # Retries do nothing once this week's file is published (Dale, 2026-10-27).
     # Scheduled runs only happen while the repository variable WEEKLY_SCHEDULE is "on".
-    - cron: "0 20 * * 1"
-    - cron: "0 21 * * 1"
+    - cron: "30 22 * * 1"
+    - cron: "30 23 * * 1"
     - cron: "0 1 * * 2"
     - cron: "0 2 * * 2"
     - cron: "0 20 * * 2"
@@ -45,9 +46,9 @@ jobs:
           slot=manual
           if [ "$EVENT" = "schedule" ]; then
             if [ "$(TZ=America/Los_Angeles date +%z)" = "-0700" ]; then
-              case "$CRON" in "0 20 * * 1") slot=main;; "0 1 * * 2") slot=evening;; "0 20 * * 2") slot=final;; *) slot=skip;; esac
+              case "$CRON" in "30 22 * * 1") slot=main;; "0 1 * * 2") slot=evening;; "0 20 * * 2") slot=final;; *) slot=skip;; esac
             else
-              case "$CRON" in "0 21 * * 1") slot=main;; "0 2 * * 2") slot=evening;; "0 21 * * 2") slot=final;; *) slot=skip;; esac
+              case "$CRON" in "30 23 * * 1") slot=main;; "0 2 * * 2") slot=evening;; "0 21 * * 2") slot=final;; *) slot=skip;; esac
             fi
           fi
           # Issues are opened only by a manual run or the last retry, so a short CDSS outage stays quiet.
@@ -102,21 +103,21 @@ jobs:
       - name: Download this week's CDSS file
         id: download
         if: steps.decide.outputs.go == 'true'
-        # Early runs (Monday 1 PM and 6 PM) fail softly: no failure email, a later run retries.
+        # Early runs (Monday 3:30 PM and 6 PM) fail softly: no failure email, a later run retries.
         continue-on-error: ${{ steps.when.outputs.loud != 'true' }}
         run: python -m pipeline.download
 
       - name: Check the file and rebuild the data
         id: pipeline
         if: steps.download.outputs.status == 'new'
-        # Early runs (Monday 1 PM and 6 PM) fail softly: no failure email, a later run retries.
+        # Early runs (Monday 3:30 PM and 6 PM) fail softly: no failure email, a later run retries.
         continue-on-error: ${{ steps.when.outputs.loud != 'true' }}
         run: python -m pipeline.run
 
       - name: Run the automated tests on the new data
         id: tests
         if: steps.pipeline.outcome == 'success'
-        # Early runs (Monday 1 PM and 6 PM) fail softly: no failure email, a later run retries.
+        # Early runs (Monday 3:30 PM and 6 PM) fail softly: no failure email, a later run retries.
         continue-on-error: ${{ steps.when.outputs.loud != 'true' }}
         run: python -m pytest -q
 
@@ -160,7 +161,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh issue create --title "No new CDSS file by $(TZ=America/Los_Angeles date +%Y-%m-%d) 1 PM" \
-            --body "The Monday 1 PM, Monday 6 PM and Tuesday 1 PM runs all found the same CDSS file as last week (${{ steps.download.outputs.file }}). Nothing was published; the site still shows the last saved week. Re-run the job from the Actions tab once CDSS posts the new file."
+            --body "The Monday 3:30 PM, Monday 6 PM and Tuesday 1 PM runs all found the same CDSS file as last week (${{ steps.download.outputs.file }}). Nothing was published; the site still shows the last saved week. Re-run the job from the Actions tab once CDSS posts the new file."
 
       - name: Keep the failed file for review and log the result
         if: always() && steps.decide.outputs.go == 'true' && (failure() || steps.download.outcome == 'failure' || steps.pipeline.outcome == 'failure' || steps.tests.outcome == 'failure')
