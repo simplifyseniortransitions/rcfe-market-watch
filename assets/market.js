@@ -94,7 +94,7 @@ function render() {
   const scopeLabel = pulse.scopes[state.scope].toLowerCase().replace("ccrcs", "CCRCs").replace("rcfes", "RCFEs");
   const c = compared();
   document.getElementById("subtitle").textContent = `Week of ${date(pulse.as_of)} · ${scopeLabel} · ${sizeLabel}. ` +
-    (c ? `Change is versus the week of ${date(c.date)} (${c.label.toLowerCase()}).` : "No earlier file to compare yet.");
+    (c ? `Change is versus the week of ${date(c.date)} (${c.note}).` : "No earlier file to compare yet.");
 
   const q = state.q.trim().toLowerCase();
   let rows = market.counties[state.scope][state.size].filter((r) => !q || place(r.county).toLowerCase().includes(q));
