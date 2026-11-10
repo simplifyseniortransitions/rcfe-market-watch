@@ -71,6 +71,8 @@ version, and the failed file is kept in the private repository under `snapshots/
   once this week's file is published. Only the Tuesday 1 PM retry, or a manual run, opens an issue (about
   a failure, or about no new CDSS file), so a short CDSS outage stays quiet. Scheduled runs happen while
   the repository variable `WEEKLY_SCHEDULE` is `on`.
+- **Weekly notice:** after each main run, and whenever a retry publishes, the job comments on the "Weekly
+  update notices" issue (repository variable `NOTICE_ISSUE`) and @mentions the owner, so GitHub sends an email.
 - **Run it by hand:** GitHub → Actions → Weekly update → Run workflow.
 
 ## Pages (`site/`)

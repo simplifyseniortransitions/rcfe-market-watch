@@ -133,6 +133,7 @@ jobs:
           git push -q origin HEAD:main
 
       - name: Publish the site
+        id: publish
         if: steps.tests.outcome == 'success'
         run: |
           git add site/data
@@ -154,6 +155,22 @@ jobs:
           else
             python -m pipeline.notify summary >> "$GITHUB_STEP_SUMMARY" || true
           fi
+
+      # A comment that @mentions the owner on the "Weekly update notices" issue, so GitHub emails it.
+      - name: Send the weekly notice
+        if: always() && steps.decide.outputs.go == 'true' && vars.NOTICE_ISSUE != ''
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NOTICE_ISSUE: ${{ vars.NOTICE_ISSUE }}
+          SLOT: ${{ steps.when.outputs.slot }}
+          DOWNLOAD_STATUS: ${{ steps.download.outputs.status }}
+          DOWNLOAD_ERROR: ${{ steps.download.outputs.error }}
+          PUBLISH_OUTCOME: ${{ steps.publish.outcome }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          python -m pipeline.notify weekly > notice.md
+          if [ -s notice.md ]; then gh issue comment "$NOTICE_ISSUE" --body-file notice.md; fi
 
       - name: Note when CDSS has no new file by the last retry
         if: steps.download.outputs.status == 'unchanged' && steps.when.outputs.slot == 'final'
