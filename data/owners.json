@@ -1,8 +1,8 @@
 {
-  "as_of": "2026-11-01",
+  "as_of": "2026-11-08",
   "source": "California Department of Social Services, Community Care Licensing Division: Residential Care Facilities for the Elderly licensing file (CC BY)",
-  "generated_at": "2026-11-03T01:38:44+00:00",
-  "snapshot_id": "2026-11-01",
+  "generated_at": "2026-11-10T00:03:57+00:00",
+  "snapshot_id": "2026-11-08",
   "product": "RCFE Deal Room Market Watch",
   "rule": "Licensee names with 3 or more LICENSED facilities. Names are matched after trimming, collapsing repeated spaces and ignoring upper/lower case; no other merging is done. A licensee name that is also an administrator's name is counted but shown as withheld.",
   "scope": "all",
@@ -416,6 +416,23 @@
       }
     },
     {
+      "licensee": "BELLAHOMECARE LLC",
+      "licensee_withheld": false,
+      "name_variants": [
+        "BELLAHOMECARE LLC"
+      ],
+      "licensed_homes": 5,
+      "licensed_homes_small": 5,
+      "licensed_homes_large": 0,
+      "licensed_beds": 30,
+      "counties": [
+        "SAN DIEGO"
+      ],
+      "statuses": {
+        "LICENSED": 5
+      }
+    },
+    {
       "licensee": "COPPER RIVER RETIREMENT GROUP LLC",
       "licensee_withheld": false,
       "name_variants": [
@@ -554,25 +571,6 @@
       }
     },
     {
-      "licensee": "RNZ QUALITY CARE",
-      "licensee_withheld": false,
-      "name_variants": [
-        "RNZ QUALITY CARE"
-      ],
-      "licensed_homes": 5,
-      "licensed_homes_small": 5,
-      "licensed_homes_large": 0,
-      "licensed_beds": 30,
-      "counties": [
-        "RIVERSIDE",
-        "SAN DIEGO"
-      ],
-      "statuses": {
-        "LICENSED": 5,
-        "CLOSED": 1
-      }
-    },
-    {
       "licensee": "STERLING SENIOR CARE 2 LLC",
       "licensee_withheld": false,
       "name_variants": [
@@ -700,24 +698,6 @@
       ],
       "statuses": {
         "LICENSED": 4
-      }
-    },
-    {
-      "licensee": "BELLAHOMECARE LLC",
-      "licensee_withheld": false,
-      "name_variants": [
-        "BELLAHOMECARE LLC"
-      ],
-      "licensed_homes": 4,
-      "licensed_homes_small": 4,
-      "licensed_homes_large": 0,
-      "licensed_beds": 24,
-      "counties": [
-        "SAN DIEGO"
-      ],
-      "statuses": {
-        "LICENSED": 4,
-        "PENDING": 1
       }
     },
     {
@@ -1105,6 +1085,24 @@
       ],
       "statuses": {
         "LICENSED": 4
+      }
+    },
+    {
+      "licensee": "RNZ QUALITY CARE",
+      "licensee_withheld": false,
+      "name_variants": [
+        "RNZ QUALITY CARE"
+      ],
+      "licensed_homes": 4,
+      "licensed_homes_small": 4,
+      "licensed_homes_large": 0,
+      "licensed_beds": 24,
+      "counties": [
+        "RIVERSIDE"
+      ],
+      "statuses": {
+        "LICENSED": 4,
+        "CLOSED": 2
       }
     },
     {
@@ -2365,6 +2363,7 @@
       ],
       "statuses": {
         "LICENSED": 3,
+        "PENDING": 1,
         "CLOSED": 1
       }
     },
@@ -3334,23 +3333,6 @@
       "licensed_beds": 18,
       "counties": [
         "SANTA BARBARA"
-      ],
-      "statuses": {
-        "LICENSED": 3
-      }
-    },
-    {
-      "licensee": "VISTA SERENO RCFE L.L.C.",
-      "licensee_withheld": false,
-      "name_variants": [
-        "VISTA SERENO RCFE L.L.C."
-      ],
-      "licensed_homes": 3,
-      "licensed_homes_small": 3,
-      "licensed_homes_large": 0,
-      "licensed_beds": 12,
-      "counties": [
-        "SAN DIEGO"
       ],
       "statuses": {
         "LICENSED": 3
