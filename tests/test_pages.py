@@ -117,6 +117,8 @@ def test_no_tracking_ads_or_third_party_code():
         # The SVG namespace is a fixed identifier browsers require for drawing charts, not an address
         # that is ever fetched; it is the only http string allowed.
         low = low.replace('"http://www.w3.org/2000/svg"', "")
+        # The one outside address: the link back to rcfedealroom.com, shown when the page is opened elsewhere.
+        low = low.replace('"https://www.rcfedealroom.com/market-watch"', "") if name.endswith("guard.js") else low
         assert "import(" not in text and "http://" not in low and "https://" not in low, name
 
 
@@ -185,3 +187,19 @@ def test_compare_with_and_trends_use_history_and_own_charts():
     assert "export function lineChart" in common and "export function sparkline" in common
     assert 'createElementNS(SVG' in common  # charts are drawn by the site, not a library
     assert '<h2 id="trends-h">Trends</h2>' in (SITE / "index.html").read_text()
+
+
+def test_every_page_keeps_search_engines_out_and_shows_only_inside_rcfe_deal_room_sites():
+    import glob
+    pages = sorted(glob.glob("site/*.html"))
+    assert len(pages) == 5
+    for f in pages:
+        s = open(f, encoding="utf-8").read()
+        assert '<meta name="robots" content="noindex, nofollow">' in s, f
+        # The check loads before the page's own scripts.
+        assert '<script src="assets/guard.js"></script>' in s and s.index("assets/guard.js") < s.index('<script type="module"'), f
+    guard = open("site/assets/guard.js", encoding="utf-8").read()
+    for host in ["rcfedealroom", "community\\.rcfedealroom", "rcfe-deal-room\\.marblism\\.me", "rcfe-community\\.dale-35c\\.workers\\.dev"]:
+        assert host in guard, host
+    assert "innerHTML" not in guard and "ancestorOrigins" in guard
+    assert "html.outside" in open("site/assets/style.css", encoding="utf-8").read()

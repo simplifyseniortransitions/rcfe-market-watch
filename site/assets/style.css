@@ -201,3 +201,7 @@ dl.facts dd { margin: 0; font-variant-numeric: tabular-nums; }
 .chart .dot.now, .spark .dot.now { fill: var(--accent); }
 .chart .tick { font-size: 11px; fill: var(--muted); font-family: var(--sans); }
 .spark { display: block; }
+
+/* Opened outside RCFE Deal Room's sites (see assets/guard.js): only the note pointing to rcfedealroom.com shows. */
+html.outside body > :not(.outside-note) { display: none !important; }
+.outside-note { max-width: 640px; margin: 64px auto; padding: 0 16px; }
