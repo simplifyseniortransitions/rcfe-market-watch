@@ -43,5 +43,10 @@ if __name__ == "__main__":
     if not POINTER.exists():
         subprocess.run([sys.executable, "-m", "pipeline.mapdata", "--no-geocode"], cwd=ROOT, check=True,
                        env={"PYTHONPATH": str(ROOT)})
+    try:
+        server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
+    except OSError:
+        print(f"The preview is already running. Open http://127.0.0.1:{PORT} in your browser.")
+        sys.exit(0)
     print(f"Market Map preview at http://127.0.0.1:{PORT} (Ctrl+C to stop)")
-    ThreadingHTTPServer(("127.0.0.1", PORT), Handler).serve_forever()
+    server.serve_forever()
