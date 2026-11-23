@@ -71,6 +71,11 @@ class Paths:
         return self.snapshots / "rejected"
 
     @property
+    def geocache(self) -> Path:
+        """Private geocode cache for the members' map. Holds street addresses: never under site/."""
+        return self.root / "geocache"
+
+    @property
     def data(self) -> Path:
         return self.root / "site" / "data"
 

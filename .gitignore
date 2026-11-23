@@ -10,3 +10,5 @@ inbox/*
 !inbox/.gitkeep
 snapshots/*
 !snapshots/.gitkeep
+# Geocode cache and reports for the members' map: street addresses, private only.
+geocache/
