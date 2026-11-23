@@ -76,6 +76,11 @@ class Paths:
         return self.root / "geocache"
 
     @property
+    def mapbuild(self) -> Path:
+        """Members' map files before upload. Holds street addresses: never under site/."""
+        return self.root / "mapbuild"
+
+    @property
     def data(self) -> Path:
         return self.root / "site" / "data"
 

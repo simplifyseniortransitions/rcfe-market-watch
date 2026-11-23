@@ -147,6 +147,38 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
+      # Members' map (Market Map, phase 2). Private only: street addresses never go to the public site.
+      # Off until the repository variable MAP_PUBLISH is "on". It runs after the public publish and can't
+      # stop it: a failure here only adds a line to the weekly notice.
+      - name: Members' map file
+        id: map
+        if: steps.tests.outcome == 'success' && vars.MAP_PUBLISH == 'on'
+        continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.MAP_R2_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          MAP_BUCKET: ${{ vars.MAP_BUCKET }}
+        run: |
+          mkdir -p geocache
+          cp -p private-data/geocache/*.csv geocache/ 2>/dev/null || echo "No saved geocode cache yet."
+          python -m pipeline.mapdata
+          mkdir -p private-data/geocache
+          cp -p geocache/addresses.csv geocache/overrides.csv private-data/geocache/
+          cd private-data
+          git add geocache
+          git diff --cached --quiet || git commit -q -m "Geocode cache: ${{ steps.download.outputs.file }}"
+          git pull -q --rebase origin main
+          git push -q origin HEAD:main
+          cd ..
+          if [ -z "$MAP_BUCKET" ] || [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "No storage bucket set up yet; the map file was built but not uploaded."
+            exit 0
+          fi
+          key=$(python -c "import json; print(json.load(open('mapbuild/map/current.json'))['key'])")
+          # The weekly version first, then the pointer, so members never see a pointer to a missing file.
+          npx --yes wrangler@4.158.0 r2 object put "$MAP_BUCKET/$key" --file "mapbuild/$key" --content-type application/json --remote
+          npx --yes wrangler@4.158.0 r2 object put "$MAP_BUCKET/map/current.json" --file mapbuild/map/current.json --content-type application/json --remote
+
       - name: Summary
         if: always() && steps.decide.outputs.go == 'true'
         run: |
@@ -167,6 +199,7 @@ jobs:
           DOWNLOAD_STATUS: ${{ steps.download.outputs.status }}
           DOWNLOAD_ERROR: ${{ steps.download.outputs.error }}
           PUBLISH_OUTCOME: ${{ steps.publish.outcome }}
+          MAP_OUTCOME: ${{ steps.map.outcome }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           python -m pipeline.notify weekly > notice.md

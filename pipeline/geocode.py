@@ -25,15 +25,20 @@ from pipeline.address import Address, from_row
 from pipeline.snapshot import list_snapshots
 from pipeline.validate import read_csv
 
-CENSUS_URL = "https://geocoding.geo.census.gov/geocoder/locations/addressbatch"
+# The "geographies" batch returns the same match as "locations", plus the state and county it falls in.
+CENSUS_URL = "https://geocoding.geo.census.gov/geocoder/geographies/addressbatch"
 CENSUS_BENCHMARK = "Public_AR_Current"
+CENSUS_VINTAGE = "Current_Current"
 USER_AGENT = "RCFE-Market-Watch/1.0 (members' map geocoding; github.com/simplifyseniortransitions/rcfe-market-watch)"
 CHUNK = 2000            # the Census limit is 10,000 per file; smaller files finish faster and fail smaller
 PAUSE_SECONDS = 5       # between files, to be polite to a free service
 RETRY_DAYS = (7, 14, 28, 56)  # wait after the 1st, 2nd, 3rd and later failed lookups
 
 FIELDS = ["address_key", "street", "unit", "city", "zip5", "lat", "lon", "source", "match_quality",
-          "matched_address", "first_geocoded", "last_checked", "attempts", "last_error", "retry_after"]
+          "matched_address", "first_geocoded", "last_checked", "attempts", "last_error", "retry_after",
+          "county_fips"]
+# county_fips: 5-digit state+county code of the location (e.g. 06067); "none" when the geocoder gave no county.
+NO_COUNTY = "none"
 OVERRIDE_FIELDS = ["facility_number", "address_key", "lat", "lon", "reason", "set_by", "set_on"]
 
 
@@ -45,6 +50,7 @@ class Result:
     quality: str = "none"     # exact, approximate, tie, none
     matched: str = ""
     error: str = ""
+    county_fips: str = ""
 
 
 class GeocodeError(Exception):
@@ -85,19 +91,26 @@ def save_cache(folder: Path, cache):
 
 
 def needs_lookup(entry, today: date) -> bool:
-    """New address, or a failed one whose wait is over. A placed address is never looked up again."""
+    """New address, or a failed one whose wait is over.
+
+    A placed address is looked up again only once, if it was placed before counties were recorded.
+    """
     if entry is None:
         return True
     if entry.get("lat") and entry.get("lon"):
-        return False
+        return not entry.get("county_fips")
     retry = entry.get("retry_after") or ""
     return not retry or date.fromisoformat(retry) <= today
 
 
 def record(cache, address: Address, result: Result, source: str, today: date):
     old = cache.get(address.key, {})
-    attempts = int(old.get("attempts") or 0) + 1
     placed = bool(result.lat and result.lon)
+    if old.get("lat") and old.get("lon") and not placed:
+        # A county refresh of an already placed address that no longer matches: keep the location.
+        cache[address.key] = {**old, "last_checked": today.isoformat(), "county_fips": NO_COUNTY}
+        return
+    attempts = int(old.get("attempts") or 0) + 1
     cache[address.key] = {
         "address_key": address.key, "street": address.street, "unit": address.unit, "city": address.city,
         "zip5": address.zip5, "lat": result.lat, "lon": result.lon, "source": source if placed else "",
@@ -105,6 +118,7 @@ def record(cache, address: Address, result: Result, source: str, today: date):
         "first_geocoded": old.get("first_geocoded") or (today.isoformat() if placed else ""),
         "last_checked": today.isoformat(), "attempts": str(attempts), "last_error": result.error,
         "retry_after": "" if placed else (today + timedelta(days=RETRY_DAYS[min(attempts, len(RETRY_DAYS)) - 1])).isoformat(),
+        "county_fips": (result.county_fips or NO_COUNTY) if placed else "",
     }
 
 
@@ -119,6 +133,7 @@ def census_request_body(records):
     boundary = uuid.uuid4().hex
     parts = [
         f'--{boundary}\r\nContent-Disposition: form-data; name="benchmark"\r\n\r\n{CENSUS_BENCHMARK}\r\n'.encode(),
+        f'--{boundary}\r\nContent-Disposition: form-data; name="vintage"\r\n\r\n{CENSUS_VINTAGE}\r\n'.encode(),
         f'--{boundary}\r\nContent-Disposition: form-data; name="addressFile"; filename="addresses.csv"\r\n'
         f"Content-Type: text/csv\r\n\r\n".encode() + rows.getvalue().encode() + b"\r\n",
         f"--{boundary}--\r\n".encode(),
@@ -127,7 +142,10 @@ def census_request_body(records):
 
 
 def parse_census(text, ids_to_keys):
-    """Results from the Census answer: "id","input","Match|No_Match|Tie","Exact|Non_Exact","matched","lon,lat",…"""
+    """Results from the Census answer.
+
+    "id","input","Match|No_Match|Tie","Exact|Non_Exact","matched","lon,lat","tiger id","side","state","county",…
+    """
     out = {}
     for row in csv.reader(io.StringIO(text)):
         if not row or row[0] not in ids_to_keys:
@@ -137,7 +155,9 @@ def parse_census(text, ids_to_keys):
         if status == "Match" and len(row) >= 6 and "," in row[5]:
             lon, lat = (v.strip() for v in row[5].split(",", 1))
             quality = "exact" if row[3].strip() == "Exact" else "approximate"
-            out[key] = Result(key, f"{float(lat):.6f}", f"{float(lon):.6f}", quality, row[4].strip())
+            fips = row[8].strip() + row[9].strip() if len(row) >= 10 else ""
+            out[key] = Result(key, f"{float(lat):.6f}", f"{float(lon):.6f}", quality, row[4].strip(),
+                              county_fips=fips if len(fips) == 5 and fips.isdigit() else "")
         elif status == "Tie":
             out[key] = Result(key, quality="tie", error="more than one possible match")
         else:

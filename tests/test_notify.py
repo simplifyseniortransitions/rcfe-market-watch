@@ -62,3 +62,11 @@ def test_no_new_file_and_failure_notices_say_what_happens_next():
 def test_the_evening_retry_stays_silent_unless_it_publishes():
     assert notify.weekly_notice("unchanged", False, "evening", pulse_data()) == ""
     assert notify.weekly_notice("failed", False, "evening", pulse_data(), "HTTP Error 503") == ""
+
+
+def test_weekly_notice_mentions_the_members_map_only_when_it_ran():
+    off = notify.weekly_notice("new", True, "main", pulse_data())
+    assert "Members' map" not in off and "Members' map" not in notify.weekly_notice("new", True, "main", pulse_data(), map_outcome="skipped")
+    assert "Members' map: updated." in notify.weekly_notice("new", True, "main", pulse_data(), map_outcome="success")
+    failed = notify.weekly_notice("new", True, "main", pulse_data(), map_outcome="failure")
+    assert "did not update" in failed and "public site is not affected" in failed

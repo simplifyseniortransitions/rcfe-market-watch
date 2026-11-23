@@ -71,7 +71,7 @@ def signed(n):
     return "no earlier week" if n is None else "no change" if n == 0 else f"{n:+,}".replace("-", "−")
 
 
-def weekly_notice(status, published, slot, pulse, error="", run_url=""):
+def weekly_notice(status, published, slot, pulse, error="", run_url="", map_outcome=""):
     """The weekly email text, or "" when this run should stay silent (a retry with nothing to report)."""
     if published:
         seg = pulse["segments"][pulse["headline_scope"]]["all_sizes"]
@@ -86,6 +86,7 @@ def weekly_notice(status, published, slot, pulse, error="", run_url=""):
                   f"- Ownership changes: {a.get('ownership_changes', 0):,}",
                   f"- New substantiated allegations: {a.get('new_substantiated_allegations', 0):,}",
                   "", f"Site: {SITE_URL}"]
+        lines += map_line(map_outcome)
         return "\n".join(lines) + "\n"
     if slot == "evening":
         return ""
@@ -102,6 +103,16 @@ def weekly_notice(status, published, slot, pulse, error="", run_url=""):
     return "\n".join(lines).rstrip() + "\n"
 
 
+def map_line(outcome):
+    """One line about the members' map step, or nothing while that step is switched off."""
+    if outcome == "success":
+        return ["", "Members' map: updated."]
+    if outcome == "failure":
+        return ["", "Members' map: did not update this week (the public site is not affected). "
+                    "Members still see last week's map."]
+    return []
+
+
 def load_pulse(paths=config.DEFAULT_PATHS):
     return json.loads((paths.data / "pulse.json").read_text(encoding="utf-8"))
 
@@ -112,7 +123,8 @@ def main(argv=None):
     if argv and argv[0] == "weekly":
         env = os.environ.get
         sys.stdout.write(weekly_notice(env("DOWNLOAD_STATUS", ""), env("PUBLISH_OUTCOME") == "success", env("SLOT", "manual"),
-                                       load_pulse(), env("DOWNLOAD_ERROR", ""), env("RUN_URL", "")))
+                                       load_pulse(), env("DOWNLOAD_ERROR", ""), env("RUN_URL", ""),
+                                       env("MAP_OUTCOME", "")))
     elif argv and argv[0] == "failure":
         download_error = argv[1] if len(argv) > 1 else ""
         run_url = argv[2] if len(argv) > 2 else ""
