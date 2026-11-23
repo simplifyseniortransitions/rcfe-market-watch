@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Market Map Preview</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.min.css">
+<style>
+  :root { --navy:#092d4c; --blue:#0869bd; --cream:#f7f5f0; --line:#d9d4c7; --muted:#5b6670; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; font-family: Arial, Helvetica, sans-serif; color:#1d2730; background:var(--cream); }
+  .wrap { display:flex; height:100%; }
+  aside { width:340px; flex:none; overflow:auto; padding:16px; border-right:1px solid var(--line); background:#fff; }
+  #map { flex:1; }
+  h1 { font-family: Georgia, serif; color:var(--navy); font-size:20px; margin:0 0 4px; }
+  .private { font-size:12px; color:#8a4b00; background:#fff4e0; border-radius:8px; padding:6px 8px; margin:8px 0 14px; }
+  label { display:block; font-size:13px; font-weight:bold; margin:12px 0 4px; color:var(--navy); }
+  input[type=search], select { width:100%; padding:8px; border:1px solid var(--line); border-radius:8px; font-size:14px; }
+  .checks label { display:inline-flex; gap:4px; font-weight:normal; margin:0 10px 0 0; color:#1d2730; }
+  .stat { margin-top:16px; padding:12px; background:var(--cream); border-radius:12px; font-size:14px; line-height:1.5; }
+  .stat b { color:var(--navy); }
+  .key { font-size:12px; color:var(--muted); margin-top:12px; line-height:1.7; }
+  .dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:4px; vertical-align:middle; }
+  .note { font-size:12px; color:var(--muted); margin-top:14px; line-height:1.5; }
+  .card h3 { margin:0 0 4px; font-family: Georgia, serif; color:var(--navy); font-size:16px; }
+  .card div { font-size:13px; margin:2px 0; }
+  .card .flag { color:#8a4b00; }
+  .card table { border-collapse:collapse; margin-top:6px; font-size:12px; }
+  .card td { padding:2px 8px 2px 0; }
+  .card .small { color:var(--muted); font-size:11px; margin-top:6px; }
+  @media (max-width: 760px) { .wrap { flex-direction:column; } aside { width:100%; max-height:45%; border-right:0; border-bottom:1px solid var(--line); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <aside>
+    <h1>California RCFE Market Map</h1>
+    <div class="private">Private preview on this Mac only. Street addresses: not for sharing.</div>
+    <div id="asof" style="font-size:13px;color:var(--muted)">Loading…</div>
+
+    <label for="q">Search name, city or ZIP</label>
+    <input id="q" type="search" placeholder="e.g. Fresno or 95814">
+
+    <label for="county">County (where the home is located)</label>
+    <select id="county"><option value="">All counties</option></select>
+
+    <label>Status</label>
+    <div class="checks">
+      <label><input type="checkbox" class="st" value="LICENSED" checked> Licensed</label>
+      <label><input type="checkbox" class="st" value="PENDING" checked> Pending</label>
+      <label><input type="checkbox" class="st" value="ON PROBATION" checked> On probation</label>
+    </div>
+
+    <label for="size">Size</label>
+    <select id="size">
+      <option value="">All sizes</option>
+      <option value="small">6 beds or fewer</option>
+      <option value="large">7 beds or more</option>
+    </select>
+
+    <label for="type">Type</label>
+    <select id="type">
+      <option value="">All RCFEs</option>
+      <option value="core">Excluding CCRCs</option>
+      <option value="ccrc">CCRCs only</option>
+    </select>
+
+    <div class="stat" id="stat"></div>
+
+    <div class="key">
+      <span class="dot" style="background:#0869bd"></span>Licensed
+      <span class="dot" style="background:#d98a00;margin-left:8px"></span>Pending
+      <span class="dot" style="background:#c0392b;margin-left:8px"></span>On probation<br>
+      Hollow dot = approximate location. Numbers on circles = homes in that area.
+    </div>
+    <p class="note">Facility counts are one market factor. They don't measure demand, occupancy or profitability.
+      Source: California Department of Social Services, Community Care Licensing Division (CC BY).
+      Locations: U.S. Census Bureau Geocoder.</p>
+  </aside>
+  <div id="map"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.min.js"></script>
+<script>
+const COLORS = { "LICENSED": "#0869bd", "PENDING": "#d98a00", "ON PROBATION": "#c0392b" };
+const CCRC = "RCFE-CONTINUING CARE RETIREMENT COMMUNITY";
+const map = L.map("map", { preferCanvas: true }).setView([37.2, -119.5], 6);
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19, attribution: "© OpenStreetMap contributors"
+}).addTo(map);
+const cluster = L.markerClusterGroup({ chunkedLoading: true, showCoverageOnHover: false, maxClusterRadius: 50 });
+map.addLayer(cluster);
+
+let all = [];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const title = s => String(s || "").toLowerCase().replace(/(^|[\s\-\/(&])(\w)/g, (m, a, c) => a + c.toUpperCase());
+const fmt = n => n.toLocaleString("en-US");
+
+function miles(a, b) {
+  const r = Math.PI / 180, dLat = (b.lat - a.lat) * r, dLon = (b.lon - a.lon) * r;
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLon / 2) ** 2;
+  return 3958.8 * 2 * Math.asin(Math.sqrt(h));
+}
+
+function nearby(f) {
+  const rings = [1, 3, 5, 10].map(m => ({ m, homes: 0, beds: 0 }));
+  for (const g of all) {
+    if (g.lat == null || g === f) continue;
+    const d = miles(f, g);
+    for (const r of rings) if (d <= r.m) { r.homes++; r.beds += g.capacity || 0; }
+  }
+  return rings;
+}
+
+function card(f) {
+  const differs = f.county !== f.county_cdss;
+  const rows = nearby(f).map(r => `<tr><td>Within ${r.m} mi</td><td>${fmt(r.homes)} homes</td><td>${fmt(r.beds)} beds</td></tr>`).join("");
+  return `<div class="card">
+    <h3>${esc(title(f.name))}</h3>
+    <div>${esc(title(f.street))}, ${esc(title(f.city))} ${esc(f.zip)}</div>
+    <div>${esc(title(f.county))} County${differs ? ` <span class="flag">(CDSS lists ${f.county_cdss ? esc(title(f.county_cdss)) + " County" : "no county"})</span>` : ""}</div>
+    <div><b>${esc(title(f.status))}</b> · ${f.capacity ?? "?"} beds · ${f.type === CCRC ? "CCRC" : "RCFE"}</div>
+    <div>Licensee: ${esc(f.licensee)}</div>
+    <div>License #${esc(f.id)}</div>
+    ${f.quality === "approximate" ? '<div class="flag">Approximate location</div>' : ""}
+    <table>${rows}</table>
+    <div class="small">Other open homes nearby (straight-line distance). One market factor, not a measure of demand.</div>
+  </div>`;
+}
+
+function filtered() {
+  const q = document.getElementById("q").value.trim().toUpperCase();
+  const county = document.getElementById("county").value;
+  const size = document.getElementById("size").value;
+  const type = document.getElementById("type").value;
+  const statuses = new Set([...document.querySelectorAll(".st:checked")].map(c => c.value));
+  return all.filter(f =>
+    statuses.has(f.status) &&
+    (!county || f.county === county) &&
+    (!size || f.size === size) &&
+    (!type || (type === "ccrc") === (f.type === CCRC)) &&
+    (!q || f.name.toUpperCase().includes(q) || f.city.includes(q) || f.zip.startsWith(q)));
+}
+
+function draw(fit) {
+  const list = filtered();
+  const placed = list.filter(f => f.lat != null);
+  cluster.clearLayers();
+  cluster.addLayers(placed.map(f => {
+    const c = COLORS[f.status] || "#555";
+    return L.circleMarker([f.lat, f.lon], {
+      radius: 6, color: c, weight: 2, fillColor: c, fillOpacity: f.quality === "approximate" ? 0.1 : 0.85
+    }).bindPopup(() => card(f), { maxWidth: 300 });
+  }));
+  const beds = list.reduce((s, f) => s + (f.capacity || 0), 0);
+  document.getElementById("stat").innerHTML =
+    `<b>${fmt(list.length)}</b> homes · <b>${fmt(beds)}</b> beds<br>` +
+    `${fmt(placed.length)} on the map · ${fmt(list.length - placed.length)} location pending`;
+  if (fit && placed.length) map.fitBounds(L.latLngBounds(placed.map(f => [f.lat, f.lon])), { maxZoom: 13, padding: [20, 20] });
+}
+
+fetch("data/map.json").then(r => r.json()).then(data => {
+  all = data.facilities;
+  document.getElementById("asof").textContent =
+    `CDSS file of ${data.as_of} · ${fmt(data.counts.facilities)} open homes`;
+  const sel = document.getElementById("county");
+  [...new Set(all.map(f => f.county))].filter(Boolean).sort().forEach(c => sel.add(new Option(title(c), c)));
+  draw(false);
+  let t;
+  document.getElementById("q").addEventListener("input", () => { clearTimeout(t); t = setTimeout(() => draw(true), 250); });
+  ["county", "size", "type"].forEach(id => document.getElementById(id).addEventListener("change", () => draw(id === "county")));
+  document.querySelectorAll(".st").forEach(c => c.addEventListener("change", () => draw(false)));
+}).catch(e => { document.getElementById("asof").textContent = "Couldn't load the map file: " + e; });
+</script>
+</body>
+</html>
