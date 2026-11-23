@@ -36,8 +36,9 @@ RETRY_DAYS = (7, 14, 28, 56)  # wait after the 1st, 2nd, 3rd and later failed lo
 
 FIELDS = ["address_key", "street", "unit", "city", "zip5", "lat", "lon", "source", "match_quality",
           "matched_address", "first_geocoded", "last_checked", "attempts", "last_error", "retry_after",
-          "county_fips"]
+          "county_fips", "block_geoid"]
 # county_fips: 5-digit state+county code of the location (e.g. 06067); "none" when the geocoder gave no county.
+# block_geoid: 15-digit Census block of the location, used to find its official city; "none" when not given.
 NO_COUNTY = "none"
 OVERRIDE_FIELDS = ["facility_number", "address_key", "lat", "lon", "reason", "set_by", "set_on"]
 
@@ -51,6 +52,7 @@ class Result:
     matched: str = ""
     error: str = ""
     county_fips: str = ""
+    block_geoid: str = ""
 
 
 class GeocodeError(Exception):
@@ -93,12 +95,13 @@ def save_cache(folder: Path, cache):
 def needs_lookup(entry, today: date) -> bool:
     """New address, or a failed one whose wait is over.
 
-    A placed address is looked up again only once, if it was placed before counties were recorded.
+    A placed address is looked up again only once, if it was placed before counties and Census blocks
+    were recorded.
     """
     if entry is None:
         return True
     if entry.get("lat") and entry.get("lon"):
-        return not entry.get("county_fips")
+        return not entry.get("county_fips") or not entry.get("block_geoid")
     retry = entry.get("retry_after") or ""
     return not retry or date.fromisoformat(retry) <= today
 
@@ -108,7 +111,9 @@ def record(cache, address: Address, result: Result, source: str, today: date):
     placed = bool(result.lat and result.lon)
     if old.get("lat") and old.get("lon") and not placed:
         # A county refresh of an already placed address that no longer matches: keep the location.
-        cache[address.key] = {**old, "last_checked": today.isoformat(), "county_fips": NO_COUNTY}
+        cache[address.key] = {**old, "last_checked": today.isoformat(),
+                              "county_fips": old.get("county_fips") or NO_COUNTY,
+                              "block_geoid": old.get("block_geoid") or NO_COUNTY}
         return
     attempts = int(old.get("attempts") or 0) + 1
     cache[address.key] = {
@@ -119,6 +124,7 @@ def record(cache, address: Address, result: Result, source: str, today: date):
         "last_checked": today.isoformat(), "attempts": str(attempts), "last_error": result.error,
         "retry_after": "" if placed else (today + timedelta(days=RETRY_DAYS[min(attempts, len(RETRY_DAYS)) - 1])).isoformat(),
         "county_fips": (result.county_fips or NO_COUNTY) if placed else "",
+        "block_geoid": (result.block_geoid or NO_COUNTY) if placed else "",
     }
 
 
@@ -156,8 +162,10 @@ def parse_census(text, ids_to_keys):
             lon, lat = (v.strip() for v in row[5].split(",", 1))
             quality = "exact" if row[3].strip() == "Exact" else "approximate"
             fips = row[8].strip() + row[9].strip() if len(row) >= 10 else ""
+            block = fips + row[10].strip() + row[11].strip() if len(row) >= 12 else ""
             out[key] = Result(key, f"{float(lat):.6f}", f"{float(lon):.6f}", quality, row[4].strip(),
-                              county_fips=fips if len(fips) == 5 and fips.isdigit() else "")
+                              county_fips=fips if len(fips) == 5 and fips.isdigit() else "",
+                              block_geoid=block if len(block) == 15 and block.isdigit() else "")
         elif status == "Tie":
             out[key] = Result(key, quality="tie", error="more than one possible match")
         else:

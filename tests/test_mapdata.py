@@ -117,3 +117,12 @@ def test_map_wording_rules():
     # Facility concentration is one market factor, never a verdict (Dale, 2026-11-23).
     for path in [ROOT / "pipeline" / "mapdata.py", ROOT / "pipeline" / "geocode.py"]:
         assert not re.search(r"saturat|oversupplied|you should open", path.read_text(), re.I)
+
+
+def test_map_file_carries_rankings_and_public_top_file(built):
+    paths, data, by_id = built
+    assert data["rankings"]["title"] == "Top California RCFE Markets"
+    assert all(f["market_city"] for f in data["facilities"] if f["city"])
+    top = json.loads(mapdata.write_public_top(data, paths.mapbuild).read_text())
+    assert set(top["lists"]) == {"facilities", "licensed_capacity"}
+    assert "street" not in json.dumps(top) and paths.root / "site" not in (paths.mapbuild / "public").parents

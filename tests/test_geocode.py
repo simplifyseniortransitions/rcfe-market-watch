@@ -145,7 +145,8 @@ def test_geocache_is_outside_the_public_site():
 def test_census_answer_carries_the_county_of_the_location():
     answer = ('"1","1 SAMPLE RD, SAMPLE CITY, CA, 95000","Match","Exact","1 SAMPLE RD, SAMPLE CITY, CA, 95000",'
               '"-121.49,38.57","133323757","L","06","067","001103","3028"')
-    assert parse_census(answer, {"1": "a"})["a"].county_fips == "06067"
+    r = parse_census(answer, {"1": "a"})["a"]
+    assert r.county_fips == "06067" and r.block_geoid == "060670011033028"
     body, _ = census_request_body([("1", standardize("1 Sample Rd", "Sample City", "95000"))])
     assert b"geographies" not in body and b'name="vintage"' in body and b"Current_Current" in body
     assert "geographies/addressbatch" in geocode.CENSUS_URL
@@ -167,6 +168,7 @@ class CountyGeocoder(FakeGeocoder):
         for r in out.values():
             if r.lat:
                 r.county_fips = self.fips
+                r.block_geoid = self.fips + "0011033028"
         return out
 
 
@@ -174,15 +176,16 @@ def test_places_found_before_counties_are_refreshed_once(folder):
     rows = [row(1, "1 Sample Rd"), row(2, "2 Sample Rd")]
     geocode.run(rows, folder, FakeGeocoder(), TODAY, pause=0, log=lambda *_: None)
     cache = geocode.load_cache(folder)
-    for e in cache.values():  # as saved by Phase 1, before counties were recorded
-        e["county_fips"] = ""
+    for e in cache.values():  # as saved by Phase 1, before counties and blocks were recorded
+        e["county_fips"] = e["block_geoid"] = ""
     geocode.save_cache(folder, cache)
     # One refresh: 1 gets its county; 2 no longer matches, so its location is kept, marked "no county".
     geocode.run(rows, folder, CountyGeocoder(miss={"2 SAMPLE RD"}), TODAY, pause=0, log=lambda *_: None)
     cache = geocode.load_cache(folder)
     one, two = cache["1 SAMPLE RD|SAMPLE CITY|95000"], cache["2 SAMPLE RD|SAMPLE CITY|95000"]
-    assert one["county_fips"] == "06067" and one["lat"]
-    assert two["county_fips"] == "none" and two["lat"] and two["match_quality"] == "exact"
+    assert one["county_fips"] == "06067" and one["block_geoid"] == "060670011033028" and one["lat"]
+    assert two["county_fips"] == "none" and two["block_geoid"] == "none" and two["lat"]
+    assert two["match_quality"] == "exact"
     later = CountyGeocoder()
     geocode.run(rows, folder, later, TODAY, pause=0, log=lambda *_: None)
     assert later.calls == []  # never again

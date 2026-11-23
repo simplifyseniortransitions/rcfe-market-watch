@@ -15,7 +15,7 @@ import sys
 from datetime import date, datetime, timezone
 from pathlib import Path
 
-from pipeline import config, geocode, metrics
+from pipeline import cities, config, geocode, metrics
 from pipeline.address import from_row
 from pipeline.counties import county_name
 from pipeline.normalize import CLOSED, administrator_keys, normalize, withhold
@@ -25,7 +25,8 @@ from pipeline.validate import read_csv
 GEOCODER = "U.S. Census Bureau Geocoder"
 # The only facility fields the map file carries. No administrator, phone or raw state columns.
 FACILITY_FIELDS = ["id", "name", "licensee", "street", "city", "zip", "county", "county_cdss", "status",
-                   "capacity", "size", "type", "lat", "lon", "quality"]
+                   "capacity", "size", "type", "lat", "lon", "quality", "market_city_id", "market_city",
+                   "market_city_kind"]
 
 
 def build(paths: config.Paths, processed_at=None):
@@ -55,13 +56,14 @@ def build(paths: config.Paths, processed_at=None):
         entry = cache.get(a.key) if a.key and a.zip5 else None
         lat = lon = None
         quality = "pending"
-        county = ""
+        county = block = ""
         if f.number in overrides:
             o = overrides[f.number]
             lat, lon, quality = float(o["lat"]), float(o["lon"]), "manual"
         elif entry and entry.get("lat") and entry.get("lon"):
             lat, lon, quality = float(entry["lat"]), float(entry["lon"]), entry["match_quality"]
             county = county_name(entry.get("county_fips"))
+            block = entry.get("block_geoid") or ""
         # The county the location falls in (Dale, 2026-11-23); the state's label when there is none.
         county = county or f.county
         counts["facilities"] += 1
@@ -77,7 +79,11 @@ def build(paths: config.Paths, processed_at=None):
             "street": " ".join(p for p in (a.street, a.unit) if p), "city": a.city, "zip": a.zip5,
             "county": county, "county_cdss": f.county, "status": f.status, "capacity": f.capacity,
             "size": metrics.size_group(f), "type": f.facility_type, "lat": lat, "lon": lon, "quality": quality,
+            "block": block,
         })
+    cities.assign(out)
+    for r in out:
+        del r["block"]   # used only to find the city; not carried into the file
     out.sort(key=lambda r: r["id"])
     return {
         "as_of": as_of.isoformat(),
@@ -85,8 +91,18 @@ def build(paths: config.Paths, processed_at=None):
         "source": config.SOURCE,
         "geocoder": GEOCODER,
         "counts": counts,
+        "rankings": cities.rankings(out),
         "facilities": out,
     }
+
+
+def write_public_top(data, out_dir: Path):
+    """The public top-five file (no addresses or locations). Kept in mapbuild/ until the public preview phase."""
+    top = cities.public_top(data["facilities"], data["as_of"], data["source"])
+    path = out_dir / "public" / "top-cities.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(top, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    return path
 
 
 def write(data, out_dir: Path):
@@ -114,6 +130,7 @@ def main(argv=None, paths=config.DEFAULT_PATHS):
             summary = geocode.run(rows, paths.geocache, geocode.CensusGeocoder(), date.today())
     data = build(paths)
     key, _ = write(data, paths.mapbuild)
+    write_public_top(data, paths.mapbuild)
     # Geocoder outages don't stop the build: new addresses show as "location pending" until next week.
     print(json.dumps({"map_file": key, "counts": data["counts"], "geocode": summary}))
     return 0

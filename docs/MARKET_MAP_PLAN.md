@@ -178,21 +178,38 @@ Rejected alternatives:
      lookup for an unchanged address, a fake geocoder for failures and retries, and that no coordinates or street
      addresses appear in `site/`.
    - *Rollback:* delete the cache files; nothing else changed.
-2. **Weekly automation for the map file.**
+2. **Weekly automation for the map file** (built 2026-11-23, switched off).
    - New steps in `weekly.yml` that geocode only new addresses, build the members' map file and upload it to a
      **test** R2 bucket. They sit behind a repo switch, `MAP_PUBLISH`, that starts off.
    - *Tests:* map file shape, closed facilities excluded, withheld names kept, source date and processing date
      present, and the public update still passing when the map step fails.
    - *Rollback:* turn `MAP_PUBLISH` off; the public site is never involved.
+2b. **City rankings data (proposed, section 18).**
+   - Standardized market city, a reviewed alias list and city totals, written into the members' map file. The top
+     five per view also go into the public data.
+   - *Tests:*
+     - the alias list merges known misspellings and nothing else
+     - every ranked home has an active license by default
+     - licensed capacity sums match the facility list
+     - missing capacity is counted, not guessed
+     - ties share a rank and sort the same way every run
+     - the public top-five file has no addresses, no coordinates and no verdict wording
+   - *Rollback:* revert the commit and rebuild; the public file goes back to its current contents.
 3. **Members' map on the Community test site, hidden.**
    - `/map` with clustering, search, filters, the facility card, 1/3/5/10-mile counts, source and disclaimer, and
-     tracking. It starts hidden, so only admins see it in preview.
+     tracking. Includes the **Top California RCFE Markets** panel: all 20 cities, both ranking views, city
+     selection and clearing (section 18). It starts hidden, so only admins see it in preview.
+   - *Tests (rankings):* selecting a city fits the map to exactly that city's homes and updates the counts,
+     capacity breakdown and county share; clearing restores the statewide view; the explanation text is shown
+     next to the rankings; the banned words never appear.
    - *Tests:* signed-out visitors redirected, the data address refused without a session, Pro switches hidden,
      events never store typed text, radius counts against known distances, banned wording, and security headers.
    - *Rollback:* set the map to hidden (instant), redeploy the previous version, and undo the migration with its
      rollback script.
 4. **Public preview on Market Watch.**
    - County map on the Market page, with a join link that opens the Community map.
+   - **Top five cities** (both views) with the same explanation text and a "See all 20 cities: join free" link.
+     No map pins, no city selection beyond the list.
    - *Tests:* public data still has no addresses or coordinates, wording rules, and the map works inside the frame.
    - *Rollback:* revert the commit; `gh-pages` serves the previous version within about 10 minutes.
 5. **Launch.**
@@ -226,6 +243,30 @@ Rejected alternatives:
     "status": "LICENSED", "capacity": 6, "size": "small", "type": "RESIDENTIAL CARE ELDERLY",
     "lat": 38.58, "lon": -121.49, "quality": "exact" } ] }
 ```
+
+**Rankings (section 18)**, added to the members' map file as `cities` and `rankings`:
+
+```json
+{ "metrics": [ { "id": "facilities", "label": "Facilities", "unit": "count", "tier": "free" },
+               { "id": "licensed_capacity", "label": "Licensed capacity", "unit": "count", "tier": "free" },
+               { "id": "facilities_per_10k_65plus", "tier": "hidden" },
+               { "id": "licensed_capacity_per_10k_65plus", "tier": "hidden" },
+               { "id": "facilities_change_1w", "tier": "hidden" }, { "id": "facilities_change_12m", "tier": "hidden" } ],
+  "ranking_scope": { "statuses": ["LICENSED", "ON PROBATION"], "types": "all" },
+  "cities": [ { "city_id": "06-sacramento", "name": "Sacramento", "county": "SACRAMENTO",
+      "facilities": 224, "licensed_capacity": 3836, "capacity_missing": 0,
+      "by_capacity_band": { "1_6": 0, "7_15": 0, "16_49": 0, "50_plus": 0 },
+      "county_share": { "facilities": 0.0, "licensed_capacity": 0.0 },
+      "by_status": { "LICENSED": 0, "ON PROBATION": 0, "PENDING": 0 },
+      "by_type": { "core": {}, "ccrc": {} } } ],
+  "rankings": { "facilities": ["06-sacramento", "…"], "licensed_capacity": ["06-san-diego", "…"] } }
+```
+
+- Each facility record gains `city_id`, so selecting a city filters markers with no text matching.
+- `metrics` is a registry: a future metric is one new entry plus its values, switched on by its `tier`
+  (`hidden`, `free`, `pro`) without changing the panel's code.
+- Public Market Watch gets `site/data/top-cities.json`: the top five per view, with city, county, facilities and
+  licensed capacity only.
 
 **Supabase (Community), new migration**
 
@@ -262,7 +303,7 @@ Rejected alternatives:
 │                           │          (124)   (37)    (8)  •  •)    │
 │ Status  ☑Licensed ☑Pending│                                        │
 │         ☑On probation     │      ◎ selected address, ring at       │
-│ Capacity [ 1 ]–[ 200 ]    │        1 / 3 / 5 / 10 miles            │
+│ Licensed capacity [1]–[200]│        1 / 3 / 5 / 10 miles            │
 │ County  [ All        ▾]   │                                        │
 │ City    [           ]     │                                        │
 │ ZIP     [     ]           │                                        │
@@ -276,7 +317,7 @@ Rejected alternatives:
 │ Facility card             │                                        │
 │ Name · License #157209529 │                                        │
 │ 123 Main St, Sacramento   │                                        │
-│ Licensed · 6 beds         │                                        │
+│ Licensed · capacity 6     │                                        │
 │ Location: approximate     │                                        │
 │ [View full record]        │                                        │
 └───────────────────────────┴────────────────────────────────────────┘
@@ -294,6 +335,8 @@ On a phone, the side panel becomes a bottom sheet over the map.
   - `pipeline/address.py`, `pipeline/geocode.py`, `pipeline/mapdata.py`
   - `tests/test_address.py`, `tests/test_geocode.py`, `tests/test_mapdata.py`
   - `site/assets/county-map.js`, `site/data/ca-counties.json` (county outlines only)
+  - Rankings (section 18): `pipeline/cities.py`, `pipeline/city_aliases.csv`, `tests/test_cities.py`,
+    `site/data/top-cities.json` (top five only), `site/assets/top-cities.js`
 - Changed:
   - `pipeline/config.py` (map settings)
   - `.github/workflows/weekly.yml` (map steps behind `MAP_PUBLISH`)
@@ -307,6 +350,7 @@ On a phone, the side panel becomes a bottom sheet over the map.
 - New:
   - `src/pages/map.astro`, `src/pages/api/map-data.ts`, `src/pages/api/map-events.ts`, `src/pages/api/geocode.ts`
   - `src/lib/map.ts`, `src/scripts/map.ts`, `src/components/Map*.astro`
+  - `src/components/MapRankings.astro`, `src/scripts/map-rankings.ts` (rankings panel, metric registry)
   - `public/vendor/maplibre/*` (self-hosted library)
   - `supabase/migrations/2026112x_market_map.sql` and its rollback script
   - `tests/map-*.test.ts`
@@ -349,6 +393,175 @@ On a phone, the side panel becomes a bottom sheet over the map.
   counties differ gets a small note ("CDSS lists this facility in Napa County"). Unplaced facilities fall back to
   the state's label. This applies to the members' map only: Market Watch's published county tables keep using
   the state's label unless Dale decides otherwise.
+## 18. Top California RCFE Markets panel (added 2026-11-23, for approval)
+
+**What it is:** a panel on the left of the map, titled **"Top California RCFE Markets."** It has two views:
+**Most facilities** and **Most licensed capacity**. Each lists the top 20 cities by rank, city, county, facilities
+and licensed capacity. Members see all 20 and can select a city. The public preview shows the top five only.
+
+**Wording:** "licensed capacity" is used everywhere the number comes from the CDSS `Facility Capacity` field. That's
+the number of residents the license allows, not beds filled or open. No city is called "saturated,"
+"undersupplied," "good" or "bad." This text appears directly under the rankings, for members and on the public
+site:
+
+> A high facility count does not necessarily indicate market saturation. It may reflect population, demand,
+> established referral networks or other local conditions. Facility concentration should be evaluated alongside
+> demographics, occupancy, pricing, staffing, real estate costs and local referral patterns.
+
+### Audit (CDSS file of Nov 15, 2026)
+
+1. **How city names are standardized today.** Market Watch trims spaces and uppercases the CDSS `Facility City`.
+   The map's address step does the same and also drops punctuation. Nothing corrects spellings.
+2. **Inconsistent spellings.** Open facilities use **806 raw city spellings**. Uppercasing and fixing spaces brings
+   that to **562**. What's left:
+   - 3 punctuation or spacing variants: "REDLANDS," with a stray comma, "N. HOLLYWOOD" and "SUNVALLEY".
+   - **About 21 likely typos or abbreviations**, each on 1–2 homes, such as "SACRAMNETO", "WESTMINISTER" and
+     "CITRUS HEIGHT".
+   - For 59 homes, the city in the Census match differs from the CDSS city. In most of these the Census uses the
+     corrected spelling; a few are neighborhood names.
+   - **Proposed handling:**
+     - A small alias list that Dale reviews (`pipeline/city_aliases.csv`, e.g. SACRAMNETO → SACRAMENTO), applied
+       before ranking.
+     - Each week, the job lists any new rare spelling that looks like a known city, for review. Nothing is merged
+       automatically.
+     - The facility record keeps the CDSS spelling for display.
+3. **Mailing city or actual city: DECIDED (Dale, 2026-11-23): Option B, official city or community.** CDSS lists the **mailing city**, so neighborhoods inside the
+   City of Los Angeles rank as separate cities.
+   - Today "Los Angeles" has 181 open homes.
+   - Northridge (109), Van Nuys (107), Granada Hills (98) and Woodland Hills (45) are all inside the City of Los
+     Angeles, but each is listed on its own.
+
+   Options:
+   - **Option A, mailing city as listed (simplest).** It matches what members see in addresses, under the column
+     name "City (mailing address)." Los Angeles looks smaller than it is.
+   - **Option B, official city or community (recommended).** Use the Census "place" each home sits in: an
+     incorporated city, or an unincorporated community the Census names, such as Carmichael.
+     - This needs the Census block for each address. The geocoder already returns it, but we don't save it yet,
+       so it takes one more free re-run, plus the Census's free table that matches blocks to places.
+     - Neighborhood names stay searchable ("Van Nuys is part of Los Angeles").
+     - Homes without a location use the usual place for their mailing city.
+4. **Which statuses rank by default.** The file has only four statuses: Licensed 8,626, Pending 922, On probation
+   25, Closed 3,764. There is no "suspended" status today.
+   - **Default ranking: Licensed + On probation.** Both are active licenses.
+   - **Pending:** off by default, with an "Include pending applications" switch. These are applications, not
+     operating homes.
+   - **Closed:** never ranked or mapped.
+   - **Any new status** CDSS adds (for example, suspended) is left out of the ranking. It raises a weekly
+     validation warning until a decision is made.
+5. **Is licensed capacity reliable?** Yes, for the default ranking.
+   - Every Licensed and On-probation home has a numeric capacity. Only **17 Pending** homes are blank.
+   - No zeros or text values.
+   - The largest values (up to 1,233) are big campuses and CCRCs, as expected.
+   - Total licensed capacity of open homes: 233,071.
+6. **Ties and missing capacity.**
+   - Tied cities share a rank ("T-14"). Within a tie, order by the other measure, then city name, so the list
+     stays stable week to week.
+   - If several cities tie for 20th place, all of them are shown, with a note.
+   - Today: no tie at 20th place in the default views. Within the top 20 there are ties at 91 and 90 facilities.
+   - A home with missing capacity counts as a facility but adds nothing to capacity. The city shows "capacity not
+     listed for N homes." Capacity is never estimated.
+7. **County of a city.** The county where most of the city's homes are located, following your location rule.
+   - A city's share of its county = the city's facilities (or licensed capacity) ÷ the county's.
+   - Both use the same statuses and type filter.
+
+**Draft top five in the default views (mailing city, Licensed + On probation):**
+- **Most facilities:** Sacramento 224, Fresno 199, San Diego 186, Los Angeles 161, Mission Viejo 160.
+- **Most licensed capacity:** San Diego 6,625, Los Angeles 5,864, Fresno 4,250, Sacramento 3,836, San Jose 3,520.
+- These will change under Option B (now chosen), especially Los Angeles.
+
+### Members' panel (wireframe)
+
+```
+┌─────────────────────────────────┬──────────────────────────────────────────┐
+│ TOP CALIFORNIA RCFE MARKETS     │                                          │
+│ [Most facilities|Most licensed  │  Map. With a city selected: zoomed to    │
+│                   capacity]     │  that city's homes, its markers in full  │
+│ ☐ Include pending applications  │  colour, all others dimmed.              │
+│  #  City         County Fac  Cap│                                          │
+│  1  Sacramento   Sacr.  224 3,836                                          │
+│  2  Fresno       Fresno 199 4,250                                          │
+│  …  20 rows; selected row       │                                          │
+│     highlighted                 │                                          │
+│ A high facility count does not  │                                          │
+│ necessarily indicate market     │                                          │
+│ saturation. … (full text)       │                                          │
+├─────────────────────────────────┤                                          │
+│ SACRAMENTO (selected) [× Clear] │                                          │
+│ 224 facilities · 3,836 licensed │                                          │
+│ capacity                        │                                          │
+│ Homes by licensed capacity:     │                                          │
+│  1–6  ███████ n   7–15  ██ n    │                                          │
+│  16–49 █ n        50+   █ n     │                                          │
+│ Share of Sacramento County:     │                                          │
+│  n% of facilities,              │                                          │
+│  n% of licensed capacity        │                                          │
+└─────────────────────────────────┴──────────────────────────────────────────┘
+```
+
+- **Clear** returns the map and the counts to the statewide view.
+- The size and type filters apply to the rankings too.
+- On a phone, the panel becomes a tab in the bottom sheet.
+
+### Public preview (Market page)
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│ TOP CALIFORNIA RCFE MARKETS [Most facilities|Most capacity]  │
+│ 1 Sacramento (Sacramento County)  224 facilities  3,836 cap. │
+│ … 5 rows only                                                │
+│ A high facility count does not necessarily indicate … (full) │
+│ [ See all 20 cities on the map: join free → ]                │
+└──────────────────────────────────────────────────────────────┘
+```
+
+### Built so later versions can add these (each starts hidden)
+
+- **Per 10,000 residents age 65+**, for facilities and for licensed capacity.
+  - Source: the Census's 5-year American Community Survey (table B01001) for each place. It's already planned for
+    counties in spec 5b.
+  - Small places have wide margins of error, so this needs a minimum population (for example 5,000 residents
+    age 65+) and a note about the margin.
+- **Changes over a week, 12 months and longer:** the weekly files already exist. City totals are saved for each
+  week, the way `history.json` saves county totals, so the panel can add change columns.
+- **Saved city comparisons:** a Supabase table (member, cities, date) behind a Pro switch.
+- **Downloadable market reports:** generated on the server from the same city data, with the explanation text and
+  source line on every page, behind a Pro switch.
+
+### Testing plan additions
+
+- **City names:**
+  - aliases merge only reviewed spellings
+  - a neighborhood is never merged into a city by guesswork
+  - under Option B, every placed home gets exactly one place
+- **Which homes are ranked:**
+  - closed homes are never counted
+  - pending homes count only when the switch is on
+  - unknown statuses are left out and raise a warning
+- **Licensed capacity:**
+  - city totals equal the sum of their homes
+  - blank capacity is counted as missing, never as zero, in the breakdown
+  - homes at 6/7, 15/16 and 49/50 land in the right group
+- **Ties:** shared ranks, a stable order, and every tie at the cutoff shown.
+- **Selecting a city:**
+  - the map zooms to exactly that city's homes
+  - the counts, the breakdown and the county share match the data
+  - Clear restores the statewide view
+- **Access:**
+  - the public file holds only the top five, with no addresses or coordinates
+  - members see 20
+  - hidden measures are absent from the page until switched on
+- **Wording:**
+  - the explanation text appears wherever rankings show
+  - "saturated," "undersupplied," "good" and "bad" never appear as verdicts in rankings text
+  - "beds" is never used for licensed capacity in map or ranking text
+
+### Questions for Dale (rankings)
+
+1. **City definition: DECIDED (Dale, 2026-11-23): Option B, official city or community.**
+2. **Default statuses: DECIDED (Dale, 2026-11-23): Licensed + On probation; Pending off by default, with a
+   switch members can turn on.**
+3. **"Beds" on the existing Market Watch pages: DECIDED (Dale, 2026-11-23): map and rankings only.** The new
+   wording is "licensed capacity"; the existing public pages keep "Licensed beds" and "6 beds or fewer" as they are.
 
 ---
 
