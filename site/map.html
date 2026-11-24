@@ -112,13 +112,83 @@
 
       <div class="mp-cta" id="mp-cta">
         <div>
-          <h4>Be notified when the full map opens</h4>
-          <p>Free member access will include individual facility locations, searches, filters, local-market totals and the complete Top 20 city rankings.</p>
+          <h4 id="ea-title">Be notified when the full map opens</h4>
+          <p>Free member access is being developed to include individual facility locations, searches, filters, local-market totals and the complete Top 20 city rankings. Join the early-access list and we’ll let you know when it becomes available.</p>
         </div>
         <div class="mp-cta-act">
-          <a class="mp-btn" id="mp-cta-btn" href="#" target="_top" rel="noopener" aria-disabled="true">Join the Early-Access List</a>
+          <button type="button" class="mp-btn" id="mp-cta-btn" aria-expanded="false" aria-controls="ea-panel" disabled>Join the Early-Access List</button>
           <span class="mp-small" id="mp-cta-note">No credit card required.</span>
         </div>
+      </div>
+
+      <!-- Early-access form: saved to RCFE Deal Room's private list only. Not a newsletter, not Mailchimp, not an account. -->
+      <div class="ea-panel" id="ea-panel" hidden>
+        <form id="ea-form" novalidate aria-labelledby="ea-title">
+          <div class="ea-errors" id="ea-errors" hidden></div>
+          <div class="ea-grid">
+            <div class="ea-field">
+              <label for="ea-first_name">First name <span class="ea-req">(required)</span></label>
+              <input id="ea-first_name" name="first_name" type="text" autocomplete="given-name" maxlength="60" required aria-describedby="ea-first_name-err">
+              <p class="ea-err" id="ea-first_name-err" hidden></p>
+            </div>
+            <div class="ea-field">
+              <label for="ea-last_name">Last name <span class="ea-req">(required)</span></label>
+              <input id="ea-last_name" name="last_name" type="text" autocomplete="family-name" maxlength="60" required aria-describedby="ea-last_name-err">
+              <p class="ea-err" id="ea-last_name-err" hidden></p>
+            </div>
+            <div class="ea-field">
+              <label for="ea-email">Email address <span class="ea-req">(required)</span></label>
+              <input id="ea-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required aria-describedby="ea-email-err">
+              <p class="ea-err" id="ea-email-err" hidden></p>
+            </div>
+            <div class="ea-field">
+              <label for="ea-role">Role <span class="ea-req">(required)</span></label>
+              <select id="ea-role" name="role" required aria-describedby="ea-role-err">
+                <option value="">Choose one…</option>
+                <option>Current RCFE owner or operator</option>
+                <option>Prospective RCFE buyer</option>
+                <option>RCFE seller</option>
+                <option>Aspiring RCFE operator</option>
+                <option>Investor</option>
+                <option>Industry professional or service provider</option>
+                <option>Other</option>
+              </select>
+              <p class="ea-err" id="ea-role-err" hidden></p>
+            </div>
+            <div class="ea-field ea-wide">
+              <label for="ea-county">County or market of interest <span class="ea-opt">(optional)</span></label>
+              <input id="ea-county" name="county" type="text" maxlength="80" placeholder="For example, Sacramento County" aria-describedby="ea-county-err">
+              <p class="ea-err" id="ea-county-err" hidden></p>
+            </div>
+          </div>
+          <fieldset class="ea-features">
+            <legend>Which features interest you? <span class="ea-opt">(optional, choose any)</span></legend>
+            <label><input type="checkbox" name="features" value="Individual facility map"> Individual facility map</label>
+            <label><input type="checkbox" name="features" value="City and ZIP-code searches"> City and ZIP-code searches</label>
+            <label><input type="checkbox" name="features" value="Local competition and concentration"> Local competition and concentration</label>
+            <label><input type="checkbox" name="features" value="Market trends and weekly changes"> Market trends and weekly changes</label>
+            <label><input type="checkbox" name="features" value="Buyer research"> Buyer research</label>
+            <label><input type="checkbox" name="features" value="Seller research"> Seller research</label>
+            <label><input type="checkbox" name="features" value="Other"> Other</label>
+          </fieldset>
+          <div class="ea-hp" aria-hidden="true">
+            <label for="ea-website">Leave this field empty</label>
+            <input id="ea-website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="ea-consent">
+            <input id="ea-consent" name="consent" type="checkbox" required aria-describedby="ea-consent-err ea-privacy">
+            <label for="ea-consent">I agree that RCFE Deal Room may contact me about early access to its market tools and community. This does not create a membership or subscribe me to a general marketing newsletter. <span class="ea-req">(required)</span></label>
+          </div>
+          <p class="ea-err" id="ea-consent-err" hidden></p>
+          <p class="ea-privacy" id="ea-privacy">See how we handle your information in the <a href="https://www.rcfedealroom.com/privacy-policy" target="_blank" rel="noopener">RCFE Deal Room Privacy Policy</a> (opens in a new tab).</p>
+          <div class="ea-status" id="ea-status" role="alert"></div>
+          <div class="ea-actions">
+            <button type="submit" class="mp-btn" id="ea-submit">Join the Early-Access List</button>
+            <button type="button" class="ea-close" id="ea-close">Close</button>
+          </div>
+          <p class="ea-note">No credit card required. You will not be added to Mailchimp by submitting this form.</p>
+        </form>
+        <div class="ea-done" id="ea-done" role="status" tabindex="-1" hidden>You’re on the early-access list. We’ll contact you when the expanded RCFE market tools become available.</div>
       </div>
     </section>
 

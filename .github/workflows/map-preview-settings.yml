@@ -1,7 +1,7 @@
-# Updates the public Market Map preview's early-access button without waiting for the weekly run.
-# Set the repository variable MAP_CTA_URL (Settings → Secrets and variables → Actions → Variables), then run
-# this from the Actions tab. Only approved addresses are accepted (pipeline/preview.py); anything else, or
-# no value, shows "Early-access signup opens soon".
+# Updates the public Market Map preview's early-access form endpoint without waiting for the weekly run.
+# Set the repository variable MAP_CTA_URL to the early-access Worker's /submit address (Settings → Secrets and
+# variables → Actions → Variables), then run this from the Actions tab. Only RCFE Deal Room's own endpoint is
+# accepted (pipeline/preview.py), never Mailchimp; anything else, or no value, shows "Early-access signup opens soon".
 name: Map preview settings
 on:
   workflow_dispatch:

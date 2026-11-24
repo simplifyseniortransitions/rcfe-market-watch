@@ -1,7 +1,6 @@
 # Public Market Map preview on rcfedealroom.com/market-watch (Phase 4)
 
-Built locally 2026-11-23 at Dale's request, ahead of the Community launch. **Not committed, not published.**
-It waits for Dale's approval.
+Built 2026-11-23 at Dale's request, ahead of the Community launch. Published to GitHub Pages; shown on rcfedealroom.com once Marblism adds the frame.
 
 ## How it fits on the page
 
@@ -40,24 +39,17 @@ It waits for Dale's approval.
     untouched.
 - The CDSS schedule is unchanged.
 
-## Early-access button
+## Early-access form (replaces the Mailchimp link; live 2026-11-24)
 
-- **Destination:** the repository variable `MAP_CTA_URL`.
-- **To change it:** set the variable, then run **Actions → Map preview settings**, which republishes only the
-  button setting. The weekly run also applies it.
-- **Allowed addresses:** `https://` on rcfedealroom.com, community.rcfedealroom.com, mailchi.mp, eepurl.com or
-  list-manage.com.
-  - Anything else, including the Community test site, is refused.
-  - When no address is set, the button reads "Early-access signup opens soon".
-- **Not set yet.** See the decision below.
-
-### Existing forms on rcfedealroom.com (checked 2026-11-23)
-
-- **Newsletter:** the home page's "Join the Newsletter" links to a Mailchimp signup page
-  (`mailchi.mp/simplifyseniortransitions/…`). This is an existing, approved email platform.
-- **Checklist and Contact forms:** both email Dale. The checklist form says requesters are *not* added to the
-  newsletter.
-- **There is no early-access or waitlist form.**
+- The button opens an inline form (not a pop-up, so the frame never clips it). Submissions go to RCFE Deal
+  Room's own Cloudflare Worker (`early-access/`), which saves them to the private Google Sheet
+  "RCFE Deal Room - Market Tools Early Access", tab "Early Access Leads". See `early-access/README.md`.
+- No Mailchimp, no email platform, no automated email, no account.
+- **Endpoint setting:** the repository variable `MAP_CTA_URL` holds the Worker's `/submit` address and is
+  written to `site/data/map-cta.json` as `{"endpoint": …}`. Only `https://rcfe-early-access.<account>.workers.dev/submit`
+  or an rcfedealroom.com `/submit` address is accepted; Mailchimp and anything else show "Early-access signup
+  opens soon". To change it: set the variable, then run **Actions → Map preview settings**.
+- Privacy link: https://www.rcfedealroom.com/privacy-policy (exists; checked 2026-11-24).
 
 ## Analytics
 
@@ -71,11 +63,11 @@ It waits for Dale's approval.
     - `county_select` (label: county name)
     - `ranking_view` (label: facilities or licensed_capacity)
     - `member_preview_view`, `member_preview_click`
-    - `cta_click` (label: destination host)
+    - `early_access_form_opened`, `early_access_form_started`, `early_access_form_submitted`,
+      `early_access_form_success`, `early_access_form_error` (label: invalid, busy, server or network only)
     - `open_market_tab`
 - The Marblism listener below pushes them into the page's existing `dataLayer`. No new analytics platform.
-- **Completed early-access signups can't be tracked from here.** A Mailchimp hosted page doesn't report back. Its
-  own reports (or a thank-you page with GTM) would be needed.
+- Events never include names, email addresses or other form values.
 
 ## Request for Marblism (send after approval)
 
@@ -97,7 +89,13 @@ It waits for Dale's approval.
 >     var d = e.data || {};
 >     if (d.type === "rcfe-map-height") {
 >       document.getElementById("market-map-frame").style.height = d.height + "px";
->     } else if (d.type === "rcfe-scroll-to-market") {
+>     } else if (d.type === "rcfe-map-ready") {
+      // Tells the map frame where the visit came from (page address and campaign tags only).
+      var q = new URLSearchParams(location.search), utm = {};
+      ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (k) { if (q.get(k)) utm[k] = q.get(k).slice(0, 100); });
+      var ref = ""; try { var r = new URL(document.referrer); ref = r.origin + r.pathname; } catch (x) {}
+      e.source.postMessage({ type: "rcfe-map-context", page: location.origin + location.pathname, referrer: ref, utm: utm }, e.origin);
+    } else if (d.type === "rcfe-scroll-to-market") {
 >       document.getElementById("market-watch-frame").scrollIntoView({ behavior: "smooth", block: "start" });
 >     } else if (d.type === "rcfe-analytics" && d.event === "rcfe_map_preview") {
 >       window.dataLayer = window.dataLayer || [];

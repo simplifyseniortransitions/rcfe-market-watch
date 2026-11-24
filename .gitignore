@@ -17,3 +17,7 @@ mapbuild/
 
 # Cloudflare command-line tool cache (created by wrangler); never part of the site.
 .wrangler/
+# Early-access Worker: local build output and local-only test settings (never real secrets in git).
+early-access/dist/
+early-access/.dev.vars
+early-access/dev/.mock-sheet.json

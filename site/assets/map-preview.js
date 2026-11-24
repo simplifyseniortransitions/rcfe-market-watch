@@ -4,6 +4,8 @@
 // Like the rest of the site, it builds the page from text nodes only (no raw HTML).
 // It doesn't load common.js: that file sends the Market Watch frame's own height message.
 
+import { setupEarlyAccess } from "./early-access.js";
+
 const STEPS = [0, 25, 75, 200, 500];                      // legend breaks, active facilities per county
 const COLORS = ["#eef1f4", "#d6e6f4", "#a8cbea", "#5d9fd6", "#0869bd", "#092d4c"];
 const SVG = "http://www.w3.org/2000/svg";
@@ -143,22 +145,7 @@ function drawDemo(shapes) {
     SAMPLE_CLUSTERS.map(([x, y, n]) => svgEl("g", { transform: `translate(${x} ${y})` }, svgEl("circle", { r: n.includes("k") ? 54 : 44 }), svgEl("text", { dy: 10 }, n))));
 }
 
-// ---- early-access button ----
-function setupCta(cta) {
-  const btn = $("mp-cta-btn");
-  const url = cta && typeof cta.url === "string" && /^https:\/\//.test(cta.url) ? cta.url : null;
-  if (url) {
-    btn.href = url;
-    btn.removeAttribute("aria-disabled");
-    // RCFE Deal Room's own pages open in place; an outside signup page opens in a new tab.
-    btn.target = /^https:\/\/(www\.|community\.)?rcfedealroom\.com\//.test(`${url}/`) ? "_top" : "_blank";
-  } else {
-    btn.removeAttribute("href");
-    btn.textContent = "Early-access signup opens soon";
-    btn.classList.add("soon");
-  }
-  btn.addEventListener("click", () => track("cta_click", url ? new URL(url).hostname : "not_set"));
-}
+// ---- early-access form: see early-access.js (RCFE Deal Room's own endpoint; never Mailchimp) ----
 
 // ---- link into the Market Watch frame below ----
 function openMarket(e) {
@@ -195,8 +182,9 @@ async function main() {
     track("ranking_view", m);
     if (top) drawRank();
   }));
-  // The button works (or says "opening soon") even if the figures can't load.
-  fetch("data/map-cta.json", { cache: "no-cache" }).then((r) => (r.ok ? r.json() : null)).catch(() => null).then(setupCta);
+  // The form works (or says "opening soon") even if the figures can't load.
+  fetch("data/map-cta.json", { cache: "no-cache" }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
+    .then((config) => setupEarlyAccess({ config, track, parentOrigin: origin }));
 
   try {
     const [data, shapes] = await Promise.all([

@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "site"
 PAGE = (SITE / "map.html").read_text()
 SCRIPT = (SITE / "assets" / "map-preview.js").read_text()
+FORM_JS = (SITE / "assets" / "early-access.js").read_text()
 STYLE = (SITE / "assets" / "map-preview.css").read_text()
 LA, SAC = "44000", "64000"
 
@@ -96,11 +97,12 @@ def test_published_files_hold_only_totals():
         text = path.read_text()
         for key in PRIVATE_KEYS:
             assert f'"{key}"' not in text, (name, key)
-        assert "workers.dev" not in text and "r2.cloudflarestorage" not in text
+        # The early-access endpoint may be a workers.dev address; the Community test site never is.
+        assert "rcfe-community" not in text and "r2.cloudflarestorage" not in text and "script.google" not in text
 
 
 def test_page_never_asks_for_private_data_or_the_test_site():
-    for text in (PAGE, SCRIPT):
+    for text in (PAGE, SCRIPT, FORM_JS):
         assert "map/v/" not in text and "current.json" not in text and "/map/data" not in text
         assert "workers.dev" not in text and "r2." not in text and "MAP_R2_TOKEN" not in text
     assert "data/map-preview.json" in SCRIPT and "facilities.json" not in SCRIPT
@@ -114,43 +116,68 @@ def test_member_preview_uses_sample_details_only():
     assert rows and not any(re.search(r"<(u|em)[^>]*>\d", r) for r in rows)
 
 
-# ---- early-access button ----
+# ---- early-access form (RCFE Deal Room's own endpoint, private Google Sheet; never Mailchimp) ----
 
 @pytest.mark.parametrize("url,ok", [
-    ("https://community.rcfedealroom.com/join", True),
-    ("https://rcfedealroom.com/early-access", True),
-    ("https://mailchi.mp/simplifyseniortransitions/w69iux4ks6", True),
-    ("https://simplifyseniortransitions.us1.list-manage.com/subscribe?u=1", True),
-    ("https://rcfe-community.dale-35c.workers.dev/join", False),
-    ("http://community.rcfedealroom.com/join", False),
+    ("https://rcfe-early-access.dale-35c.workers.dev/submit", True),
+    ("https://community.rcfedealroom.com/submit", True),
+    ("https://rcfe-early-access.dale-35c.workers.dev/submit?x=1", False),
+    ("https://rcfe-early-access.dale-35c.workers.dev/other", False),
+    ("https://rcfe-community.dale-35c.workers.dev/submit", False),
+    ("http://rcfe-early-access.dale-35c.workers.dev/submit", False),
+    ("https://mailchi.mp/simplifyseniortransitions/w69iux4ks6", False),
+    ("https://simplifyseniortransitions.us1.list-manage.com/subscribe?u=1", False),
+    ("https://script.google.com/macros/s/abc/exec", False),
     ("javascript:alert(1)", False),
-    ("https://evil.example.com/", False),
-    ("https://rcfedealroom.com.evil.com/", False),
+    ("https://rcfedealroom.com.evil.com/submit", False),
     ("", False),
     (None, False),
 ])
-def test_cta_destination_is_configurable_but_only_approved(url, ok):
-    assert preview.cta_config(url)["url"] == (url if ok else None)
+def test_form_endpoint_is_configurable_but_only_rcfe_deal_room(url, ok):
+    assert preview.cta_config(url)["endpoint"] == (url if ok else None)
 
 
 def test_cta_writes_the_setting_file(tmp_path, monkeypatch):
-    monkeypatch.setenv("MAP_CTA_URL", "https://community.rcfedealroom.com/join")
+    url = "https://rcfe-early-access.dale-35c.workers.dev/submit"
+    monkeypatch.setenv("MAP_CTA_URL", url)
     assert preview.main(["cta", str(tmp_path)]) == 0
-    assert json.loads((tmp_path / "map-cta.json").read_text()) == {"url": "https://community.rcfedealroom.com/join"}
+    assert json.loads((tmp_path / "map-cta.json").read_text()) == {"endpoint": url}
+    # The old Mailchimp setting is refused: the button says "opening soon" rather than sending anyone there.
+    monkeypatch.setenv("MAP_CTA_URL", "https://mailchi.mp/simplifyseniortransitions/w69iux4ks6")
+    preview.main(["cta", str(tmp_path)])
+    assert json.loads((tmp_path / "map-cta.json").read_text()) == {"endpoint": None}
     monkeypatch.delenv("MAP_CTA_URL")
     preview.main(["cta", str(tmp_path)])
-    assert json.loads((tmp_path / "map-cta.json").read_text()) == {"url": None}
+    assert json.loads((tmp_path / "map-cta.json").read_text()) == {"endpoint": None}
 
 
-def test_cta_copy_and_tracking():
-    for text in ("Be notified when the full map opens", "Join the Early-Access List", "No credit card required.",
-                 "Free member access will include individual facility locations, searches, filters, local-market totals and the complete Top 20 city rankings."):
-        assert text in PAGE
-    for action in ("preview_view", "county_select", "county_hover", "ranking_view", "member_preview_view", "member_preview_click",
-                   "cta_click", "open_market_tab"):
+def test_no_mailchimp_anywhere_on_the_preview():
+    for text in (PAGE, SCRIPT, FORM_JS, (SITE / "data" / "map-cta.json").read_text(), (ROOT / "pipeline" / "preview.py").read_text()):
+        assert not re.search(r"mailchi\.mp|list-manage|eepurl", text)
+    # The only mention is the promise to visitors.
+    assert "You will not be added to Mailchimp by submitting this form." in PAGE
+
+
+def test_form_copy_fields_and_tracking():
+    for text in ("Be notified when the full map opens",
+                 "Free member access is being developed to include individual facility locations, searches, filters, local-market totals and the complete Top 20 city rankings. Join the early-access list and we’ll let you know when it becomes available.",
+                 "Join the Early-Access List", "No credit card required.",
+                 "I agree that RCFE Deal Room may contact me about early access to its market tools and community. This does not create a membership or subscribe me to a general marketing newsletter.",
+                 'href="https://www.rcfedealroom.com/privacy-policy"'):
+        assert text in PAGE, text
+    for text in ("You’re on the early-access list. We’ll contact you when the expanded RCFE market tools become available.",
+                 "We couldn’t save your request. Please try again in a moment."):
+        assert text in PAGE + FORM_JS, text
+    # Every field has a label; required ones say so; errors are tied to their fields.
+    for name in ("first_name", "last_name", "email", "role", "county", "consent"):
+        assert f'<label for="ea-{name}">' in PAGE and f'id="ea-{name}-err"' in PAGE, name
+    assert PAGE.count('class="ea-req">(required)') == 5 and 'name="website"' in PAGE and 'tabindex="-1"' in PAGE
+    for action in ("preview_view", "county_select", "county_hover", "ranking_view", "member_preview_view", "member_preview_click", "open_market_tab"):
         assert f'"{action}"' in SCRIPT, action
+    for action in ("opened", "started", "submitted", "success", "error"):
+        assert f'"early_access_form_{action}"' in FORM_JS, action
     # Events go only to RCFE Deal Room's own page, never to any site that frames it.
-    assert 'postMessage(' in SCRIPT and ', "*")' not in SCRIPT
+    assert 'postMessage(' in SCRIPT and ', "*")' not in SCRIPT + FORM_JS
     assert "rcfedealroom" in SCRIPT and "gtag(" not in SCRIPT and "googletagmanager" not in SCRIPT
 
 

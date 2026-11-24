@@ -22,10 +22,11 @@ CTA_FILE = "map-cta.json"
 REFRESH = "Refreshed weekly when CDSS posts its updated facility file."
 VERIFY = "Verify a facility's current license directly with the California Department of Social Services."
 
-# Where the early-access button may point. Set by the repository variable MAP_CTA_URL; anything else
-# (including the Community test site) is refused and the button shows "opening soon" instead.
-CTA_HOSTS = {"rcfedealroom.com", "www.rcfedealroom.com", "community.rcfedealroom.com", "mailchi.mp", "eepurl.com"}
-CTA_HOST_SUFFIXES = (".list-manage.com",)
+# Where the early-access form is sent: RCFE Deal Room's own endpoint (the early-access Cloudflare Worker,
+# which saves to a private Google Sheet). Set by the repository variable MAP_CTA_URL. Anything else,
+# including Mailchimp and the Community test site, is refused and the button shows "opening soon".
+CTA_HOSTS = {"rcfedealroom.com", "www.rcfedealroom.com", "community.rcfedealroom.com"}
+CTA_WORKER = re.compile(r"^rcfe-early-access(-staging)?\.[a-z0-9-]+\.workers\.dev$")
 
 
 def county_totals(records):
@@ -67,15 +68,16 @@ def build(data):
 
 
 def cta_config(url):
-    """The early-access button's destination, or none (shown as "opening soon")."""
+    """The early-access form's endpoint, or none (the button shows "opening soon")."""
     url = (url or "").strip()
     try:
         u = urlparse(url)
     except ValueError:
-        return {"url": None}
+        return {"endpoint": None}
     host = (u.hostname or "").lower()
-    ok = u.scheme == "https" and (host in CTA_HOSTS or host.endswith(CTA_HOST_SUFFIXES)) and not re.search(r"[\s<>\"']", url)
-    return {"url": url if ok else None}
+    ok = (u.scheme == "https" and (host in CTA_HOSTS or CTA_WORKER.match(host)) and u.path == "/submit"
+          and not u.query and not u.fragment and url == f"https://{host}/submit")
+    return {"endpoint": url if ok else None}
 
 
 def write(data, out_dir: Path):
@@ -86,7 +88,7 @@ def write(data, out_dir: Path):
 
 
 def main(argv=None):
-    """`python -m pipeline.preview cta <site_data_dir>`: writes map-cta.json from MAP_CTA_URL."""
+    """`python -m pipeline.preview cta <site_data_dir>`: writes map-cta.json (the form endpoint) from MAP_CTA_URL."""
     argv = argv if argv is not None else sys.argv[1:]
     if len(argv) == 2 and argv[0] == "cta":
         out = Path(argv[1]) / CTA_FILE

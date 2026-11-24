@@ -1,0 +1,16 @@
+// RCFE Deal Room early-access form endpoint (Cloudflare Workers Free).
+// Secrets are set with `npx wrangler secret put NAME` and are never written in this file:
+//   SHEET_WEBHOOK_URL, SHEET_SECRET (and TURNSTILE_SECRET only if spam ever requires it).
+{
+  "name": "rcfe-early-access",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": true,
+  "preview_urls": false,
+  "observability": { "enabled": true },
+  // Approximate per-location limits (Cloudflare's free rate-limiting binding; periods are 10 or 60 seconds).
+  "ratelimits": [
+    { "name": "IP_LIMIT", "namespace_id": "4101", "simple": { "limit": 5, "period": 60 } },
+    { "name": "EMAIL_LIMIT", "namespace_id": "4102", "simple": { "limit": 1, "period": 60 } }
+  ]
+}
