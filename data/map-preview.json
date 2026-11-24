@@ -1,0 +1,469 @@
+{
+ "title": "California RCFE Market Map",
+ "as_of": "2026-11-22",
+ "processed_at": "2026-11-24T01:51:25+00:00",
+ "refresh": "Refreshed weekly when CDSS posts its updated facility file.",
+ "source": "California Department of Social Services, Community Care Licensing Division: Residential Care Facilities for the Elderly licensing file (CC BY)",
+ "verify": "Verify a facility's current license directly with the California Department of Social Services.",
+ "scope": "Active licenses (Licensed and On probation), all RCFE types including CCRCs",
+ "county_rule": "County is where the home is located. The Market tab uses the county label in the CDSS file, so a few county counts differ slightly.",
+ "statewide": {
+  "facilities": 8657,
+  "licensed_capacity": 213625,
+  "counties_with_facilities": 49
+ },
+ "counties": [
+  {
+   "county": "ALAMEDA",
+   "facilities": 243,
+   "licensed_capacity": 9212,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "ALPINE",
+   "facilities": 0,
+   "licensed_capacity": 0,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "AMADOR",
+   "facilities": 5,
+   "licensed_capacity": 178,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "BUTTE",
+   "facilities": 28,
+   "licensed_capacity": 981,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "CALAVERAS",
+   "facilities": 2,
+   "licensed_capacity": 82,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "COLUSA",
+   "facilities": 0,
+   "licensed_capacity": 0,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "CONTRA COSTA",
+   "facilities": 465,
+   "licensed_capacity": 7874,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "DEL NORTE",
+   "facilities": 1,
+   "licensed_capacity": 63,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "EL DORADO",
+   "facilities": 35,
+   "licensed_capacity": 870,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "FRESNO",
+   "facilities": 297,
+   "licensed_capacity": 5711,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "GLENN",
+   "facilities": 3,
+   "licensed_capacity": 84,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "HUMBOLDT",
+   "facilities": 16,
+   "licensed_capacity": 622,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "IMPERIAL",
+   "facilities": 5,
+   "licensed_capacity": 54,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "INYO",
+   "facilities": 0,
+   "licensed_capacity": 0,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "KERN",
+   "facilities": 150,
+   "licensed_capacity": 2948,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "KINGS",
+   "facilities": 6,
+   "licensed_capacity": 201,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "LAKE",
+   "facilities": 2,
+   "licensed_capacity": 66,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "LASSEN",
+   "facilities": 1,
+   "licensed_capacity": 76,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "LOS ANGELES",
+   "facilities": 1917,
+   "licensed_capacity": 45334,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "MADERA",
+   "facilities": 5,
+   "licensed_capacity": 221,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "MARIN",
+   "facilities": 50,
+   "licensed_capacity": 2313,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "MARIPOSA",
+   "facilities": 0,
+   "licensed_capacity": 0,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "MENDOCINO",
+   "facilities": 17,
+   "licensed_capacity": 164,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "MERCED",
+   "facilities": 22,
+   "licensed_capacity": 410,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "MODOC",
+   "facilities": 0,
+   "licensed_capacity": 0,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "MONO",
+   "facilities": 0,
+   "licensed_capacity": 0,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "MONTEREY",
+   "facilities": 38,
+   "licensed_capacity": 1768,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "NAPA",
+   "facilities": 35,
+   "licensed_capacity": 1177,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "NEVADA",
+   "facilities": 8,
+   "licensed_capacity": 516,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "ORANGE",
+   "facilities": 1135,
+   "licensed_capacity": 25219,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "PLACER",
+   "facilities": 247,
+   "licensed_capacity": 4328,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "PLUMAS",
+   "facilities": 0,
+   "licensed_capacity": 0,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "RIVERSIDE",
+   "facilities": 595,
+   "licensed_capacity": 11072,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SACRAMENTO",
+   "facilities": 693,
+   "licensed_capacity": 11087,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SAN BENITO",
+   "facilities": 3,
+   "licensed_capacity": 48,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SAN BERNARDINO",
+   "facilities": 299,
+   "licensed_capacity": 7058,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SAN DIEGO",
+   "facilities": 614,
+   "licensed_capacity": 22308,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SAN FRANCISCO",
+   "facilities": 51,
+   "licensed_capacity": 3391,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SAN JOAQUIN",
+   "facilities": 143,
+   "licensed_capacity": 3808,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SAN LUIS OBISPO",
+   "facilities": 95,
+   "licensed_capacity": 1502,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SAN MATEO",
+   "facilities": 207,
+   "licensed_capacity": 5188,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SANTA BARBARA",
+   "facilities": 96,
+   "licensed_capacity": 3734,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SANTA CLARA",
+   "facilities": 260,
+   "licensed_capacity": 10819,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SANTA CRUZ",
+   "facilities": 28,
+   "licensed_capacity": 1217,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SHASTA",
+   "facilities": 45,
+   "licensed_capacity": 1291,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SIERRA",
+   "facilities": 0,
+   "licensed_capacity": 0,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SISKIYOU",
+   "facilities": 2,
+   "licensed_capacity": 111,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SOLANO",
+   "facilities": 168,
+   "licensed_capacity": 3286,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SONOMA",
+   "facilities": 157,
+   "licensed_capacity": 4477,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "STANISLAUS",
+   "facilities": 106,
+   "licensed_capacity": 2853,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "SUTTER",
+   "facilities": 8,
+   "licensed_capacity": 432,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "TEHAMA",
+   "facilities": 10,
+   "licensed_capacity": 164,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "TRINITY",
+   "facilities": 0,
+   "licensed_capacity": 0,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "TULARE",
+   "facilities": 48,
+   "licensed_capacity": 1031,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "TUOLUMNE",
+   "facilities": 2,
+   "licensed_capacity": 155,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "VENTURA",
+   "facilities": 267,
+   "licensed_capacity": 6619,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "YOLO",
+   "facilities": 22,
+   "licensed_capacity": 1338,
+   "capacity_not_listed": 0
+  },
+  {
+   "county": "YUBA",
+   "facilities": 5,
+   "licensed_capacity": 164,
+   "capacity_not_listed": 0
+  }
+ ],
+ "top": {
+  "title": "Top California RCFE Markets",
+  "explanation": "A high facility count does not necessarily indicate market saturation. It may reflect population, demand, established referral networks or other local conditions. Facility concentration should be evaluated alongside demographics, occupancy, pricing, staffing, real estate costs and local referral patterns.",
+  "metrics": [
+   {
+    "id": "facilities",
+    "label": "Most facilities",
+    "unit": "facilities",
+    "tier": "free"
+   },
+   {
+    "id": "licensed_capacity",
+    "label": "Most licensed capacity",
+    "unit": "licensed capacity",
+    "tier": "free"
+   }
+  ],
+  "lists": {
+   "facilities": [
+    {
+     "rank": 1,
+     "tied": false,
+     "city": "Los Angeles",
+     "county": "LOS ANGELES",
+     "facilities": 931,
+     "licensed_capacity": 17861
+    },
+    {
+     "rank": 2,
+     "tied": false,
+     "city": "San Diego",
+     "county": "SAN DIEGO",
+     "facilities": 195,
+     "licensed_capacity": 7460
+    },
+    {
+     "rank": 3,
+     "tied": false,
+     "city": "Fresno",
+     "county": "FRESNO",
+     "facilities": 174,
+     "licensed_capacity": 4108
+    },
+    {
+     "rank": 4,
+     "tied": false,
+     "city": "Mission Viejo",
+     "county": "ORANGE",
+     "facilities": 160,
+     "licensed_capacity": 1723
+    },
+    {
+     "rank": 5,
+     "tied": false,
+     "city": "San Jose",
+     "county": "SANTA CLARA",
+     "facilities": 147,
+     "licensed_capacity": 3556
+    }
+   ],
+   "licensed_capacity": [
+    {
+     "rank": 1,
+     "tied": false,
+     "city": "Los Angeles",
+     "county": "LOS ANGELES",
+     "facilities": 931,
+     "licensed_capacity": 17861
+    },
+    {
+     "rank": 2,
+     "tied": false,
+     "city": "San Diego",
+     "county": "SAN DIEGO",
+     "facilities": 195,
+     "licensed_capacity": 7460
+    },
+    {
+     "rank": 3,
+     "tied": false,
+     "city": "Fresno",
+     "county": "FRESNO",
+     "facilities": 174,
+     "licensed_capacity": 4108
+    },
+    {
+     "rank": 4,
+     "tied": false,
+     "city": "San Jose",
+     "county": "SANTA CLARA",
+     "facilities": 147,
+     "licensed_capacity": 3556
+    },
+    {
+     "rank": 5,
+     "tied": false,
+     "city": "San Francisco",
+     "county": "SAN FRANCISCO",
+     "facilities": 51,
+     "licensed_capacity": 3391
+    }
+   ]
+  }
+ }
+}

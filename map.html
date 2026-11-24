@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <script>if (window.self !== window.top || /[?&]embed=1\b/.test(location.search)) document.documentElement.classList.add("embedded");</script>
+  <meta name="robots" content="noindex, nofollow">
+  <!-- Shown only inside RCFE Deal Room's own sites; see assets/guard.js. Runs before anything else loads. -->
+  <script src="assets/guard.js"></script>
+  <title>California RCFE Market Map preview</title>
+  <meta name="description" content="Where licensed RCFEs are concentrated across California, by county and city, from the weekly CDSS file.">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/map-preview.css">
+  <!-- Public preview: county and city totals only. Facility locations are for RCFE Deal Room members. -->
+  <script type="module" src="assets/map-preview.js"></script>
+</head>
+<body class="mp">
+  <main class="mp-wrap" id="main">
+    <section class="mp-head" aria-labelledby="mp-title">
+      <p class="mp-eyebrow"><span class="mp-pill">In development</span> RCFE Deal Room Market Watch</p>
+      <h2 id="mp-title">California RCFE Market Map</h2>
+      <p class="mp-lede">Explore where licensed Residential Care Facilities for the Elderly are concentrated across California using facility data updated weekly from the California Department of Social Services.</p>
+      <p class="mp-dates" id="mp-dates">Loading the latest CDSS figures…</p>
+    </section>
+
+    <section class="mp-stats" id="mp-stats" aria-label="Statewide totals" hidden>
+      <div><b id="mp-s-fac">–</b><span>active RCFE facilities</span></div>
+      <div><b id="mp-s-cap">–</b><span>total licensed capacity</span></div>
+      <div><b id="mp-s-cty">–</b><span>counties with an active RCFE</span></div>
+    </section>
+
+    <div class="mp-grid">
+      <section class="mp-card mp-mapcard" aria-labelledby="mp-map-title">
+        <div class="mp-card-head">
+          <h3 id="mp-map-title">Active RCFE facilities by county</h3>
+          <label class="mp-select"><span>County</span>
+            <select id="mp-county"><option value="">Select a county…</option></select>
+          </label>
+        </div>
+        <div class="mp-mapbox">
+          <svg id="mp-svg" role="img" aria-labelledby="mp-map-title mp-map-desc" focusable="false"></svg>
+          <p id="mp-map-desc" class="sr-only">California counties shaded by the number of active RCFE facilities. Use the county list to read each county's totals.</p>
+          <div class="mp-tip" id="mp-tip" role="status" aria-live="polite" hidden></div>
+        </div>
+        <div class="mp-legend" id="mp-legend" aria-label="Legend"></div>
+        <div class="mp-summary" id="mp-summary" aria-live="polite">
+          <p class="mp-muted">Hover over or select a county to see its totals.</p>
+        </div>
+        <p class="mp-note" id="mp-county-rule"></p>
+      </section>
+
+      <section class="mp-card mp-rankcard" aria-labelledby="mp-rank-title">
+        <h3 id="mp-rank-title">Top California RCFE Markets</h3>
+        <div class="mp-tabs" role="tablist" aria-label="Rank cities by">
+          <button type="button" role="tab" id="mp-t-facilities" aria-selected="true" class="on">Most active RCFE facilities</button>
+          <button type="button" role="tab" id="mp-t-licensed_capacity" aria-selected="false">Most licensed capacity</button>
+        </div>
+        <table class="mp-rank">
+          <caption class="sr-only" id="mp-rank-caption">Top five cities by active RCFE facilities</caption>
+          <thead><tr><th scope="col">#</th><th scope="col">City</th><th scope="col">County</th><th scope="col" class="n">Facilities</th><th scope="col" class="n">Licensed capacity</th></tr></thead>
+          <tbody id="mp-rankrows"><tr><td colspan="5" class="mp-muted">Loading…</td></tr></tbody>
+        </table>
+        <p class="mp-explain" id="mp-explain">A high facility count does not necessarily indicate market saturation. It may reflect population, demand, established referral networks or other local conditions. Facility concentration should be evaluated alongside demographics, occupancy, pricing, staffing, real estate costs and local referral patterns.</p>
+        <p class="mp-small">Cities are official Census cities and named communities. Active licenses: Licensed and On probation. Members will see the complete Top 20.</p>
+        <a class="mp-link" id="mp-open-market" href="market.html">See every county in the Market tab below</a>
+      </section>
+    </div>
+
+    <section class="mp-members" aria-labelledby="mp-members-title">
+      <div class="mp-members-head">
+        <h3 id="mp-members-title">More Market Tools Are Coming for RCFE Deal Room Members</h3>
+        <span class="mp-lock" aria-label="Member preview"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 7V5a3.5 3.5 0 0 1 7 0v2h.5A1 1 0 0 1 13 8v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h.5Zm1.5 0h4V5a2 2 0 0 0-4 0v2Z"/></svg>Member Preview</span>
+      </div>
+
+      <div class="mp-demo" id="mp-demo">
+        <p class="mp-sample" aria-hidden="true">Sample data shown</p>
+        <div class="mp-demo-side" aria-hidden="true">
+          <div class="mp-fake-input">Search address, city or ZIP</div>
+          <div class="mp-chips"><span>County</span><span>City</span><span>ZIP code</span><span>License status</span><span>Licensed capacity</span></div>
+          <div class="mp-fake-rank">
+            <b>Top 20 California RCFE Markets</b>
+            <div class="mp-fake-row"><i>6</i><em style="width:70%"></em><em class="v"></em></div>
+            <div class="mp-fake-row"><i>7</i><em style="width:62%"></em><em class="v"></em></div>
+            <div class="mp-fake-row"><i>8</i><em style="width:55%"></em><em class="v"></em></div>
+            <div class="mp-fake-row"><i>…</i><em style="width:46%"></em><em class="v"></em></div>
+            <div class="mp-fake-row"><i>20</i><em style="width:38%"></em><em class="v"></em></div>
+          </div>
+          <div class="mp-futures"><span>Saved markets <small>Future feature</small></span><span>Historical trends <small>Future feature</small></span></div>
+        </div>
+        <div class="mp-demo-map" aria-hidden="true">
+          <svg id="mp-demo-svg" focusable="false"></svg>
+          <div class="mp-fake-card">
+            <b>Sample Care Home</b>
+            <span>123 Example Street, Sample City</span>
+            <span><strong>Licensed</strong> · licensed capacity 6</span>
+            <table><tr><td>Within 1 mi</td><td>4 homes</td></tr><tr><td>Within 3 mi</td><td>24 homes</td></tr><tr><td>Within 5 mi</td><td>61 homes</td></tr></table>
+            <span class="mp-fake-btns"><i>1 mi</i><i>3 mi</i><i>5 mi</i><i>10 mi</i></span>
+          </div>
+        </div>
+      </div>
+
+      <ul class="mp-features">
+        <li><b>Facility locations</b> on an interactive map, grouped into clusters as you zoom out</li>
+        <li><b>Search</b> by facility name, street address, city or ZIP code</li>
+        <li><b>Filters</b> for county, city, ZIP code, license status and licensed capacity</li>
+        <li><b>The complete Top 20</b> city rankings, with each city's capacity mix and share of its county</li>
+        <li><b>Facility cards</b> with status, licensed capacity and license details</li>
+        <li><b>Local totals and proximity searches</b>: facilities and licensed capacity within 1, 3, 5 and 10 miles</li>
+        <li class="mp-future"><b>Saved markets and historical analysis</b>: planned future features</li>
+      </ul>
+
+      <div class="mp-cta" id="mp-cta">
+        <div>
+          <h4>Be notified when the full map opens</h4>
+          <p>Free member access will include individual facility locations, searches, filters, local-market totals and the complete Top 20 city rankings.</p>
+        </div>
+        <div class="mp-cta-act">
+          <a class="mp-btn" id="mp-cta-btn" href="#" target="_top" rel="noopener" aria-disabled="true">Join the Early-Access List</a>
+          <span class="mp-small" id="mp-cta-note">No credit card required.</span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="mp-foot">
+      <p id="mp-source">Source: California Department of Social Services, Community Care Licensing Division (CC BY).</p>
+      <p>Verify a facility's current license directly with the California Department of Social Services. Facility counts are one market factor; they don't measure demand, occupancy or profitability, and this map doesn't recommend where to buy or open a facility.</p>
+    </footer>
+  </main>
+</body>
+</html>
