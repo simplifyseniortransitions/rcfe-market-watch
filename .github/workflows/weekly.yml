@@ -179,6 +179,29 @@ jobs:
           npx --yes wrangler@4.158.0 r2 object put "$MAP_BUCKET/$key" --file "mapbuild/$key" --content-type application/json --remote
           npx --yes wrangler@4.158.0 r2 object put "$MAP_BUCKET/map/current.json" --file mapbuild/map/current.json --content-type application/json --remote
 
+      # Public Market Map preview (Phase 4): county and city totals only, never an address or a location.
+      # Built by the map step above; published on its own, so a failure here leaves last week's preview up
+      # and can't affect Market Watch or the members' map.
+      - name: Public map preview
+        id: preview
+        if: steps.map.outcome == 'success'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MAP_CTA_URL: ${{ vars.MAP_CTA_URL }}
+        run: |
+          cp mapbuild/public/map-preview.json site/data/map-preview.json
+          python -m pipeline.preview cta site/data
+          git add site/data/map-preview.json site/data/map-cta.json
+          if git diff --cached --quiet; then echo "Preview unchanged."; exit 0; fi
+          git commit -q -m "Map preview: ${{ steps.download.outputs.file }}"
+          git pull -q --rebase origin main
+          git push -q origin HEAD:main
+          git fetch -q origin gh-pages
+          commit=$(git commit-tree "$(git rev-parse HEAD:site)" -p origin/gh-pages -m "Publish site/ from main $(git rev-parse --short HEAD)")
+          git push -q origin "${commit}:refs/heads/gh-pages"
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || echo "Pages will rebuild on its own."
+
       - name: Summary
         if: always() && steps.decide.outputs.go == 'true'
         run: |

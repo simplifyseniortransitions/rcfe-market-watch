@@ -1,0 +1,40 @@
+# Updates the public Market Map preview's early-access button without waiting for the weekly run.
+# Set the repository variable MAP_CTA_URL (Settings → Secrets and variables → Actions → Variables), then run
+# this from the Actions tab. Only approved addresses are accepted (pipeline/preview.py); anything else, or
+# no value, shows "Early-access signup opens soon".
+name: Map preview settings
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: weekly-update
+  cancel-in-progress: false
+jobs:
+  cta:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Write the button setting and publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MAP_CTA_URL: ${{ vars.MAP_CTA_URL }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python -m pipeline.preview cta site/data
+          git add site/data/map-cta.json
+          if git diff --cached --quiet; then echo "Button setting unchanged."; exit 0; fi
+          git commit -q -m "Map preview: early-access button setting"
+          git push -q origin HEAD:main
+          git fetch -q origin gh-pages
+          commit=$(git commit-tree "$(git rev-parse HEAD:site)" -p origin/gh-pages -m "Publish site/ from main $(git rev-parse --short HEAD)")
+          git push -q origin "${commit}:refs/heads/gh-pages"
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || echo "Pages will rebuild on its own."

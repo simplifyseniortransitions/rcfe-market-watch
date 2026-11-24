@@ -192,7 +192,8 @@ def test_compare_with_and_trends_use_history_and_own_charts():
 def test_every_page_keeps_search_engines_out_and_shows_only_inside_rcfe_deal_room_sites():
     import glob
     pages = sorted(glob.glob("site/*.html"))
-    assert len(pages) == 5
+    # Five Market Watch pages plus map.html, the public Market Map preview (its own frame on rcfedealroom.com).
+    assert len(pages) == 6
     for f in pages:
         s = open(f, encoding="utf-8").read()
         assert '<meta name="robots" content="noindex, nofollow">' in s, f

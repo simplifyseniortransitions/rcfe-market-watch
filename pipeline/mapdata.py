@@ -15,7 +15,7 @@ import sys
 from datetime import date, datetime, timezone
 from pathlib import Path
 
-from pipeline import cities, config, geocode, metrics
+from pipeline import cities, config, geocode, metrics, preview
 from pipeline.address import from_row
 from pipeline.counties import county_name
 from pipeline.normalize import CLOSED, administrator_keys, normalize, withhold
@@ -131,6 +131,7 @@ def main(argv=None, paths=config.DEFAULT_PATHS):
     data = build(paths)
     key, _ = write(data, paths.mapbuild)
     write_public_top(data, paths.mapbuild)
+    preview.write(data, paths.mapbuild)
     # Geocoder outages don't stop the build: new addresses show as "location pending" until next week.
     print(json.dumps({"map_file": key, "counts": data["counts"], "geocode": summary}))
     return 0

@@ -14,3 +14,6 @@ snapshots/*
 geocache/
 # Members' map files (street addresses), built here and uploaded to private storage only.
 mapbuild/
+
+# Cloudflare command-line tool cache (created by wrangler); never part of the site.
+.wrangler/
