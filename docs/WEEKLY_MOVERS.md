@@ -24,7 +24,7 @@ The data audit behind these choices is in `WEEKLY_MOVERS_AUDIT.md`.
   for review, possible renames or duplicates.
 - **Movers:** for every city and county, previous and current active records and recorded capacity, the
   change, the percentage (only when the previous value is 10 or more) and the facility changes behind it.
-  The 10 largest increases and decreases of each kind are kept.
+  The 20 largest increases and decreases of each kind are kept (the public preview shows 3).
 - **Facility-level changes:** newly observed, no longer active, capacity increase/decrease, name, street
   address (review only), city, county and status changes. Each keeps the Facility Number, name, city, county,
   previous and current values, first and last observed dates, source dates, verification status and flags.
@@ -116,34 +116,43 @@ methodology version, supersedes/superseded-by, path) plus `current_report_id`. I
 carries a visible `methodology_note` warning. Private notes, street addresses, administrator names and phone
 numbers never appear in any approved file.
 
-## Community integration contract (read-only; not built)
-The community site should:
-- Read `approved/index.json` and the `report.json` files it lists. Never read `drafts/`, `reviews.jsonl` or
-  `runs/`, and never recalculate a number.
-- Show the current report (`current_report_id`): statewide summary, top city and county movers, newly observed
-  records, records no longer appearing as active, capacity changes, source dates, methodology, the disclaimer,
-  and prior weekly reports from the index.
-- Show a superseded report's link to its correction, and the index's `methodology_note` when present.
-- Use the safe terminology above and the report's own `terminology` labels.
-- Analytics (non-personal only): `weekly_movers_viewed`, `weekly_movers_period_changed`,
-  `weekly_movers_methodology_viewed`, `weekly_movers_news_brief_copied`, with no facility search terms,
-  personal details or notes.
+## Publication (approved reports only)
+Approving a report on the review screen publishes it in one step. Nothing in the weekly job publishes.
 
-**Delivery is not decided.** The approved files are in the private repository. A later, separately approved
-step would copy approved reports to where the community Worker can read them, for example the private R2
-bucket the members' map already uses.
+1. **Validate** the approved report. It must be Approved, with an approval user, a time and an acknowledged
+   approval line in the review log. It needs both snapshot IDs, both source dates and a methodology version.
+   It must contain no held or excluded findings and no private fields, totals that reconcile, and the
+   required disclaimer.
+2. **Write the sanitized files** (each written once, never changed):
+   - public preview `site/data/weekly-movers/reports/<id>.json`: totals and the top 3 movers only, no facility records;
+   - free-community report `movers/community/reports/<id>.json` in the private repository.
+3. **Check what was written:** content scan (no street addresses, emails, phone numbers, notes, paths or
+   secrets) and a read-back.
+4. **Move the pointers last:** `index.json`, then `current.json`, each swapped in atomically. A failure at any
+   step leaves the previous files exactly as they were, and is logged in `movers/publications.jsonl`.
+5. **Push** (only when the review screen runs with `--deploy`, once publication infrastructure is approved):
+   commit `site/data/weekly-movers/` to main and republish GitHub Pages, the same way the weekly job does.
 
-## Marblism integration contract (not built)
-For the public Market Watch preview, Marblism would show only:
-- This week's headline totals: `statewide.current_active`, `net_active_change`, `newly_observed`,
-  `no_longer_active`, `current_capacity`, `net_capacity_change`, plus `comparison_period`.
-- The top three city or county movements (`county_movers.count_increases/decreases`, then city).
-- A link to the current RCFE Deal Room News episode, when one exists. That link isn't in the artifact yet.
-- A call to action to join the free community for the full report, once that link is approved
-  (`links.community`).
-- The disclaimer.
-It must only read an **approved** artifact, never a draft, and must not compute anything. Publishing a small
-public preview file (for example on GitHub Pages next to Market Watch) is a later step that needs approval.
+**Public files** (GitHub Pages, no directory listing): `data/weekly-movers/current.json` (pointer, or a valid
+empty state), `index.json` (all published reports, superseded ones labeled), `reports/<id>.json`.
+**Public frame:** `site/weekly-movers.html`, which reads only those files and calculates nothing.
+**Sample stores** (a `.sample-only` file at the store root, e.g. `movers-sample/`) can never publish. The review
+screen's "Public frame preview" shows any report as a labeled TEST PREVIEW on this Mac only.
+
+**News episode:** on an approved report, the reviewer can add an RCFE Deal Room News episode by hand: title,
+link, optional YouTube link, publication date, and an "approved" tick. It goes into `current.json` only, never
+into the immutable report file. Without an approved episode, the news button is hidden.
+
+**Cache:** GitHub Pages caches every file for 10 minutes. The frame always revalidates `current.json`
+(`cache: "no-cache"`). Report files are immutable and named by report ID, so they can be cached.
+**Rollback:** revert the `site/data/weekly-movers/` commit and republish gh-pages, or remove the frame on
+Marblism. Market Watch and the map don't depend on these files.
+
+## Community integration contract
+See `WEEKLY_MOVERS_COMMUNITY.md`. The member report is in the private repository, not on GitHub Pages.
+
+## Marblism integration contract
+See `WEEKLY_MOVERS_MARBLISM.md`: embed URL, listener, message names, states and checklist.
 
 ## Failure behavior
 - The weekly step runs last, after Publish, Members' map and Public map preview, with `continue-on-error`.

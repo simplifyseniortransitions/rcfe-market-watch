@@ -59,3 +59,14 @@ def paths(tmp_path):
     p = config.Paths(tmp_path)
     p.inbox.mkdir(parents=True)
     return p
+
+
+@pytest.fixture(autouse=True, scope="session")
+def public_weekly_movers_files_are_never_touched_by_tests():
+    """Tests publish only into temporary folders: the real site/data/weekly-movers/ must be identical afterwards."""
+    from pathlib import Path
+    folder = Path(__file__).resolve().parent.parent / "site" / "data" / "weekly-movers"
+    before = {str(p): p.read_bytes() for p in folder.rglob("*") if p.is_file()}
+    yield
+    after = {str(p): p.read_bytes() for p in folder.rglob("*") if p.is_file()}
+    assert after == before, "a test changed site/data/weekly-movers/"

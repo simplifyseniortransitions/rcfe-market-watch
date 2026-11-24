@@ -227,17 +227,18 @@ function render() {
     el("textarea", { id: "note", "aria-label": "Private note", placeholder: "Private note (never published)" }),
     el("p", {}, el("button", { onclick: async () => { const t = document.getElementById("note").value; if (t.trim() && await post("note", { text: t })) loadReport(); } }, "Add note"))));
   parts.push(actionSection(editable));
+  parts.push(previewLinks());
   parts.push(el("section", {}, el("h2", {}, "History"), el("div", { class: "scroll" }, el("table", {}, el("tbody", {},
     view.log.map(e => el("tr", {}, el("td", {}, e.at), el("td", {}, e.user), el("td", {}, e.action + (e.item ? " " + e.item : "")),
       el("td", {}, `${e.previous_state || "—"} → ${e.new_state}`), el("td", { class: "num" }, `${e.included_findings} shown / ${e.excluded_or_held_findings} held or excluded`))))))));
-  app.replaceChildren(...parts);
+  app.replaceChildren(...parts.filter(Boolean));
 }
 
 function actionSection(editable) {
   const r = view.report;
   const ack = el("input", { type: "checkbox", id: "ack" });
   const note = el("textarea", { id: "decision-note", placeholder: "Optional note for this decision (private)" });
-  const go = async (action, body) => { const out = await post(action, body); if (out) { toast("Saved."); loadList(out.report_id); } };
+  const go = async (action, body) => { const out = await post(action, body); if (out) { toast(out.message || "Saved."); loadList(out.report_id); } };
   return el("section", {}, el("h2", {}, "Decision"),
     editable ? el("div", {},
       el("p", {}, el("label", {}, ack, " I reviewed this report, its anomalies and every held finding, and it is ready to be an approved public and community artifact.")),
@@ -247,8 +248,44 @@ function actionSection(editable) {
         r.state === "draft" ? el("button", { onclick: () => go("hold", { note: note.value }) }, "Hold for data review") : null,
         el("button", { class: "danger", onclick: () => { if (confirm("Reject this report? It stays in the history but can't be approved.")) go("reject", { note: note.value }); } }, "Reject")))
     : r.state === "approved" ? el("div", {}, el("p", {}, `Approved ${r.approved_at} by ${r.approved_by}. The approved files are frozen.`),
-        el("button", { onclick: () => { if (confirm("Create a corrected version? It starts as a Draft and replaces this report only when approved.")) go("correct", {}); } }, "Create corrected version"))
+        el("button", { onclick: () => { if (confirm("Create a corrected version? It starts as a Draft and replaces this report only when approved.")) go("correct", {}); } }, "Create corrected version"),
+        publicationPanel(go))
     : el("p", { class: "muted" }, `This report is ${view.state_label.toLowerCase()} and can't be changed.`));
+}
+
+function publicationPanel(go) {
+  const r = view.report, pub = view.publication, n = view.news || {};
+  const last = pub.last_attempt;
+  const f = (id, label, value, type) => el("label", { style: "display:block;margin:6px 0" }, label, el("br"),
+    el("input", { id, type: type || "text", value: value || "", style: "width:100%;max-width:520px;padding:6px" }));
+  const ok = el("input", { type: "checkbox", id: "news-ok" }); if (n.approved) ok.checked = true;
+  return el("div", {},
+    el("h3", {}, "Publication"),
+    view.sample_store ? el("p", { class: "warn" }, "Sample store: reports here are never published.") : null,
+    el("p", {}, pub.published ? el("b", { class: "ok" }, "Published to the Weekly Movers files.") : el("b", { class: "bad" }, "Not published."),
+      " ", el("span", { class: "muted" }, view.deploy ? "Changes are pushed to GitHub Pages." : "Public files are saved on this Mac only (GitHub push is off).")),
+    last && last.outcome !== "published" ? el("div", { class: "warn" }, `Last attempt ${last.at}: ${last.outcome}. ${(last.problems || []).join(" ")}`) : null,
+    !pub.published && !view.sample_store ? el("button", { class: "primary", onclick: () => go("publish", {}) }, "Publish again") : null,
+    el("h3", {}, "RCFE Deal Room News episode (optional)"),
+    el("p", { class: "muted" }, "Assigned by hand. The link appears on Market Watch only after you tick the box and save."),
+    f("news-title", "Episode title", n.title), f("news-url", "Episode page (https, rcfedealroom.com or YouTube)", n.url, "url"),
+    f("news-yt", "YouTube link (optional)", n.youtube_url, "url"), f("news-date", "Publication date (YYYY-MM-DD)", n.published_on),
+    el("p", {}, el("label", {}, ok, " This episode is approved to show with this report.")),
+    el("div", { class: "actions" },
+      el("button", { onclick: () => go("news", { title: document.getElementById("news-title").value, url: document.getElementById("news-url").value,
+        youtube_url: document.getElementById("news-yt").value, published_on: document.getElementById("news-date").value, approved: ok.checked }) }, "Save episode"),
+      view.news ? el("button", { class: "danger", onclick: () => go("news_clear", {}) }, "Remove episode") : null));
+}
+
+function previewLinks() {
+  const r = view.report;
+  if (!r.statewide) return null;
+  return el("section", {}, el("h2", {}, "Public frame preview (this Mac only)"),
+    el("p", { class: "muted" }, "Opens the Weekly Movers frame exactly as Market Watch would show it. The report version is labeled TEST PREVIEW and is never published."),
+    el("div", { class: "actions" },
+      el("a", { href: `/wm-preview/${r.report_id}/weekly-movers.html`, target: "_blank", rel: "noopener" }, "This report (test copy)"),
+      el("a", { href: "/wm-preview/empty/weekly-movers.html", target: "_blank", rel: "noopener" }, "Empty state"),
+      el("a", { href: "/wm-preview/unavailable/weekly-movers.html", target: "_blank", rel: "noopener" }, "Failure state")));
 }
 
 loadList();

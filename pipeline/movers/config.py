@@ -28,8 +28,9 @@ GAP_DAYS = (6, 8)
 # Percentage changes are only shown when the previous value is at least this.
 PCT_MIN_BASE = 10
 
-# How many movers each list keeps.
-TOP_N = 10
+# How many movers each list keeps (20 for the free-community report; the public preview shows 3).
+# Raised from 10 on 2026-11-24 for the publication layer: list length only, no calculation changed.
+TOP_N = 20
 
 # --- Statewide and area thresholds: a trip holds the WHOLE report (statewide) or the area row (city/county).
 THRESHOLDS = {

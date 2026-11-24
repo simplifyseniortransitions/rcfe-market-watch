@@ -448,7 +448,9 @@ def test_no_automatic_publication(store):  # [29]
     step = wf[wf.index("- name: Weekly Movers draft"):]
     step = step[:step.index("\n      - name:", 1)]
     assert "--store private-data/movers" in step and "cd private-data" in step
-    assert not list((ROOT / "site").rglob("*movers*"))
+    # Only approved reports ever reach the public folder (publication is a separate, approved-only step).
+    for f in (ROOT / "site" / "data" / "weekly-movers").glob("reports/*.json"):
+        assert json.loads(f.read_text())["status"] == "approved"
 
 
 # ---------------------------------------------------------------------------------------------- isolation
@@ -584,7 +586,7 @@ def test_source_dates_and_processing_dates(two_weeks):
 @pytest.fixture
 def server(store):
     import movers_review
-    app = movers_review.App(store, token="k" * 30)
+    app = movers_review.App(store, token="k" * 30, public_dir=store.root.parent / "public")
     httpd = ThreadingHTTPServer(("127.0.0.1", 0), movers_review.make_handler(app))
     httpd.testing = True
     t = threading.Thread(target=httpd.serve_forever, daemon=True)

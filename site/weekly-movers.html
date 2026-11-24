@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <script>if (window.self !== window.top || /[?&]embed=1\b/.test(location.search)) document.documentElement.classList.add("embedded");</script>
+  <meta name="robots" content="noindex, nofollow">
+  <!-- Shown only inside RCFE Deal Room's own sites; see assets/guard.js. Runs before anything else loads. -->
+  <script src="assets/guard.js"></script>
+  <title>California RCFE Weekly Movers</title>
+  <meta name="description" content="How California's active RCFE records and recorded licensed capacity changed in the latest weekly CDSS data.">
+  <link rel="stylesheet" href="assets/weekly-movers.css">
+  <!-- Reads only data/weekly-movers/current.json and the approved report it points to. Calculates nothing. -->
+  <script type="module" src="assets/weekly-movers.js"></script>
+</head>
+<body class="wm">
+  <main class="wm-wrap" id="main" aria-labelledby="wm-title">
+    <p class="wm-test" id="wm-test" hidden></p>
+    <p class="wm-eyebrow">UPDATED WEEKLY FROM CALIFORNIA CDSS DATA</p>
+    <h2 id="wm-title">California RCFE Weekly Movers</h2>
+    <p class="wm-lede">See how California’s active RCFE facility counts and recorded licensed capacity changed in the latest weekly CDSS data.</p>
+
+    <p class="wm-status" id="wm-status" role="status">Loading the latest approved Weekly Movers report…</p>
+
+    <div id="wm-report" hidden>
+      <p class="wm-correction" id="wm-correction" hidden>Corrected report: this version replaces an earlier one for the same week.</p>
+      <div class="wm-period" id="wm-period"></div>
+
+      <section class="wm-cards" aria-label="Statewide summary" id="wm-cards"></section>
+
+      <section class="wm-movers" aria-label="Weekly movers">
+        <div class="wm-mover"><h3>Cities gaining active facility records</h3><ol id="wm-city-up"></ol></div>
+        <div class="wm-mover"><h3>Cities with decreases in active facility records</h3><ol id="wm-city-down"></ol></div>
+        <div class="wm-mover"><h3>Counties adding recorded licensed capacity</h3><ol id="wm-county-up"></ol></div>
+        <div class="wm-mover"><h3>Counties with recorded licensed capacity decreases</h3><ol id="wm-county-down"></ol></div>
+      </section>
+      <p class="wm-note" id="wm-city-note"></p>
+
+      <details class="wm-method" id="wm-method">
+        <summary>How Weekly Movers is calculated <span id="wm-method-id"></span></summary>
+        <ul id="wm-method-list"></ul>
+      </details>
+    </div>
+
+    <p class="wm-disclaimer" id="wm-disclaimer">These are changes observed in the latest California CDSS dataset. A newly observed record does not necessarily mean a facility opened this week, and a record no longer appearing as active does not by itself confirm that the facility closed.</p>
+
+    <div class="wm-ctas" id="wm-ctas"></div>
+  </main>
+</body>
+</html>
