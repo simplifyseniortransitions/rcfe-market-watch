@@ -1,6 +1,19 @@
 {
   "schema": "weekly-movers-pointer/1/index",
   "label": "California RCFE Weekly Movers",
-  "reports": [],
+  "reports": [
+    {
+      "report_id": "wm-2026-11-22-r1",
+      "status": "approved",
+      "version": 1,
+      "current_source_date": "2026-11-22",
+      "comparison_period": "2026-11-15 to 2026-11-22",
+      "methodology_version": "1.0",
+      "supersedes": null,
+      "superseded_by": null,
+      "label": null,
+      "report_url": "reports/wm-2026-11-22-r1.json"
+    }
+  ],
   "methodology_note": null
 }

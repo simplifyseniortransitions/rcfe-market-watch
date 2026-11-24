@@ -1,0 +1,199 @@
+{
+  "schema": "weekly-movers-public/1",
+  "label": "California RCFE Weekly Movers",
+  "status": "approved",
+  "report_id": "wm-2026-11-22-r1",
+  "version": 1,
+  "reporting_period": {
+    "previous_source_date": "2026-11-15",
+    "current_source_date": "2026-11-22",
+    "days": 7
+  },
+  "current_source_date": "2026-11-22",
+  "previous_source_date": "2026-11-15",
+  "processing_date": "2026-11-24T00:18:12+00:00",
+  "approval_date": "2026-11-24T16:54:58+00:00",
+  "methodology_version": "1.0",
+  "methodology": {
+    "id": "weekly-movers-methodology-1.0",
+    "summary": [
+      "Compares the two most recent weekly CDSS Residential Care Facilities for the Elderly files, about 7 days apart.",
+      "Active records are those with Facility Status Licensed or On Probation.",
+      "Recorded licensed capacity is the sum of Facility Capacity for active records: the license limit, not occupancy.",
+      "Cities are CDSS mailing cities with known spelling errors corrected; counties are CDSS county labels.",
+      "Percentages are shown only when the previous value is 10 or more.",
+      "Every report is reviewed and approved by RCFE Deal Room before it appears here. Records that need verification are left out until checked."
+    ]
+  },
+  "supersedes": null,
+  "statewide": {
+    "previous_active": 8651,
+    "current_active": 8657,
+    "net_active_change": 6,
+    "newly_observed": 17,
+    "no_longer_active": 11,
+    "previous_capacity": 213888,
+    "current_capacity": 213625,
+    "net_capacity_change": -263,
+    "counties_affected": 10,
+    "cities_affected": 26
+  },
+  "movers": {
+    "city_count_increases": [
+      {
+        "area": "CLOVIS",
+        "county": "FRESNO",
+        "previous_count": 91,
+        "current_count": 92,
+        "count_change": 1,
+        "count_pct": 1.1,
+        "previous_capacity": 949,
+        "current_capacity": 954,
+        "capacity_change": 5,
+        "capacity_pct": 0.5
+      },
+      {
+        "area": "CYPRESS",
+        "county": "ORANGE",
+        "previous_count": 14,
+        "current_count": 15,
+        "count_change": 1,
+        "count_pct": 7.1,
+        "previous_capacity": 84,
+        "current_capacity": 236,
+        "capacity_change": 152,
+        "capacity_pct": 181.0
+      },
+      {
+        "area": "MANTECA",
+        "county": "SAN JOAQUIN",
+        "previous_count": 24,
+        "current_count": 25,
+        "count_change": 1,
+        "count_pct": 4.2,
+        "previous_capacity": 489,
+        "current_capacity": 495,
+        "capacity_change": 6,
+        "capacity_pct": 1.2
+      }
+    ],
+    "city_count_decreases": [
+      {
+        "area": "BRENTWOOD",
+        "county": "CONTRA COSTA",
+        "previous_count": 42,
+        "current_count": 41,
+        "count_change": -1,
+        "count_pct": -2.4,
+        "previous_capacity": 957,
+        "current_capacity": 757,
+        "capacity_change": -200,
+        "capacity_pct": -20.9
+      },
+      {
+        "area": "ESCONDIDO",
+        "county": "SAN DIEGO",
+        "previous_count": 88,
+        "current_count": 87,
+        "count_change": -1,
+        "count_pct": -1.1,
+        "previous_capacity": 2626,
+        "current_capacity": 2588,
+        "capacity_change": -38,
+        "capacity_pct": -1.4
+      },
+      {
+        "area": "FAIR OAKS",
+        "county": "SACRAMENTO",
+        "previous_count": 55,
+        "current_count": 54,
+        "count_change": -1,
+        "count_pct": -1.8,
+        "previous_capacity": 533,
+        "current_capacity": 527,
+        "capacity_change": -6,
+        "capacity_pct": -1.1
+      }
+    ],
+    "county_capacity_increases": [
+      {
+        "area": "ORANGE",
+        "county": "ORANGE",
+        "previous_count": 1132,
+        "current_count": 1133,
+        "count_change": 1,
+        "count_pct": 0.1,
+        "previous_capacity": 25075,
+        "current_capacity": 25207,
+        "capacity_change": 132,
+        "capacity_pct": 0.5
+      },
+      {
+        "area": "SAN FRANCISCO",
+        "county": "SAN FRANCISCO",
+        "previous_count": 50,
+        "current_count": 51,
+        "count_change": 1,
+        "count_pct": 2.0,
+        "previous_capacity": 3280,
+        "current_capacity": 3391,
+        "capacity_change": 111,
+        "capacity_pct": 3.4
+      },
+      {
+        "area": "SAN JOAQUIN",
+        "county": "SAN JOAQUIN",
+        "previous_count": 140,
+        "current_count": 142,
+        "count_change": 2,
+        "count_pct": 1.4,
+        "previous_capacity": 3790,
+        "current_capacity": 3802,
+        "capacity_change": 12,
+        "capacity_pct": 0.3
+      }
+    ],
+    "county_capacity_decreases": [
+      {
+        "area": "CONTRA COSTA",
+        "county": "CONTRA COSTA",
+        "previous_count": 464,
+        "current_count": 463,
+        "count_change": -1,
+        "count_pct": -0.2,
+        "previous_capacity": 8079,
+        "current_capacity": 7879,
+        "capacity_change": -200,
+        "capacity_pct": -2.5
+      },
+      {
+        "area": "SANTA CLARA",
+        "county": "SANTA CLARA",
+        "previous_count": 262,
+        "current_count": 261,
+        "count_change": -1,
+        "count_pct": -0.4,
+        "previous_capacity": 11065,
+        "current_capacity": 10915,
+        "capacity_change": -150,
+        "capacity_pct": -1.4
+      },
+      {
+        "area": "LOS ANGELES",
+        "county": "LOS ANGELES",
+        "previous_count": 1919,
+        "current_count": 1921,
+        "count_change": 2,
+        "count_pct": 0.1,
+        "previous_capacity": 45788,
+        "current_capacity": 45640,
+        "capacity_change": -148,
+        "capacity_pct": -0.3
+      }
+    ]
+  },
+  "city_note": "City = the CDSS mailing city with known spelling errors corrected; not the Census place used by the Top California RCFE Markets rankings.",
+  "disclaimer": "These are changes observed in the latest California CDSS dataset. A newly observed record does not necessarily mean a facility opened this week, and a record no longer appearing as active does not by itself confirm that the facility closed.",
+  "full_disclaimer": "California RCFE Weekly Movers reports changes observed between two weekly California Department of Social Services (CDSS) Community Care Licensing files. A newly observed record does not necessarily mean a facility opened, and a record no longer appearing as active does not by itself confirm that a facility closed. Recorded licensed capacity is the license limit, not occupancy. Facility counts and changes do not show market saturation, demand, occupancy, profitability or investment quality. Record errors can only be corrected by CDSS. General education only; not legal, financial or investment advice.",
+  "source_name": "California Department of Social Services, Community Care Licensing Division: Residential Care Facilities for the Elderly licensing file (CC BY)"
+}
