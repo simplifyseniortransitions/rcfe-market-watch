@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="review-key" content="__TOKEN__">
+<title>Weekly Movers Review</title>
+<style>
+  :root { --navy:#092d4c; --gold:#d9bd79; --cream:#f7f5f0; --line:#d6dde3; --muted:#5b6b78; --red:#a4262c;
+          --amber:#8a5a00; --amberbg:#fbf1dc; --green:#1d6b3a; --greenbg:#eaf5ee; --turq:#1fa5a0; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:15px/1.45 Arial, sans-serif; color:var(--navy); background:var(--cream); }
+  header { background:var(--navy); color:#fff; padding:14px 20px; display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
+  header h1 { font:600 20px Georgia, serif; margin:0; flex:1; }
+  header select { font-size:15px; padding:6px; max-width:100%; }
+  main { max-width:1180px; margin:0 auto; padding:16px; }
+  section { background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:16px; }
+  h2 { font:600 18px Georgia, serif; margin:0 0 10px; }
+  h3 { font-size:15px; margin:14px 0 6px; }
+  table { border-collapse:collapse; width:100%; font-size:14px; }
+  th, td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { font-weight:600; color:var(--muted); }
+  td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
+  .pill { display:inline-block; padding:2px 10px; border-radius:999px; font-size:13px; font-weight:600; }
+  .s-draft { background:#e6f0f9; } .s-held { background:var(--amberbg); color:var(--amber); }
+  .s-approved { background:var(--greenbg); color:var(--green); } .s-rejected, .s-superseded { background:#eee; color:#555; }
+  .warn { background:var(--amberbg); border-left:4px solid var(--amber); padding:8px 12px; margin:8px 0; border-radius:6px; }
+  .flag { display:inline-block; background:var(--amberbg); color:var(--amber); border-radius:6px; padding:1px 6px; margin:2px 4px 2px 0; font-size:12px; }
+  .ok { color:var(--green); } .bad { color:var(--red); font-weight:600; }
+  .muted { color:var(--muted); font-size:13px; }
+  button { font:inherit; padding:8px 14px; border-radius:999px; border:1px solid var(--navy); background:#fff; color:var(--navy); cursor:pointer; min-height:40px; }
+  button.primary { background:var(--navy); color:#fff; } button.danger { border-color:var(--red); color:var(--red); }
+  button:disabled { opacity:.45; cursor:not-allowed; }
+  button.small { padding:3px 10px; min-height:30px; font-size:13px; }
+  .row-actions { white-space:nowrap; }
+  tr.expand td { background:#fafbfc; }
+  tr.excluded td { opacity:.55; text-decoration:line-through; }
+  tr.excluded td.row-actions { text-decoration:none; opacity:1; }
+  tr.held td:first-child { border-left:4px solid var(--gold); }
+  .tabs button { border-radius:8px 8px 0 0; } .tabs button[aria-selected="true"] { background:var(--navy); color:#fff; }
+  pre.text { white-space:pre-wrap; background:var(--cream); padding:12px; border-radius:8px; max-height:520px; overflow:auto; font:13px/1.5 Menlo, monospace; }
+  .cards img { width:100%; max-width:560px; border-radius:8px; margin:6px 0; display:block; }
+  .actions { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  textarea { width:100%; min-height:64px; font:inherit; padding:8px; border-radius:8px; border:1px solid var(--line); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:10px; }
+  .stat { background:var(--cream); border-radius:10px; padding:10px; } .stat b { display:block; font-size:22px; }
+  .scroll { overflow-x:auto; }
+  #toast { position:fixed; bottom:16px; left:50%; transform:translateX(-50%); background:var(--navy); color:#fff; padding:10px 16px; border-radius:10px; display:none; }
+  a { color:#0869bd; }
+</style>
+</head>
+<body>
+<header>
+  <h1>California RCFE Weekly Movers — review</h1>
+  <label class="muted" style="color:#fff">Report <select id="pick" aria-label="Choose a report"></select></label>
+</header>
+<main id="app"><p>Loading…</p></main>
+<div id="toast" role="status"></div>
+<script>
+const KEY = document.querySelector('meta[name="review-key"]').content;
+const app = document.getElementById("app"), pick = document.getElementById("pick");
+let view = null, current = null;
+
+function el(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (k === "class") e.className = v; else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else if (v !== null && v !== undefined && v !== false) e.setAttribute(k, v === true ? "" : v);
+  }
+  for (const k of kids.flat()) if (k !== null && k !== undefined && k !== false) e.append(k.nodeType ? k : String(k));
+  return e;
+}
+const fmt = n => n === null || n === undefined ? "—" : Number(n).toLocaleString();
+const sgn = n => n > 0 ? "+" + fmt(n) : n < 0 ? "−" + fmt(-n) : "0";
+const pct = p => p === null || p === undefined ? "n/a" : (p > 0 ? "+" : "") + p.toFixed(1) + "%";
+const title = s => (s || "").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+function toast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.style.display = "block"; setTimeout(() => t.style.display = "none", 3500); }
+
+async function post(action, body) {
+  const r = await fetch(`/api/report/${current}/${action}`, { method: "POST", headers: { "content-type": "application/json", "X-Review-Key": KEY }, body: JSON.stringify(body || {}) });
+  const out = await r.json().catch(() => ({}));
+  if (!r.ok || !out.ok) { toast(out.error || "That didn't work."); return null; }
+  return out;
+}
+
+async function loadList(select) {
+  const d = await (await fetch("/api/reports")).json();
+  pick.replaceChildren(...d.reports.map(r => el("option", { value: r.report_id }, `${r.source_date} · v${r.version} · ${r.state}`)));
+  if (!d.reports.length) { app.replaceChildren(el("section", {}, el("p", {}, "No Weekly Movers reports yet."))); return; }
+  current = select || (d.reports.find(r => r.report_id === current) || d.reports[0]).report_id;
+  pick.value = current;
+  await loadReport();
+}
+pick.addEventListener("change", () => { current = pick.value; loadReport(); });
+
+async function loadReport() {
+  view = await (await fetch(`/api/report/${current}`)).json();
+  render();
+}
+
+function isShown(item) {
+  const c = view.report.decisions[item.id];
+  if (item.public === false) return false;
+  if (c === "exclude") return false;
+  if (c === "include") return true;
+  return !item.held;
+}
+
+function itemButtons(item) {
+  const editable = ["draft", "held"].includes(view.report.state);
+  if (item.public === false) return el("span", { class: "muted" }, "review only");
+  const shown = isShown(item);
+  return el("span", { class: "row-actions" },
+    el("button", { class: "small", disabled: !editable || null, onclick: async () => { if (await post("decision", { item: item.id, choice: shown ? "exclude" : "include" })) loadReport(); } }, shown ? "Exclude" : "Include"),
+    view.report.decisions[item.id] ? el("button", { class: "small", disabled: !editable || null, onclick: async () => { if (await post("decision", { item: item.id, choice: "default" })) loadReport(); } }, "Reset") : null);
+}
+
+function flags(item) {
+  return (item.flags || []).map(f => el("span", { class: "flag" }, (view.flags[f] || f).replace("{days}", f === "older_license" ? "60" : "30")));
+}
+
+function findingRow(f) {
+  const r = view.report;
+  const prev = typeof f.previous === "object" && f.previous ? (f.previous.facility_name || JSON.stringify(f.previous)) : f.previous;
+  const cur = Array.isArray(f.current) ? f.current.map(x => x.facility_name).join(" · ") : (typeof f.current === "object" && f.current ? f.current.facility_name : f.current);
+  const detail = f.status_origin || (f.change_type === "address_change" ? `${f.private.previous} → ${f.private.current}` : `${prev ?? "—"} → ${cur ?? "—"}`);
+  const first = f.first_observed ? (f.first_observed_is_earliest_file ? "on/before " + f.first_observed : f.first_observed) : "—";
+  return el("tr", { class: (isShown(f) ? "" : "excluded ") + (f.held ? "held" : "") },
+    el("td", {}, el("b", {}, f.facility_name), el("div", { class: "muted" }, `#${f.facility_number} · ${title(f.city)}, ${title(f.county)}`),
+       f.private && f.private.street && f.change_type !== "address_change" ? el("div", { class: "muted" }, "Private: " + f.private.street + " " + (f.private.zip5 || "")) : null),
+    el("td", {}, view.labels[f.change_type] || f.change_type, el("div", { class: "muted" }, detail), f.match_basis ? el("div", { class: "muted" }, "Basis: " + f.match_basis) : null),
+    el("td", {}, el("div", { class: "muted" }, `First ${first}`), el("div", { class: "muted" }, `Last ${f.last_observed || "—"}`)),
+    el("td", {}, f.verification === "requires_verification" ? el("b", { class: "bad" }, "Requires verification") : el("span", { class: "ok" }, "Routine"), el("div", {}, flags(f))),
+    el("td", {}, itemButtons(f)));
+}
+
+function findingTable(items) {
+  if (!items.length) return el("p", { class: "muted" }, "None.");
+  return el("div", { class: "scroll" }, el("table", {},
+    el("thead", {}, el("tr", {}, ["Facility", "Change", "Observed", "Verification", "Public report"].map(h => el("th", {}, h)))),
+    el("tbody", {}, items.map(findingRow))));
+}
+
+function areaTable(kind, key, field) {
+  const r = view.report, rows = r[kind === "city" ? "cities" : "counties"];
+  const byId = Object.fromEntries(rows.map(x => [x.id, x]));
+  const ids = (r.movers[kind] || {})[key] || [];
+  if (!ids.length) return el("p", { class: "muted" }, "None this week.");
+  const body = el("tbody");
+  for (const id of ids) {
+    const a = byId[id];
+    const prev = field === "count" ? a.previous_count : a.previous_capacity, cur = field === "count" ? a.current_count : a.current_capacity;
+    const ch = field === "count" ? a.count_change : a.capacity_change, p = field === "count" ? a.count_pct : a.capacity_pct;
+    const tr = el("tr", { class: (isShown(a) ? "" : "excluded ") + (a.held ? "held" : "") },
+      el("td", {}, el("b", {}, title(a.area)), kind === "city" ? el("div", { class: "muted" }, title(a.county)) : null, flags(a)),
+      el("td", { class: "num" }, fmt(prev)), el("td", { class: "num" }, fmt(cur)), el("td", { class: "num" }, sgn(ch)), el("td", { class: "num" }, pct(p)),
+      el("td", { class: "num" }, el("button", { class: "small", onclick: () => { exp.hidden = !exp.hidden; } }, `${a.record_count} record${a.record_count === 1 ? "" : "s"}`)),
+      el("td", {}, itemButtons(a)));
+    const fs = r.findings.filter(f => a.finding_ids.includes(f.id));
+    const exp = el("tr", { class: "expand", hidden: true }, el("td", { colspan: 7 }, findingTable(fs)));
+    body.append(tr, exp);
+  }
+  return el("div", { class: "scroll" }, el("table", {},
+    el("thead", {}, el("tr", {}, el("th", {}, kind === "city" ? "City" : "County"), el("th", { class: "num" }, "Previous"), el("th", { class: "num" }, "Current"),
+      el("th", { class: "num" }, "Change"), el("th", { class: "num" }, "%"), el("th", { class: "num" }, "Behind it"), el("th", {}, "Public report"))),
+    body));
+}
+
+function render() {
+  const r = view.report, s = r.statewide, c = view.counts;
+  const editable = ["draft", "held"].includes(r.state);
+  const parts = [];
+  parts.push(el("section", {},
+    el("h2", {}, `${r.label}: ${r.comparison_period || "no comparison"}`),
+    el("p", {}, el("span", { class: `pill s-${r.state}` }, view.state_label), " ", el("span", { class: "muted" },
+      `Report ${r.report_id} · methodology ${r.methodology_version} · created ${r.created_at}` + (r.supersedes ? ` · corrects ${r.supersedes}` : "") + (r.superseded_by ? ` · superseded by ${r.superseded_by}` : ""))),
+    el("p", { class: "muted" }, `Current file ${r.current.source_date} (processed ${r.current.processing_date || "not recorded"}) · previous file ${r.previous ? r.previous.source_date + " (processed " + (r.previous.processing_date || "not recorded") + ")" : "none"} · baseline weeks ${r.baseline_weeks}`),
+    r.held_reasons.length ? el("div", { class: "warn" }, el("b", {}, "Held for data review: "), r.held_reasons.join(" ")) : null,
+    el("details", {}, el("summary", {}, "Data checks"), el("table", {}, el("tbody", {}, r.checks.map(k => el("tr", {},
+      el("td", {}, k.passed ? el("span", { class: "ok" }, "Pass") : el("span", { class: "bad" }, k.scope === "report" ? "Holds report" : "Holds row")),
+      el("td", {}, k.code), el("td", {}, k.detail))))))));
+  if (!s) { app.replaceChildren(...parts, actionSection(editable)); return; }
+
+  parts.push(el("section", {}, el("h2", {}, "Statewide summary"), el("div", { class: "grid" },
+    [["Active records", `${fmt(s.previous_active)} → ${fmt(s.current_active)}`, sgn(s.net_active_change)],
+     ["Recorded licensed capacity", `${fmt(s.previous_capacity)} → ${fmt(s.current_capacity)}`, sgn(s.net_capacity_change)],
+     ["Newly observed (active)", fmt(s.newly_observed), ""], ["No longer active", fmt(s.no_longer_active), ""],
+     ["Counties / cities changed", `${s.counties_with_count_change} / ${s.cities_with_count_change}`, ""],
+     ["Held for review", fmt(s.findings_held_for_review), `${s.possible_renames_or_duplicates} possible renames or duplicates`],
+     ["In the public report", fmt(c.included_findings), `${c.excluded_or_held_findings} held, excluded or review-only`]]
+      .map(([l, v, x]) => el("div", { class: "stat" }, el("span", { class: "muted" }, l), el("b", {}, v), el("span", { class: "muted" }, x))))));
+
+  for (const kind of ["county", "city"]) {
+    const sec = el("section", {}, el("h2", {}, kind === "county" ? "County movers" : "City movers"),
+      kind === "city" ? el("p", { class: "muted" }, r.city_note) : null);
+    for (const [key, label, field] of [["count_increases", "Largest increases in active records", "count"], ["count_decreases", "Largest decreases in active records", "count"],
+      ["capacity_increases", "Largest increases in recorded capacity", "capacity"], ["capacity_decreases", "Largest decreases in recorded capacity", "capacity"]])
+      sec.append(el("h3", {}, label), areaTable(kind, key, field));
+    parts.push(sec);
+  }
+
+  const order = ["newly_observed", "no_longer_active", "capacity_increase", "capacity_decrease", "possible_relicensing", "possible_duplicate", "name_change", "status_change", "city_change", "county_change", "address_change"];
+  const fsec = el("section", {}, el("h2", {}, "Facility-level changes"),
+    el("p", { class: "muted" }, "Gold edge = held for review by default. Excluding a change only removes it from the public report; the source data is untouched. Street addresses are shown here only."));
+  for (const k of order) {
+    const items = r.findings.filter(f => f.change_type === k);
+    if (items.length) fsec.append(el("h3", {}, `${view.labels[k]} (${items.length})`), findingTable(items));
+  }
+  parts.push(fsec);
+
+  const tabs = [["brief", "News Production Brief"], ["report", "Report (Markdown)"], ["teleprompter", "Teleprompter draft"], ["social", "Social drafts"], ["cards", "Chart cards"]];
+  const panel = el("div");
+  const showTab = k => {
+    tabBar.querySelectorAll("button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.k === k)));
+    if (k === "cards") panel.replaceChildren(el("div", { class: "cards" }, view.cards.map(n => el("img", { src: `/api/report/${current}/card/${n}.svg`, alt: n }))));
+    else panel.replaceChildren(el("pre", { class: "text" }, view.texts[k] || ""));
+  };
+  const tabBar = el("div", { class: "tabs actions", role: "tablist" }, tabs.map(([k, l]) => el("button", { "data-k": k, role: "tab", onclick: () => showTab(k) }, l)));
+  parts.push(el("section", {}, el("h2", {}, "Outputs ", el("span", { class: "muted" }, `(${view.text_source})`)), tabBar, panel,
+    el("p", {}, el("button", { onclick: async () => { await navigator.clipboard.writeText(view.texts.brief || ""); toast("News Production Brief copied."); } },
+      r.state === "approved" ? "Copy approved News Production Brief" : "Copy draft brief (not approved)"))));
+  setTimeout(() => showTab("brief"));
+
+  parts.push(el("section", {}, el("h2", {}, "Private review notes"),
+    r.notes.length ? el("ul", {}, r.notes.map(n => el("li", {}, `${n.at} · ${n.user}: ${n.text}`))) : el("p", { class: "muted" }, "No notes."),
+    el("textarea", { id: "note", "aria-label": "Private note", placeholder: "Private note (never published)" }),
+    el("p", {}, el("button", { onclick: async () => { const t = document.getElementById("note").value; if (t.trim() && await post("note", { text: t })) loadReport(); } }, "Add note"))));
+  parts.push(actionSection(editable));
+  parts.push(el("section", {}, el("h2", {}, "History"), el("div", { class: "scroll" }, el("table", {}, el("tbody", {},
+    view.log.map(e => el("tr", {}, el("td", {}, e.at), el("td", {}, e.user), el("td", {}, e.action + (e.item ? " " + e.item : "")),
+      el("td", {}, `${e.previous_state || "—"} → ${e.new_state}`), el("td", { class: "num" }, `${e.included_findings} shown / ${e.excluded_or_held_findings} held or excluded`))))))));
+  app.replaceChildren(...parts);
+}
+
+function actionSection(editable) {
+  const r = view.report;
+  const ack = el("input", { type: "checkbox", id: "ack" });
+  const note = el("textarea", { id: "decision-note", placeholder: "Optional note for this decision (private)" });
+  const go = async (action, body) => { const out = await post(action, body); if (out) { toast("Saved."); loadList(out.report_id); } };
+  return el("section", {}, el("h2", {}, "Decision"),
+    editable ? el("div", {},
+      el("p", {}, el("label", {}, ack, " I reviewed this report, its anomalies and every held finding, and it is ready to be an approved public and community artifact.")),
+      note,
+      el("div", { class: "actions" },
+        el("button", { class: "primary", disabled: !r.statewide || null, onclick: () => { if (!ack.checked) return toast("Tick the box to confirm you reviewed it."); go("approve", { acknowledged: true, note: note.value }); } }, "Approve"),
+        r.state === "draft" ? el("button", { onclick: () => go("hold", { note: note.value }) }, "Hold for data review") : null,
+        el("button", { class: "danger", onclick: () => { if (confirm("Reject this report? It stays in the history but can't be approved.")) go("reject", { note: note.value }); } }, "Reject")))
+    : r.state === "approved" ? el("div", {}, el("p", {}, `Approved ${r.approved_at} by ${r.approved_by}. The approved files are frozen.`),
+        el("button", { onclick: () => { if (confirm("Create a corrected version? It starts as a Draft and replaces this report only when approved.")) go("correct", {}); } }, "Create corrected version"))
+    : el("p", { class: "muted" }, `This report is ${view.state_label.toLowerCase()} and can't be changed.`));
+}
+
+loadList();
+</script>
+</body>
+</html>

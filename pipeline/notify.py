@@ -71,7 +71,7 @@ def signed(n):
     return "no earlier week" if n is None else "no change" if n == 0 else f"{n:+,}".replace("-", "−")
 
 
-def weekly_notice(status, published, slot, pulse, error="", run_url="", map_outcome=""):
+def weekly_notice(status, published, slot, pulse, error="", run_url="", map_outcome="", movers=""):
     """The weekly email text, or "" when this run should stay silent (a retry with nothing to report)."""
     if published:
         seg = pulse["segments"][pulse["headline_scope"]]["all_sizes"]
@@ -87,6 +87,8 @@ def weekly_notice(status, published, slot, pulse, error="", run_url="", map_outc
                   f"- New substantiated allegations: {a.get('new_substantiated_allegations', 0):,}",
                   "", f"Site: {SITE_URL}"]
         lines += map_line(map_outcome)
+        if movers:
+            lines += ["", movers]
         return "\n".join(lines) + "\n"
     if slot == "evening":
         return ""
@@ -113,6 +115,20 @@ def map_line(outcome):
     return []
 
 
+def movers_line(outcome, store=""):
+    """One line about the Weekly Movers draft, or nothing when that step didn't run. Never technical details."""
+    if not outcome or outcome == "skipped":
+        return ""
+    from pathlib import Path
+
+    from pipeline.movers.run import notice_line
+    from pipeline.movers.store import Store
+    try:
+        return notice_line(Store(Path(store or "private-data/movers")), outcome)
+    except Exception:  # noqa: BLE001 — the notice must still go out
+        return "Weekly Movers: did not generate"
+
+
 def load_pulse(paths=config.DEFAULT_PATHS):
     return json.loads((paths.data / "pulse.json").read_text(encoding="utf-8"))
 
@@ -124,7 +140,8 @@ def main(argv=None):
         env = os.environ.get
         sys.stdout.write(weekly_notice(env("DOWNLOAD_STATUS", ""), env("PUBLISH_OUTCOME") == "success", env("SLOT", "manual"),
                                        load_pulse(), env("DOWNLOAD_ERROR", ""), env("RUN_URL", ""),
-                                       env("MAP_OUTCOME", "")))
+                                       env("MAP_OUTCOME", ""), movers_line(env("MOVERS_OUTCOME", ""),
+                                                                           env("MOVERS_STORE", ""))))
     elif argv and argv[0] == "failure":
         download_error = argv[1] if len(argv) > 1 else ""
         run_url = argv[2] if len(argv) > 2 else ""

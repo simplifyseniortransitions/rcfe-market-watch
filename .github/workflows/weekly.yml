@@ -202,6 +202,24 @@ jobs:
           git push -q origin "${commit}:refs/heads/gh-pages"
           gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || echo "Pages will rebuild on its own."
 
+      # California RCFE Weekly Movers: a DRAFT report only. It runs after Market Watch, the members' map and the
+      # map preview are published and can't affect them: it reads the saved snapshots and writes only to the
+      # private data repository's movers/ folder. Nothing is published; each report is approved by hand on
+      # Dale's Mac (movers_review.py). A failure only changes the notice line to "did not generate".
+      - name: Weekly Movers draft
+        id: movers
+        if: always() && steps.tests.outcome == 'success'
+        continue-on-error: true
+        run: |
+          status=0
+          python -m pipeline.movers.run draft --store private-data/movers || status=$?
+          cd private-data
+          git add movers
+          git diff --cached --quiet || git commit -q -m "Weekly Movers draft: ${{ steps.download.outputs.file }}"
+          git pull -q --rebase origin main
+          git push -q origin HEAD:main
+          exit $status
+
       - name: Summary
         if: always() && steps.decide.outputs.go == 'true'
         run: |
@@ -223,6 +241,8 @@ jobs:
           DOWNLOAD_ERROR: ${{ steps.download.outputs.error }}
           PUBLISH_OUTCOME: ${{ steps.publish.outcome }}
           MAP_OUTCOME: ${{ steps.map.outcome }}
+          MOVERS_OUTCOME: ${{ steps.movers.outcome }}
+          MOVERS_STORE: private-data/movers
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           python -m pipeline.notify weekly > notice.md

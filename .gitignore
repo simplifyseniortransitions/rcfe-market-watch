@@ -21,3 +21,7 @@ mapbuild/
 early-access/dist/
 early-access/.dev.vars
 early-access/dev/.mock-sheet.json
+# Local clone of the private data repository (Weekly Movers reports, raw files). Never in this repo.
+private-data/
+# Sample Weekly Movers reports for review on this Mac (private: holds street addresses).
+movers-sample/

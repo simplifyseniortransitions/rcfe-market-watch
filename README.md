@@ -84,6 +84,13 @@ page (Dale, 2026-10-22): the site says record errors can only be corrected by CD
 
 To preview on this Mac, run `.venv/bin/python serve.py`, then open http://127.0.0.1:5081.
 
+## California RCFE Weekly Movers (draft-only)
+
+A weekly report of what changed between the last two CDSS files. The weekly job's last step makes a **Draft**
+(or Held) report in the private data repository. Nothing is published until Dale approves it on the review
+screen: `.venv/bin/python movers_review.py` → http://127.0.0.1:5083 (this Mac only).
+See `docs/WEEKLY_MOVERS.md`.
+
 ## Tests
 
 - `./run.sh test` runs every automated test.
